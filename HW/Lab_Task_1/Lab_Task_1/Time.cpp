@@ -22,7 +22,6 @@ min, sec.
 
 #define sec_per_day 86400 // кол-во секунд в сутках для расчёта в plus & minus
 
-// if (h > 23 || min > 59 || sec > 59 || h < 0 || min < 0 || sec < 0) std:cout << "Input error! Try again";
 class Time
 {
 private:
@@ -63,6 +62,10 @@ public:
 		min = 0;
 		sec = 0;
 	}
+
+	int get_hour() const { return hour; };
+	int get_min() const { return min; };
+	 int get_sec() const { return sec; };
 
 	Time operator+(const Time t1) // сложение
 	{
@@ -113,21 +116,84 @@ public:
 		return f_ret2;
 		// оставшиеся секунды остаются в sec
 	}
+	Time operator=(const Time& as_ent)
+	{
+		if (this != &as_ent)
+		{
+			hour = as_ent.hour;
+			min = as_ent.min;
+			sec = as_ent.sec;
+		}
 
-	friend bool operator==(const Time& t3, const Time& t4); // операция сравнения
+		return *this;
+	}
+	
+	friend bool operator==(const Time& t3, const Time& t4); // операции сравнения
+	friend bool operator!=(const Time& t13, const Time& t14);
+	friend bool operator<(const Time& t23, const Time& t24);
+	friend bool operator>(const Time& t33, const Time& t34);
+	friend bool operator<=(const Time& t43, const Time& t44);
+	friend bool operator>=(const Time& t53, const Time& t54);
 	friend std::ostream& operator<<(std::ostream& out, const Time& time); // вывод
 	friend std::istream& operator>>(std::istream& in, Time& time); // ввод
 
 };
 
-bool operator==(const Time& t3, const Time& t4) // сравнение
+bool operator==(const Time& t3, const Time& t4) //const? сравнение
 {
 	return (t3.hour == t4.hour && t3.min == t4.min && t3.sec == t4.sec);
 }
 
+bool operator!=(const Time& t13, const Time& t14)
+{
+	return !(t13.hour == t14.hour && t13.min == t14.min && t13.sec == t14.sec);
+}
+
+bool operator<(const Time& t23, const Time& t24)
+{
+	return (t23.hour < t24.hour&& t23.min < t24.min&& t23.sec < t24.sec);
+}
+
+bool operator>(const Time& t33, const Time& t34)
+{
+	return (t33.hour > t34.hour&& t33.min > t34.min&& t33.sec > t34.sec);
+}
+bool operator<=(const Time& t43, const Time& t44)
+{
+	return (t43.hour <= t44.hour && t43.min <= t44.min && t43.sec <= t44.sec);
+}
+
+bool operator>=(const Time& t53, const Time& t54)
+{
+	return (t53.hour >= t54.hour && t53.min >= t54.min && t53.sec >= t54.sec);
+}
+
 std::ostream& operator<<(std::ostream& out, const Time& time) // вывод  
 {
-	out << time.hour << ":" << time.min << ":" << time.sec;
+	if (time.hour < 10 && time.hour > -1)
+	{
+		out << ":0" << time.hour;
+	}
+	else
+	{
+		out << time.hour;
+	}
+	if (time.min < 10 && time.min > -1)
+	{
+		out << ":0" << time.min;
+	}
+	else
+	{
+		out << ":" << time.min;
+	}
+	if (time.sec < 10 && time.sec > -1)
+	{
+		out << ":0" << time.sec;
+	}
+	else
+	{
+		out << ":" << time.sec;
+	}
 
 	return out;
 }
@@ -154,32 +220,31 @@ int main()
 	std::cout << std::endl;
 
 	// Копирование и конструктор с задаными параметрами
+	Time f_copy = Time();
 	Time copy = Time(19, 45, 29);
 	std::cout << "Time is : " << copy << std::endl;
-	std::cout << "Time is : " << defolt << std::endl;
-	defolt = Time(copy);
-	std::cout << "Time is : " << defolt << std::endl;
+	std::cout << "Time is : " << f_copy << std::endl;
+	f_copy = Time(copy);
+	std::cout << "Time is : " << f_copy << std::endl;
 
 	std::cout << std::endl;
 
 	//Ввод переменной
 	std::cout << "Enter the time in the format hours, minuts, seconds - (9 12 13)" << std::endl;
 	Time for_input;
-	std::cin >> for_input;
+	while (1)
+	{
+		std::cin >> for_input;
+		if (for_input.get_hour() > -1 && for_input.get_hour() < 24 && for_input.get_min() > -1 && for_input.get_min() < 60 && for_input.get_sec() > -1 && for_input.get_sec() < 60)
+		{
+			break;
+		}
+		else
+		{
+			std::cout << "Input error, try again" << std::endl;
+		}
+	}
 	std::cout << "You entered: " << for_input << std::endl;
-	/*
-		Не успеваю сделать защиту от дурака, не душите сильно, пожалуйста
-		Её можно сделать через цикл while()
-		while(true)
-			if (hour < 24 && min < 60 && sec < 60 && hour > -1 && min > -1 && sec > -1) - тут для сравнения нужны будут геттеры отдельных трёх переменных hour, min, sec
-			{
-				break;
-			}
-			else
-			{
-				std::cout << "Input error, try again"
-			}
-	*/
 
 	std::cout << std::endl;
 
@@ -201,16 +266,68 @@ int main()
 	std::cout << "a - b:" << minuzzd << std::endl;
 
 	std::cout << std::endl;
-	// operation ==
-	std::cout << "a is: " << f_pluz << " b is: " << minuzzd << std::endl;
-	bool bad = f_pluz == minuzzd;
-	std::cout << "a = b ? " << bad << std::endl;
+
+	//operator =
+
+	std::cout << "copy is: " << copy << std::endl;
+	Time ravno = copy;
+	std::cout << "ravno is: " << ravno << std::endl;
 
 	std::cout << std::endl;
 
-	std::cout << "a is: " << defolt << " b is: " << copy << std::endl;
-	bool good = defolt == copy; //
-	std::cout << "a = b ? " << good << std::endl;
+	std::cout << "Comparison operators" << std::endl;
+	Time bolshe = Time(10, 10, 10);
+	Time menshe = Time(1, 1, 1);
+	std::cout << "a is: " << bolshe << std::endl;
+	std::cout << "b is: " << menshe << std::endl;
+
+
+	std::cout << std::endl;
+	// operation ==
+	bool good1 = bolshe == bolshe;
+	std::cout << "a = a? " << good1 << std::endl;
+	bool bad1 = bolshe == menshe;
+	std::cout << "a = b? " << bad1 << std::endl;
+	std::cout << std::endl;
+
+	// operator <=
+	
+	bool good2 = bolshe <= menshe;
+	std::cout << "a <= b? " << good2 << std::endl;
+	bool bad2 = menshe <= bolshe;
+	std::cout << "b <= a? " << bad2 << std::endl;
+	std::cout << std::endl;
+
+	// operator >=
+
+	bool good3 = bolshe >= menshe;
+	std::cout << "a >= b? " << good3 << std::endl;
+	bool bad3 = menshe >= bolshe;
+	std::cout << "b >= a? " << bad3 << std::endl;
+	std::cout << std::endl;
+
+	// operator >
+
+	bool good4 = bolshe > menshe;
+	std::cout << "a > b? " << good3 << std::endl;
+	bool bad4 = menshe > bolshe;
+	std::cout << "b > a? " << bad3 << std::endl;
+	std::cout << std::endl;
+
+	// operator <
+	bool good5 = bolshe < menshe;
+	std::cout << "a < b? " << good5 << std::endl;
+	bool bad5 = menshe < bolshe;
+	std::cout << "b < a? " << bad5 << std::endl;
+	std::cout << std::endl;
+	
+
+	// operator !=
+	bool good6 = bolshe != menshe;
+	std::cout << "a != b? " << good6 << std::endl;
+	bool bad6 = menshe != menshe;
+	std::cout << "b != b? " << bad6 << std::endl;
+	std::cout << std::endl;
 
 
 	return 0;
