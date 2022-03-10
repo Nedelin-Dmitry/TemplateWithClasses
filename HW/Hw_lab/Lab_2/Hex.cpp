@@ -24,7 +24,7 @@
 
 class Hex
 {
-private:
+protected :
 	int size;// размер массива
 	unsigned char* num;
 	int* mass_int;//будет нужен для перегрузки сложения и вычитания
@@ -63,10 +63,10 @@ public:
 		size = 0;
 	}
 
-	void in_char(Hex& zero) // преобразование значение mass_int в значения символы для num
+	static void in_char(Hex& zero) // преобразование значений mass_int в символы для num
 	{ // 0(48) - 9(57) and A(65) - F(70) для десятичной
 
-		for (int i = 0; i < size; i++)
+		for (int i = 0; i < zero.size; i++)
 		{
 			if (i >= 0 && i < 10)
 			{
@@ -78,6 +78,23 @@ public:
 			}
 
 		}
+	}
+	
+	static void in_int(Hex& one)
+	{// 0(48) - 9(57) and A(65) - F(70) для десятичной
+		for (int i = 0; i < one.size; i++)
+		{
+			int Num_char = (int)(one.num[i]);
+			if (Num_char >= 48 && Num_char <= 57)
+			{
+				one.mass_int[i] = static_cast<int>(one.num[i]) - 48;
+			}
+			else if (Num_char >= 65 && Num_char <= 70)
+			{
+				one.mass_int[i] = static_cast<int>(one.num[i]) - 55;
+			}
+		}
+
 	}
 
 
@@ -98,7 +115,7 @@ public:
 		return *this;
 	}
 
-	// ничего не сделал с переполнением результата "вверх" 
+
 	Hex operator+(const Hex& h2)
 	{
 		int a;
@@ -130,9 +147,34 @@ public:
 		Hex for_return = Hex(a);
 		for (int i = a; i > 0; i--)
 		{
-			for_return[i] = mass_int1[i] + mass_int2[i];
+			for_return.mass_int[i] = mass_int1[i] + mass_int2[i]; //C:\Users\Admin\Desktop\Studies\Prog\HW_2\Hw_lab
+			if (i != 1 && for_return.mass_int[i] > 15) {
+				while (for_return.mass_int[i] % 15 == 0)
+				{
+					for_return.mass_int[i - 1] += 1;
+					for_return.mass_int[i] -= 15;
+				}
+			}
 		}
-		in_char(for_return);
+		int overflow = 0;
+		int overflow_unit = 0;
+		while (for_return.mass_int[0] >= 16)
+		{
+			overflow_unit += 1;
+			for_return.mass_int[0] -= 16;
+			if (overflow_unit >= 16)
+			{
+				overflow += 1;
+				overflow_unit = 0;
+			}
+		}
+		Hex ret = Hex(a + overflow);
+		for (int i = a; i > 0; i--)
+		{
+			ret[i] = for_return.mass_int[i];
+		}
+		ret[0] = overflow_unit;
+		in_char(ret);
 		// функция перевода значений main_int(for_return) в значения из ASCII
 		return for_return;
 
@@ -169,9 +211,31 @@ public:
 		Hex for_return = Hex(a);
 		for (int i = a; i > 0; i--)
 		{
-			for_return[i] = mass_int1[i] - mass_int2[i];
+			if (mass_int1[i] > mass_int2[i])
+			{
+				for_return[i] = mass_int1[i] - mass_int2[i];
+			}
+			else if (mass_int1[i] < mass_int2[i] && i!=0)// дальнейший заём по разряду?
+			{
+				mass_int1[i - 1] -= 1;
+				mass_int1[i] += 15;
+				for_return[i] = mass_int1[i] - mass_int2[i];
+			}
 		}
-		in_char(for_return); // минусовое значение?
+		int overflow_down;
+		for (int i = 0; i < a; i++)
+		{
+			if (for_return.mass_int[i] <= 0)
+			{
+				overflow_down += 1;
+			}
+		}
+		Hex mass_ret = Hex(a - overflow_down);
+		for (int i = 0; i < a - overflow_down; i++)
+		{
+			mass_ret.mass_int[i] = for_return.mass_int[i];
+		}
+		in_char(mass_ret); // неполные данные?
 		// функция перевода значений main_int(for_return) в значения из ASCII
 		return for_return;
 	}
@@ -195,32 +259,31 @@ public:
 
 	friend std::ostream& operator<<(std::ostream& out, const Hex& h5);
 	friend std::istream& operator>>(std::istream& in, Hex& h6);
+	friend std::ostream& operator<<(std::ostream& stream, const Hex& _str);
+	friend std::istream& operator>>(std::istream& stream, Hex& _str);
+
 };
 
-std::ostream& operator<<(std::ostream& out, const Hex& h5)
+std::ostream& operator<<(std::ostream& stream, const Hex& _str)
 {
-	std::ofstream ofile{ "out.txt" };
-	for (int i = 0; i < h5.size; i++)
-	{
-		out << h5.num[i];
-	}
-	return out;
+	stream << _str.num << std::endl;
+	return stream;
+}
+std::istream& operator>>(std::istream& stream, Hex& _str)
+{
+	 char ss[255];
+	stream.getline(ss, 255);
+	//y = static_cast<unsigned char>(x);       // C++ static
+	//y = reinterpret_cast<unsigned char&>(x); // C++ reinterpret
+	_str.num = reinterpret_cast<unsigned char>(ss);// преобразовать char в unsigned schar
+
+	return stream;
+
 }
 
-std::istream& operator>>(std::istream& in, Hex& h6)
-{
-	std::string input;
-	in >> std::hex >> input;
-	for (int i = 0; i < h6.size; i++)
-	{
-		char input_t = input[i];
-		h6.num[i] = (unsigned char)(input_t);
-	}
-	return in;
-}
+
 
 int main() {
-
 	return 0;
 
 }
