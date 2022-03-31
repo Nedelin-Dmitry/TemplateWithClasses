@@ -139,7 +139,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Hex.cpp" />
+    <ClCompile Include="Hex_class.cpp" />
+    <ClCompile Include="Hex_main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="hex_class.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
