@@ -29,7 +29,7 @@ class Hex
 {
 private:
 	int size;
-	unsigned char* num;
+	unsigned char* num; 
 	int* mass_int;
 public:
 	Hex(); // по умолчанию
@@ -42,6 +42,8 @@ public:
 	//функци
 	friend static void in_char(Hex& zero);
 	friend static void in_int(Hex& one);
+	friend void copy_for_operator(const Hex& h1, const Hex& h2, int _mass_int1[], int _mass_int2[], int flag, int a);
+
 	//геттеры
 
 	int get_size();

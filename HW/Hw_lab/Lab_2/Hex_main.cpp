@@ -3,9 +3,10 @@
 
 int main()
 {
-	Hex A = Hex("A1");
-	Hex B = Hex("B1");
+	Hex A = Hex("FE1");
+	Hex B = Hex("ABC");
 	Hex Result1 = Hex();
+
 	
 	Result1 = A + B;
 	for (int i = 0; i < Result1.get_size(); i++)
@@ -20,3 +21,5 @@ int main()
 		std::cout << output_char << " ";
 	}
 	std::cout << std::endl;
+
+}

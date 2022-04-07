@@ -25,7 +25,12 @@
       "ProjectGuid": "e01571c8-f1ba-4f2c-bed1-9760e72c8089",
       "DisplayName": "Lab_4",
       "ColorIndex": 3
+    },
+    "a18b8209-493a-450e-b576-e5cb842674fb": {
+      "ProjectGuid": "a18b8209-493a-450e-b576-e5cb842674fb",
+      "DisplayName": "Re_Lab_2",
+      "ColorIndex": 4
     }
   },
-  "NextColorIndex": 4
+  "NextColorIndex": 5
 }

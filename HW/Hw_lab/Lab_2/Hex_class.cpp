@@ -1,7 +1,6 @@
 
 #include "hex_class.h"
 
-//тип класс:: функция()zalupa::zalupa plus()
 
 int to_int_4_class(unsigned char a)
 {
@@ -123,9 +122,63 @@ static void in_int(Hex& one)
 
 }
 
+// flag - нужен для корректного заполнения массива под умножение, a - размер наибольшего массива
+void copy_for_operator(const Hex& h1, const Hex& h2, int _mass_int1[], int _mass_int2[], int flag, int _a)
+{
+	if (flag == 1) // для умножения требуется заполнить массивы единицами
+	{
+		for (int i = 0; i < _a; i++)
+		{
+			_mass_int1[i] = 0;
+			_mass_int2[i] = 0;
+		}
+	}
+	else if(flag == 2)
+	{
+		for (int i = 0; i <_a; i++)
+		{
+			_mass_int1[i] = 1;
+			_mass_int2[i] = 1;
+		}
+	}
+	if (_a > h1.size)
+	{
+		int j = 0;
+		for (int i = (_a - h1.size); i < h1.size; i++) // копируем в новые массивы значения старых
+		{
+			_mass_int1[i] = h1.mass_int[j];
+			j += 1;
+		}
+	}
+	else if (_a == h1.size)
+	{
+		for (int i = 0; i < h1.size; i++) // копируем в новые массивы значения старых
+		{
+			_mass_int1[i] = h1.mass_int[i];
+		}
+	}
+	if (_a > h2.size)
+	{
+		int j = 0;
+		for (int i = (_a - h2.size); i < h2.size; i++)
+		{
+			_mass_int2[i] = h2.mass_int[j];
+			j += 1;
+		}
+	}
+	else if(_a == h2.size)
+	{
+		for (int i = 0; i < h2.size; i++) // копируем в новые массивы значения старых
+		{
+			_mass_int2[i] = h1.mass_int[i];
+		}
+	}
+}
+
 int Hex::get_size() { return size; };
 int Hex::get_int_i(int i) { return mass_int[i]; };
 char Hex::get_char_i(int i) { return num[i]; };
+
 
 Hex Hex::operator=(const Hex& h1)
 {
@@ -157,21 +210,9 @@ Hex operator+(const Hex& h1, const Hex& h2)
 	}
 	int* mass_int1 = new int[a]; // создаём массивы с размером наибольшего массива
 	int* mass_int2 = new int[a];
-	for (int i = 0; i < a; i++) // заполняем нулями
-	{
-		mass_int1[i] = 0;
-		mass_int2[i] = 0;
-	}
-	for (int i = (a - h1.size) - 1; i < h1.size; i++) // копируем в новые массивы значения старых
-	{
-		mass_int1[i] = h1.mass_int[i - (a - h1.size) + 1];
-	}
-	for (int i = (a - h2.size) - 1; i < h2.size; i++)
-	{
-		mass_int2[i] = h2.mass_int[i - (a - h2.size) + 1];
-	}
+	copy_for_operator(h1, h2, mass_int1, mass_int2, 1, a);
 	Hex for_return = Hex(a);
-	for (int i = a; i > 0; i--)
+	for (int i = a - 1 ; i >= 0; i--)
 	{
 		for_return.mass_int[i] = mass_int1[i] + mass_int2[i]; //C:\Users\Admin\Desktop\Studies\Prog\HW_2\Hw_lab
 		if (i != 1 && for_return.mass_int[i] > 15) {
@@ -263,7 +304,7 @@ Hex operator-(const Hex& h1, const Hex& h2)
 		mass_int2[i] = h2.mass_int[i - (a - h2.size) + 1];
 	}
 	Hex for_return = Hex(a);
-	for (int i = a; i > 0; i--)
+	for (int i = a - 1; i >= 0; i--)
 	{
 		if (mass_int1[i] > mass_int2[i])
 		{
@@ -318,6 +359,11 @@ Hex operator*(const Hex& h1, const Hex& h2)
 	}
 	int* mass_int1 = new int[a];
 	int* mass_int2 = new int[a];
+	for (int i = 0; i < a; i++)
+	{
+		mass_int1[i] = 1;
+		mass_int2[i] = 1;
+	}
 	for (int i = (a - h1.size) - 1; i < h1.size; i++) // копируем в новые массивы значения старых
 	{
 		mass_int1[i] = h1.mass_int[i - (a - h1.size) + 1];
@@ -327,7 +373,7 @@ Hex operator*(const Hex& h1, const Hex& h2)
 		mass_int2[i] = h2.mass_int[i - (a - h2.size) + 1];
 	}
 	Hex for_return = Hex(a);
-	for (int i = a; i > -1; i--)
+	for (int i = a - 1; i >= 0; i--)
 	{
 		for_return.mass_int[i] = mass_int1[i] * mass_int2[i];
 		while (for_return.mass_int[i] >= 16 && i != 0)
