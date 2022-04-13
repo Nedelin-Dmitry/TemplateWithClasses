@@ -1,70 +1,6 @@
 #include "Re_Hexr.h"
 
-int in_10_int(unsigned char _num[])
-{
-	int for_return = 0;	
-	int size_num = sizeof(_num) / sizeof(_num[0]);
-	int one_number;
-	int degree = sizeof(_num) / sizeof(_num[0]) - 1;
-	for (int i = 0; i < size_num; i++) // Бред?
-	{
-		switch (_num[i])
-		{
-		case '0': one_number = 0; break;
-		case '1': one_number = 1; break;
-		case '2': one_number = 2; break;
-		case '3': one_number = 3; break;
-		case '4': one_number = 4; break;
-		case '5': one_number = 5; break;
-		case '6': one_number = 6; break;
-		case '7': one_number = 7; break;
-		case '8': one_number = 8; break;
-		case '9': one_number = 9; break;
-		case 'A': one_number = 10; break;
-		case 'B': one_number = 11; break;
-		case 'C': one_number = 12; break;
-		case 'D': one_number = 13; break;
-		case 'E': one_number = 14; break;
-		case 'F': one_number = 15; break;
-		}
-		for_return += one_number * (int)pow(16, degree);
-		degree--;
-	}
-	return for_return;
-}
-void int_in_char(Hex& h1)
-{
-	int _zero = h1.num_int;
-	int r;
-	unsigned char* for__return = new unsigned char[100];
-	for (int i = h1.size; i >= 0; i--) // while _zero /= 16 != 0
-	{
-		r = _zero % 16;
-		_zero /= 16;
-		if (r <= 9)
-		{
-			for__return[i] = (char)r;
-		}
-		else if (r > 9)
-		{
-			switch (r)
-			{
-			case 10: r = 'A'; break;
-			case 11: for__return[i] = 'B'; break;
-			case 12: for__return[i] = 'C'; break;
-			case 13: for__return[i] = 'D'; break;
-			case 14: for__return[i] = 'E'; break;
-			case 15: for__return[i] = 'F'; break;
-			}
-			for__return[i] = (char)r;
-		}
-	}
-	for (int i = h1.size; i >= 0; i--)
-	{
-		h1.num[i] = for__return[i];
-	}
 
-}
 
 Hex::Hex()
 {
@@ -75,19 +11,104 @@ Hex::Hex()
 
 Hex::Hex(std::string vvod)
 {
-	size = vvod.length(); // возможна потеря данных
+	size = vvod.length(); 
 	num = new unsigned char[size];
 	for (int i = 0; i < size; i++)
 	{
-		num[i] = vvod[i];
+		num[i] = (unsigned char)vvod[i];
 	}
-	num_int = in_10_int(num);
+	int n = size - 1;
+	num_int = 0;
+	
+	for (int i = 0; i < size; i++)
+	{
+		if ((int)num[i] >= 48 && (int)num[i] <= 57)
+		{
+			num_int = num_int + ((int)num[i] - 48) * ((int)pow(16, n));
+			n = n - 1;
+		}
+		else if((int)num[i] >= 65 && (int)num[i] <= 70)
+		{
+			num_int = num_int + ((int)num[i] - 55) * (int)pow(16, n);
+			n = n - 1;
+		}
+	}
+	
 }
+
+Hex::Hex(int _num_int)
+{
+	// 0(48) - 9(57) and A(65) - F(70) для десятичной
+	int minus_flag = 0;
+	if (_num_int < 0) minus_flag += 1;
+	int zero_int = abs(_num_int);
+	unsigned char* mass_char = new unsigned char[30];
+	for (int i = 0; i < 30; i++)
+	{
+		mass_char[i] = (unsigned char)'0';
+	}
+	int remain = 0;
+	int i = 0;
+	while (zero_int != 0)
+	{
+		remain = zero_int % 16;
+		if (remain >= 0 && remain <= 9)
+		{
+			mass_char[i] = (unsigned char)(48 + remain);
+			i += 1;
+			zero_int /= 16;
+		}
+		else if (remain > 9 && remain <= 15)
+		{
+			mass_char[i] = (unsigned char)(55 + remain);
+			i += 1;
+			zero_int /= 16;
+		}
+	}
+	int _size = 0;// для подсчёта размера 16-ричного числа
+	int flag = 0; //для того чтобы понять откуда считать размер числа (ABC000...0)
+	int position = 29; // для того, чтобы понять до какой позиции считывать
+	for (int j = 29; j >= 0; j--)
+	{
+		if (mass_char[j] != '0')
+		{
+			flag = 1;
+			position = i;
+		}
+		if (flag == 1) _size += 1;
+	}
+	size = _size;
+	if (minus_flag == 1) size += 1;
+	num_int = _num_int;
+	num = new unsigned char[size];
+	for (int j = 0; j < position; j++)
+	{
+		num[j] = mass_char[j];
+	}
+	/* - сдвиг массива на 1 враво num[0] = '-'
+	if (minus_flag == 1)
+	{
+		for (int j = 1; j < size - 1; j++)
+		{
+			
+		}
+	}
+	*/
+	for (int j = 0, k = size - 1; j < size; j++, k--)
+	{
+		unsigned char to_turn;
+		to_turn = num[j];
+		num[j] = num[k];
+		num[k] = to_turn;
+	}
+}
+
 
 Hex::Hex(const Hex& copy)
 {
 	size = copy.size;
 	num_int = copy.num_int;
+	num = new unsigned char[size];
 	for (int i = 0; i < size; i++)
 	{
 		num[i] = copy.num[i];
@@ -100,10 +121,24 @@ Hex::~Hex()
 	delete[] num;
 }
 
+void write(Hex& h1)
+{
+	int output_int = h1.get_int();
+	std::cout << output_int;
+	std::cout << std::endl;
+	for (int i = h1.get_size() - 1; i >= 0; i--) // переворот строки не работает???
+	{
+		char output_char = h1.get_char_i(i);
+		std::cout << output_char;
+	}
+	std::cout << std::endl;
+	
+}
+
 //геттеры
 
 int Hex::get_size() { return size; };
-int Hex::get_int_i() { return num_int; };
+int Hex::get_int() { return num_int; };
 char Hex::get_char_i(int i) { return num[i]; };
 
 Hex Hex::operator=(const Hex& h1)
@@ -122,59 +157,51 @@ Hex Hex::operator=(const Hex& h1)
 	return *this;
 }
 
+
 Hex operator+(const Hex& h1, const Hex& h2)
 {
-	Hex for_return = Hex();
-	for_return.num_int = h1.num_int + h2.num_int;
-	int for_dozens = for_return.num_int;
-	int dozens = 0;
-	int doz_test = 1;
-	while (for_dozens / doz_test > 0)
-	{
-		doz_test *= 10;
-		dozens += 1;
-	}
-	for_return.size = dozens - 1;
-	for_return.num = new unsigned char[for_return.size];
-	int_in_char(for_return);
+	int zero_num_int = 0;
+	zero_num_int = h1.num_int + h2.num_int;
+	Hex for_return = Hex(zero_num_int);
 	return for_return;
 
 }
 
 Hex operator-(const Hex& h1, const Hex& h2)
 {
-	Hex zero = Hex(h2);
-	zero.num_int = (-1) * zero.num_int;
-	Hex for_return = Hex();
-	for_return = h1 + zero;
+	int zero_num_int = 0;
+	if (h1.num_int > h2.num_int) zero_num_int = h1.num_int - h2.num_int;
+	else if (h1.num_int < h2.num_int) zero_num_int = (-1) * (h2.num_int - h1.num_int);
+	else zero_num_int = 0;
+	Hex for_return = Hex(zero_num_int);
 	return for_return;
 }
 
 unsigned char& Hex::operator[](const unsigned char index)
 {
-	assert(index >= 0 && index <= size); // прерывает работу программы при выходе за пределы, память не повреждается
+	assert(index >= 0 && index <= size); // assert - прерывает работу программы при выходе за пределы, память не повреждается
 	return num[index];
 }
 
 const unsigned char& Hex::operator[](const unsigned char index) const
 {
-	assert(index >= 0 && index <= size); // прерывает работу программы при выходе за пределы, память не повреждается
+	assert(index >= 0 && index <= size); 
 	return num[index];
 }
 
 Hex operator*(const Hex& h1, const Hex& h2)
 {
-	Hex for_return = Hex();
-	for_return.num_int = h1.num_int * h2.num_int;
-	int_in_char(for_return);
+	Hex zero_num_int = Hex();
+	zero_num_int.num_int = h1.num_int * h2.num_int;
+	Hex for_return = Hex(zero_num_int.num_int);
 	return for_return;
 }
 
 Hex operator*(const Hex& h1, int input)
 {
-	Hex for_return = Hex();
-	for_return.num_int = h1.num_int * input;
-	int_in_char(for_return);
+	Hex zero_num_int = Hex();
+	zero_num_int.num_int = h1.num_int * input;
+	Hex for_return = Hex(zero_num_int.num_int);
 	return for_return;
 }
 
@@ -186,6 +213,7 @@ bool operator>(Hex& h1, Hex& h2)
 	}
 	return 0;
 }
+
 bool operator<(Hex& h1, Hex& h2)
 {
 	if (h1.num_int < h2.num_int)
@@ -194,6 +222,7 @@ bool operator<(Hex& h1, Hex& h2)
 	}
 	return 0;
 }
+
 bool operator>=(Hex& h1, Hex& h2)
 {
 	if (h1.num_int >= h2.num_int)
@@ -202,6 +231,7 @@ bool operator>=(Hex& h1, Hex& h2)
 	}
 	return 0;
 }
+
 bool operator<=(Hex& h1, Hex& h2)
 {
 	if (h1.num_int <= h2.num_int)

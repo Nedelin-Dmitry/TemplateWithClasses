@@ -34,17 +34,18 @@ private:
 	int num_int;
 public:
 	Hex(); // по умолчанию
-	Hex(std::string vvod); // преобразование типа 
+	Hex(std::string vvod); // преобразование типа
+	Hex(int _num_int); // преобразование типа
+	//explicit Hex(int _size);  создание массива с заданым размером
 	Hex(const Hex& copy);// копирования
 	~Hex();// деструктор
 
-	friend int in_10_int(unsigned char _num[]);
-	friend void int_in_char(Hex& h1);
+	friend void write(Hex& h1);
 
 	//геттеры
 
 	int get_size();
-	int get_int_i();
+	int get_int();
 	char get_char_i(int i);
 
 	// операторы 
