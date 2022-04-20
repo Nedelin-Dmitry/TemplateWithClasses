@@ -13,11 +13,13 @@ Hex::Hex(std::string vvod)
 {
 	size = vvod.length(); 
 	num = new unsigned char[size];
+	// заполняем массив нулями для корректной работы
 	for (int i = 0; i < size; i++)
 	{
 		num[i] = (unsigned char)vvod[i];
 	}
-	int n = size - 1;
+	// Перевод шестнадцатеричного числа в десятиричное (0 - 15) * 16^(разряд - 1)
+	int n = size - 1; // степень = разряд - 1
 	num_int = 0;
 	
 	for (int i = 0; i < size; i++)
@@ -33,76 +35,85 @@ Hex::Hex(std::string vvod)
 			n = n - 1;
 		}
 	}
-	
 }
 
 Hex::Hex(int _num_int)
 {
-	// 0(48) - 9(57) and A(65) - F(70) для десятичной
-	int minus_flag = 0;
-	if (_num_int < 0) minus_flag += 1;
-	int zero_int = abs(_num_int);
-	unsigned char* mass_char = new unsigned char[30];
-	for (int i = 0; i < 30; i++)
+	//в случае если в результате операций число = 0
+	if (_num_int == 0)
 	{
-		mass_char[i] = (unsigned char)'0';
+		size = 1;
+		num_int = 0;
+		num = new unsigned char[1];
+		num[size - 1] = '0';
 	}
-	int remain = 0;
-	int i = 0;
-	while (zero_int != 0)
+	else
 	{
-		remain = zero_int % 16;
-		if (remain >= 0 && remain <= 9)
+		int minus_flag = 0; // флаг для работы с отрицательными числами
+		if (_num_int < 0) minus_flag += 1;
+		int zero_int = abs(_num_int);  // для вычисления размера массива
+		unsigned char* mass_char = new unsigned char[30]; // маг.число и константы??   + можно ограничить до 8 т.к 2 147 483 647(10) = 7FFFFFFF(16)
+		for (int i = 0; i < 30; i++)
 		{
-			mass_char[i] = (unsigned char)(48 + remain);
-			i += 1;
-			zero_int /= 16;
+			mass_char[i] = (unsigned char)'0';
 		}
-		else if (remain > 9 && remain <= 15)
+		int remain = 0; // остаток
+		int i = 0;
+		/*
+			Перевод 10-ричного числа в 16-ричное:
+			1)Ищем остаток от деления на 16
+			2)Остаток равен десятиричному представлению 16-ричного числа
+			3)Перевод при помощи ASKII - Работа с ASCII: int значения символов - 0(48) - 9(57) и A(65) - F(70) 
+			4)делим число на 16
+		*/
+		while (zero_int != 0)
 		{
-			mass_char[i] = (unsigned char)(55 + remain);
-			i += 1;
-			zero_int /= 16;
+			remain = zero_int % 16;
+			if (remain >= 0 && remain <= 9)
+			{
+				mass_char[i] = (unsigned char)(48 + remain);
+				i += 1;
+				zero_int /= 16;
+			}
+			else if (remain > 9 && remain <= 15)
+			{
+				mass_char[i] = (unsigned char)(55 + remain);
+				i += 1;
+				zero_int /= 16;
+			}
 		}
-	}
-	int _size = 0;// для подсчёта размера 16-ричного числа
-	int flag = 0; //для того чтобы понять откуда считать размер числа (ABC000...0)
-	int position = 29; // для того, чтобы понять до какой позиции считывать
-	for (int j = 29; j >= 0; j--)
-	{
-		if (mass_char[j] != '0')
+		int _size = 0;// для подсчёта размера 16-ричного числа
+		int flag = 0; //для того чтобы понять откуда начать считать размер числа (ABC000...0)
+		int position = 29; // для того, чтобы понять до какой позиции считывать
+		for (int j = 29; j >= 0; j--)
 		{
-			flag = 1;
-			position = i;
+			if (mass_char[j] != '0')
+			{
+				flag = 1;
+				position = i;
+			}
+			if (flag == 1) _size += 1;
 		}
-		if (flag == 1) _size += 1;
-	}
-	size = _size;
-	if (minus_flag == 1) size += 1;
-	num_int = _num_int;
-	num = new unsigned char[size];
-	for (int j = 0; j < position; j++)
-	{
-		num[j] = mass_char[j];
-	}
-	/* - сдвиг массива на 1 враво num[0] = '-'
-	if (minus_flag == 1)
-	{
-		for (int j = 1; j < size - 1; j++)
+		// заполнение полей
+		size = _size;
+		if (minus_flag == 1) size += 1; // для знака '-'
+		num_int = _num_int;
+		num = new unsigned char[size];
+		for (int j = 0; j < position; j++)
 		{
-			
+			num[j] = mass_char[j];
 		}
-	}
-	*/
-	for (int j = 0, k = size - 1; j < size; j++, k--)
-	{
-		unsigned char to_turn;
-		to_turn = num[j];
-		num[j] = num[k];
-		num[k] = to_turn;
+		// если число отрицательное - сдвигаем весь массив на один вправо, ставим в начало '-'
+		if (minus_flag == 1)
+		{
+			for (int j = size - 1; j > 0; j--)
+			{
+				num[j] = num[j - 1];
+			}
+			num[0] = '-';
+		}
 	}
 }
-
 
 Hex::Hex(const Hex& copy)
 {
@@ -121,12 +132,13 @@ Hex::~Hex()
 	delete[] num;
 }
 
+
 void write(Hex& h1)
 {
 	int output_int = h1.get_int();
 	std::cout << output_int;
 	std::cout << std::endl;
-	for (int i = h1.get_size() - 1; i >= 0; i--) // переворот строки не работает???
+	for (int i = 0; i < h1.get_size(); i++)
 	{
 		char output_char = h1.get_char_i(i);
 		std::cout << output_char;
@@ -267,12 +279,13 @@ std::ostream& operator<<(std::ostream& out, const Hex& _str)
 
 std::istream& operator>>(std::istream& in, Hex& _str)
 {
-	char ss[255];
-	in.getline(ss, 255);
-	for (int i = 0; i < 255; i++)
+	
+	
+	for (int i = 0; i < _str.size; i++)
 	{
-		_str.num[i] = ss[i];
+		in >> _str.num[i]; // (int)'=' = 65;
 	}
+
 	return in;
 
 }

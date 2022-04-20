@@ -1,12 +1,19 @@
 /*6. Фильмотека
 Разработать класс FilmLibrary.
 Класс должен хранить информацию о фильмах.Каждый фильм описывается следующими
-данными : название, режиссер, сценарист, композитор, дата выхода в прокат(день, месяц, год),
-сборы(в рублях).Фильмы хранятся упорядоченно по названию и годам.Данные вводятся на
+данными : 
+class Film_str
+название - title
+режиссер - director
+сценарист - screenwriter
+композитор - composer
+сlass Film_int
+дата выхода в прокат(день, месяц, год) - date, mount, year
+сборы(в рублях)  - film_gross
+Фильмы хранятся упорядоченно по названию и годам.Данные вводятся на
 русском языке.
 Класс должен содержать необходимые служебные методы(конструкторы, деструктор, …)..
 Класс должен предоставлять следующие операции :
-10) сохранить фильмотеку в файл и считать фильмотеку из файла. - функция с перегрузкой ввода и вывода
 1) добавить фильм,  - 
 2) изменить данные фильма выбранного по названию,  - 
 3) найти фильм по - 
@@ -21,32 +28,36 @@
 фильмов, 
 9) удалить фильм по названию, - ,
 Программа должна иметь простое меню для выбора необходимых операций.
+10) сохранить фильмотеку в файл и считать фильмотеку из файла. - функция с перегрузкой ввода и вывода
 */
 #pragma once
 #include<iostream>
 #include<cstring> 
+#include<string>
+
+
 
 class Film_int
 {
-private:
-	int* data = new int[3];
+protected:
+	int day;
+	int mount;
+	int year;
 	int film_gross;
 public:
 	Film_int();
 	Film_int(int _day, int _mount, int _year, int _film_gross);
-	~Film_int();
-	void set_day(int _day);
-	void set_mount(int _mount);
-	void set_year(int _year);
-	void set_film_gross(int _gross);
+	//деструктор?
+	void set_day(int _day) { day = _day; };
+	void set_mount(int _mount) { mount = _mount; };
+	void set_year(int _year) { year = _year; };
+	void set_film_gross(int _film_gross) { film_gross = _film_gross; };
 
-
-	friend class Film_library;
 };
 
 class Film_str 
 {
-private:
+ protected:
 	std::string title;
 	std::string director;
 	std::string screenwriter;
@@ -55,29 +66,36 @@ private:
 public:
 	Film_str();
 	Film_str(std::string _title, std::string _director, std::string _screenwriter, std::string _composer);
-	void set_title(std::string _title);
-	void set_director(std::string _director);
-	void set_screenwriter(std::string _screenwriter);
-	void set_composer(std::string _composer);
+
+	//деструктор?
+
+	void set_title(std::string _title) { title = _title; };
+	void set_director(std::string _director) { director = _director; };
+	void set_screenwriter(std::string _screenwriter) { screenwriter = _screenwriter; };
+	void set_composer(std::string _composer) { composer = _composer; };
 
 
-	friend class Film_library;
 };
 
-class Film_library
+class Film_library : public Film_int, public Film_str // как заполнять массив фильмов?
 {
 private:
 	Film_str lib_str;
 	Film_int lib_int;
 public:
-	void Add_film();//1
-	Film_library title_year_search(std::string _title, int _year);//3
-	Film_library screenwriter_year_search(std::string _screenwriter);//4
-	Film_library year_search(int _year);//5
-	Film_library film_gross_search(int num);//6
-	Film_library year_maxn_gross_search(int _year, int quality);//7
-	int get_films_count();//8
-	void delete_film(std::string _title);//9
+	friend void Add_film(); // 1
+	friend void Film_redactor(Film_library found_film, int _user_choose); // 2
+	friend void title_year_search(Film_library film_mass[], std::string _title, int _year); // 3
+	friend void screenwriter_year_search(Film_library film_mass[], std::string _screenwriter); // 4
+	friend void year_search(Film_library film_mass[], int _num, int _year); // 5
+	friend void film_gross_search(Film_library film_mass[], int num); // 6
+	friend void year_maxn_gross_search(Film_library film_mass[], int num, int _year); // 7
+	friend int get_films_count(); // 8
+	friend void delete_film(std::string _title); // 9
+
+	// перегрузка операторов ввода и вывода - 10
+	friend std::ostream& operator<<(std::ostream& out, const Film_library& _str);
+	friend std::istream& operator>>(std::istream& in, Film_library& _str);
 };
 
 //class menu{...}; 
@@ -97,4 +115,5 @@ public:
 фильмов, 
 .9) удалить фильм по названию, - ,
 Программа должна иметь простое меню для выбора необходимых операций
+10) сохранить фильмотеку в файл и считать фильмотеку из файла. - функция с перегрузкой ввода и вывода
 */

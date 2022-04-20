@@ -4,9 +4,7 @@
 
 /*
  Косяки:
- 1)Вычитание из меньшего большего ( сдвиг враво)
- 2)Чтение из файла ???
- 3)Массив не переворачивается?
+ 1) !корректное чтение из файла
 */
 int main()
 {
@@ -23,7 +21,6 @@ int main()
 
 	Hex Result1 = Hex();
 
-	
 
 	Result1 = A + B;
 	std::cout << "A + B: " << std::endl;
@@ -34,6 +31,16 @@ int main()
 	
 	Result2 = A - B;
 	std::cout << "A - B: " << std::endl;
+	write(Result2);
+	std::cout << std::endl;
+
+	Result2 = A - A;
+	std::cout << "A - A: " << std::endl;
+	write(Result2);
+	std::cout << std::endl;
+
+	Result2 = B - A;
+	std::cout << "B - A: " << std::endl;
 	write(Result2);
 	std::cout << std::endl;
 
@@ -111,8 +118,8 @@ int main()
 	out.open("Hex_Num.txt"); // открываем файл для записи Hex_Num - относительный путь
 	out << Result1 << std::endl;
 
-	/*
-	std::ifstream in("C:/Users/Admin/Desktop/Studies/Prog/HW_2/Hw_lab/Re_Lab_2/Hex_Num.txt");
+
+	std::ifstream in("Hex_Num.txt");
 	Hex a = Hex();
 	in >> a;
 	for (int i = 0; i < a.get_size(); i++)
@@ -120,8 +127,6 @@ int main()
 		std::cout << a.get_char_i(i);
 	}
 	std::cout << std::endl;
-	*/
-	
 	return 0;
 
 }
