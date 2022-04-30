@@ -18,6 +18,12 @@
 // 0123456789 10 11 12 13 14 15
 #pragma once
 
+#define ASKII_0 48;
+#define ASKII_9 57;
+#define ASKII_A 55; // A(65) in ASKII = 10 in decimal system;  55 + 10 = 65
+#define ASKII_F 70;
+#define ASKII_MINUS;
+
 #include <cassert> // для assert();
 #include<iostream>
 #include<cstring> 

@@ -33,27 +33,36 @@
 #define KEY_H 72
 
 
+
 #define KEY_ARROW_RIGHT 77
 #define KEY_ARROW_LEFT 75
-#define KEY_ARROW_UP 72 // ??
-#define KEY_ARROW_DOWN 80 // ??
+#define KEY_ARROW_UP 72 
+#define KEY_ARROW_DOWN 80 
+
+/*
+ 1)Проверка на ввод размера окна
+ 2)Поставить ограничение на длину строки
+ 3)Проверка на размер ввода строки
+ 4)Убрать из функций ненужный TextEditor &
+*/
 
 #include<iostream>
 #include<string>
 #include <windows.h>
 #include <conio.h>
+#include <stdlib.h>
 
 class TextEditor
 {
 private:
-	COORD text_pos;
-	int text_len;
-	char* text;
+	COORD text_pos; // Положение текста по X, Y
+	int text_len;   // Длина текста
+	char* text;		// Массив текста
 public:
 	//конструкторы и деструктор
 	TextEditor();
 	TextEditor(short int x, short int y, int len);
-	TextEditor(TextEditor& copy);
+	TextEditor(const TextEditor &copy);
 	~TextEditor();
 
 	// геттеры
@@ -61,10 +70,15 @@ public:
 	 int get_len();
 	 char* get_text();
 
+	 // сеттеры
+	 void set_pos(COORD _new_pos, TextEditor& ZERO) { ZERO.text_pos = _new_pos; };
+	 void set_len(int _len, TextEditor& ZERO) { ZERO.text_len = _len; };
+
 	 //функции
-	 friend void hide_editor();
-	 friend void show_editor();
+	 friend void window_position(HANDLE _hStdOut, short int _x_pos_win, short int _y_pos_win, short int _weight_win, short int _height_win, TextEditor& ZERO);
+	 friend void window_size(HANDLE _hStdOut, short int _x_pos_win, short int _y_pos_win, short int _weight_win, short int _height_win, TextEditor& ZERO);
+	 friend void hide_show_editor(TextEditor& ZERO); // Как не передавать аргумент ?? -Написать Деду -- Не видит определния но работает ;3
 	 friend void on_text_editor(HANDLE _hStdOut, TextEditor& EditorWork);
-	 friend void off_editor();
+	 friend void off_editor(HANDLE _hStdOut, TextEditor& EditorOff);
 
 };

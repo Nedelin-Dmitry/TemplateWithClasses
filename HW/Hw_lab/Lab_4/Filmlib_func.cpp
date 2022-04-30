@@ -162,16 +162,17 @@ void title_year_search(Film_library film_mass[], std::string _title, int _year) 
 void screenwriter_year_search(Film_library film_mass[], std::string _screenwriter) //4
 {
 	int find_flag = 0;
-	int* position = new int[];
+	int* position = new int;
+	Film Film
 	for (int j = 0; j < 10; j++) { position[j] = -1; };
 	int j = 0; // кол-во заполненых ?
 	for (int i = 0; i < 10; i++)
 	{
-		if (film_mass[i].title == _title)
+		if (film_mass[i].title == film_mass[i]._title)
 		{
 			find_flag += 1;
 		}
-		if (film_mass[i].year == _year)
+		if (film_mass[i].year == film_mass[i]._year)
 		{
 			find_flag += 1;
 		}
@@ -186,7 +187,7 @@ void screenwriter_year_search(Film_library film_mass[], std::string _screenwrite
 			find_flag = 0;
 		}
 	}
-	if (position < 10 && position >= 0) // ограниченный размер библиотеки - сделать константой?
+	if (*position < 10 && *position >= 0) // ограниченный размер библиотеки - сделать константой?
 	{
 		for (int k = 0; k < 10; k++)
 		{

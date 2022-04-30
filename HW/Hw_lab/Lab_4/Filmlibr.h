@@ -31,6 +31,7 @@ class Film_str
 10) сохранить фильмотеку в файл и считать фильмотеку из файла. - функция с перегрузкой ввода и вывода
 */
 #pragma once
+
 #include<iostream>
 #include<cstring> 
 #include<string>
@@ -77,27 +78,49 @@ public:
 
 };
 
-class Film_library : public Film_int, public Film_str // как заполнять массив фильмов?
+class Film_library : public Film_int, public Film_str // как заполнять массив фильмов? - Film
 {
 private:
 	Film_str lib_str;
 	Film_int lib_int;
 public:
-	friend void Add_film(); // 1
-	friend void Film_redactor(Film_library found_film, int _user_choose); // 2
-	friend void title_year_search(Film_library film_mass[], std::string _title, int _year); // 3
-	friend void screenwriter_year_search(Film_library film_mass[], std::string _screenwriter); // 4
-	friend void year_search(Film_library film_mass[], int _num, int _year); // 5
-	friend void film_gross_search(Film_library film_mass[], int num); // 6
-	friend void year_maxn_gross_search(Film_library film_mass[], int num, int _year); // 7
-	friend int get_films_count(); // 8
-	friend void delete_film(std::string _title); // 9
+	//friend void Add_film(); // 1 добавить фильм
+	friend void Film_redactor(Film_library found_film, int _user_choose); // 2 изменить данные фильма выбранного по названию
+	friend void title_year_search(Film_library film_mass[], std::string _title, int _year); // 3 найти фильм по - названию и году
+	friend void screenwriter_year_search(Film_library film_mass[], std::string _screenwriter); // 4 выдать все фильмы заданного режиссера
+	friend void year_search(Film_library film_mass[], int _num, int _year); // 5 выдать все фильмы, вышедшие в прокат в выбранном году
+	friend void film_gross_search(Film_library film_mass[], int num); // 6 выдать заданное число фильмов с наибольшими сборами
+	friend void year_maxn_gross_search(Film_library film_mass[], int num, int _year); // 7 выдать заданное число фильмов с наибольшими сборами в выбранном году
+	friend int get_films_count(); // 8 узнать текущее число фильмов
+	friend void delete_film(std::string _title); // 9 удалить фильм по названию
 
-	// перегрузка операторов ввода и вывода - 10
+	// перегрузка операторов ввода и вывода - 10 сохранить фильмотеку в файл и считать фильмотеку из файла
 	friend std::ostream& operator<<(std::ostream& out, const Film_library& _str);
 	friend std::istream& operator>>(std::istream& in, Film_library& _str);
 };
 
+/*
+class Film_library : public Film, public Film_int, public Film_str // прочекать нужен ли virtual
+{
+protected:
+	Film* Lib = new Film;
+public:
+	//friend void Add_film(); // 1 добавить фильм
+	friend void Film_redactor(Film_library found_film, int _user_choose); // 2 изменить данные фильма выбранного по названию
+	friend void title_year_search(Film_library film_mass[], std::string _title, int _year); // 3 найти фильм по - названию и году
+	friend void screenwriter_year_search(Film_library film_mass[], std::string _screenwriter); // 4 выдать все фильмы заданного режиссера
+	friend void year_search(Film_library film_mass[], int _num, int _year); // 5 выдать все фильмы, вышедшие в прокат в выбранном году
+	friend void film_gross_search(Film_library film_mass[], int num); // 6 выдать заданное число фильмов с наибольшими сборами
+	friend void year_maxn_gross_search(Film_library film_mass[], int num, int _year); // 7 выдать заданное число фильмов с наибольшими сборами в выбранном году
+	friend int get_films_count(); // 8 узнать текущее число фильмов
+	friend void delete_film(std::string _title); // 9 удалить фильм по названию
+
+	// перегрузка операторов ввода и вывода - 10 сохранить фильмотеку в файл и считать фильмотеку из файла
+	friend std::ostream& operator<<(std::ostream& out, const Film_library& _str);
+	friend std::istream& operator>>(std::istream& in, Film_library& _str);
+
+}
+*/
 //class menu{...}; 
 /*
 10) сохранить фильмотеку в файл и считать фильмотеку из файла. - функция с перегрузкой ввода и вывода

@@ -9,7 +9,7 @@ Hex::Hex()
 	num_int = 0;
 }
 
-Hex::Hex(std::string vvod)
+Hex::Hex(std::string vvod) 
 {
 	size = vvod.length(); 
 	num = new unsigned char[size];
@@ -24,9 +24,9 @@ Hex::Hex(std::string vvod)
 	
 	for (int i = 0; i < size; i++)
 	{
-		if ((int)num[i] >= 48 && (int)num[i] <= 57)
+		if ((int)num[i] >= ASKII_0) && ((int)num[i] <= ASKII_9)
 		{
-			num_int = num_int + ((int)num[i] - 48) * ((int)pow(16, n));
+			num_int = num_int + ((int)num[i] - ASKII_0) * ((int)pow(16, n));
 			n = n - 1;
 		}
 		else if((int)num[i] >= 65 && (int)num[i] <= 70)
@@ -44,7 +44,7 @@ Hex::Hex(int _num_int)
 	{
 		size = 1;
 		num_int = 0;
-		num = new unsigned char[1];
+		num = new unsigned char[size];
 		num[size - 1] = '0';
 	}
 	else
@@ -85,7 +85,7 @@ Hex::Hex(int _num_int)
 		int _size = 0;// для подсчёта размера 16-ричного числа
 		int flag = 0; //для того чтобы понять откуда начать считать размер числа (ABC000...0)
 		int position = 29; // для того, чтобы понять до какой позиции считывать
-		for (int j = 29; j >= 0; j--)
+		for (int j = position; j >= 0; j--)
 		{
 			if (mass_char[j] != '0')
 			{

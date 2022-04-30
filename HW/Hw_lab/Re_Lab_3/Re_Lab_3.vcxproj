@@ -139,10 +139,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Console_TextEditor.h" />
+    <ClInclude Include="Menu_TextEditor.h" />
+    <ClInclude Include="SubMenu.h" />
     <ClInclude Include="TextEditor.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Console_TextEditor_class.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Menu_TextEditor_class.cpp" />
+    <ClCompile Include="SubMenu_realization.cpp" />
     <ClCompile Include="TextEditor_class.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

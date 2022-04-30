@@ -35,7 +35,17 @@
       "ProjectGuid": "a8dc7582-d557-47f9-85b1-8b3fd1519cf5",
       "DisplayName": "Re_Lab_3",
       "ColorIndex": 5
+    },
+    "3b016167-0d06-4e0a-a05f-873509d3bd47": {
+      "ProjectGuid": "3b016167-0d06-4e0a-a05f-873509d3bd47",
+      "DisplayName": "Re_Lab_4",
+      "ColorIndex": 6
+    },
+    "9f0ce270-9242-47be-a37f-03a187e9af25": {
+      "ProjectGuid": "9f0ce270-9242-47be-a37f-03a187e9af25",
+      "DisplayName": "Re_Lab_4_V2",
+      "ColorIndex": 7
     }
   },
-  "NextColorIndex": 6
+  "NextColorIndex": 8
 }

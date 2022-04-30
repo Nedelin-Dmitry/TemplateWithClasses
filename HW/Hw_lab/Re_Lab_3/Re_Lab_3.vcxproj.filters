@@ -18,12 +18,30 @@
     <ClInclude Include="TextEditor.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="Menu_TextEditor.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Console_TextEditor.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="SubMenu.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TextEditor_class.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu_TextEditor_class.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Console_TextEditor_class.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="SubMenu_realization.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
