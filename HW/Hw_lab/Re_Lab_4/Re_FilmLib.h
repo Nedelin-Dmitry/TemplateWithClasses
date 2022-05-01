@@ -32,14 +32,21 @@ class Film_str
 Программа должна иметь простое меню для выбора необходимых операций.
 10) сохранить фильмотеку в файл и считать фильмотеку из файла. - функция с перегрузкой ввода и вывода
 */
-#pragma once
+
 
 #include<iostream>
 #include<cstring> 
 #include<string>
+#include<vector>
 
 using namespace std;
 
+struct Date
+{
+	int day;
+	int mount;
+	int year;
+};
 class Film_int
 {
 protected:
@@ -95,13 +102,13 @@ class Film : public Film_int, public Film_str
 	 Film_int int_data;
  public:
 
-	 Film& operator[](int index);
+	 Film operator=(const Film& one);
 };
 
 class Film_library : public Film
 {
- protected:
-	 Film* Film_lib = new Film;
+ public: // траблы с доступом
+	 vector <Film> Film_lib;
 	 int size_lib = 0;
 public:
 	// конструктор  & деструктор
@@ -122,9 +129,6 @@ public:
 	friend int get_films_count(); // 8 узнать текущее число фильмов
 	friend void delete_film(std::string _title); // 9 удалить фильм по названию
 
-	//перегрузка операторов
-	friend Film_library operator -=(Film_library one, Film two);
-	friend Film_library operator +=(Film_library one, Film two);
 
 	// перегрузка операторов ввода и вывода - 10 сохранить фильмотеку в файл и считать фильмотеку из файла
 	friend std::ostream& operator<<(std::ostream& out, const Film_library& _str);
@@ -171,10 +175,10 @@ Film_library search(Film_library film_mass, string _str_)
 	}
 	for (int i = 0; i < _size_lub; i++)
 	{
-		_title_lib = film_mass[i].get_title();
+		_title_lib = film_mass.Film_lib.at(i);
 		if (_title_lib == _str_)
 		{
-			search_result_lib[j] = film_mass[i];
+			
 			j++;
 		}
 	}
