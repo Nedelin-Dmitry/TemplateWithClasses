@@ -2,22 +2,28 @@
 #include <fstream>
 #include"Re_Hexr.h"
 
-/*
- Косяки:
- 1) !корректное чтение из файла
- 2) Ввода отрицательного числа в преобразователе string
- 3) Изменить перегрузку индексации ( через 14 тему - обработку исключений) try catch
- 4) Переписать перегрузки bool черезе return a <= b; - одна строка
- 5) Проверка сравнения указателей (для присвоения)
- 6) Вывести define, убрать маг.числа
-*/
 int main()
 {
 	Hex A = Hex("FE1"); // не работает переворот в преобразовании десятиричного в hex //ABC //FE1
 	Hex B = Hex("ABC"); // вывод char задом наперёд
 
+
 	std::cout <<"A is : " << std::endl;
 	write(A);
+	std::cout << std::endl;
+	
+	try
+	{
+		Hex C = Hex("CBA");
+		int input;
+		std::cin >> input;
+		std::cout << C[input] << std::endl;
+	}
+	catch (int _index)
+	{
+		if (_index == 1) { std::cout << "Out of range" << std::endl; }
+		else if (_index == 2) { std::cout << "Invalid characters" << std::endl; }
+	}
 	std::cout << std::endl;
 
 	std::cout << "B is : " << std::endl;
@@ -25,6 +31,7 @@ int main()
 	std::cout << std::endl;
 
 	Hex Result1 = Hex();
+
 
 
 	Result1 = A + B;
@@ -127,11 +134,9 @@ int main()
 	std::ifstream in("Hex_Num.txt");
 	Hex a = Hex();
 	in >> a;
-	for (int i = 0; i < a.get_size(); i++)
-	{
-		std::cout << a.get_char_i(i);
-	}
-	std::cout << std::endl;
+	write(a);
+
+
 	return 0;
 
 }

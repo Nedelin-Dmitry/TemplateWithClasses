@@ -5,7 +5,7 @@ using namespace std;
 #include"Menu_Film_lib.h"
 #include"Console_Film_lib.h"
 #include"Film_lib_2.h"
-
+ // ПОКА-ЧТО НЕ ИСПОЛЬЗУЕТСЯ
 void SubMenu_work(HANDLE _hStdOut, Film_library& ZERO)
 {
 	setlocale(LC_CTYPE, "Russian");	// Для ввода-вывода русских букв
@@ -29,7 +29,6 @@ void SubMenu_work(HANDLE _hStdOut, Film_library& ZERO)
 		switch (itemPos)
 		{
 		case 1:
-			cout << "Введите Режисёра: ";
 
 			break;
 		case 2:
@@ -39,7 +38,6 @@ void SubMenu_work(HANDLE _hStdOut, Film_library& ZERO)
 
 			break;
 		case 4:
-			SubMenu2_work(_hStdOut, ZERO);
 			break;
 		case 5:
 

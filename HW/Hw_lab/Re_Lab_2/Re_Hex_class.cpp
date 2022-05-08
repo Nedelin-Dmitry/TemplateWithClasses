@@ -1,7 +1,5 @@
 #include "Re_Hexr.h"
 
-
-
 Hex::Hex()
 {
 	size = 20;
@@ -24,14 +22,14 @@ Hex::Hex(std::string vvod)
 	
 	for (int i = 0; i < size; i++)
 	{
-		if ((int)num[i] >= ASKII_0) && ((int)num[i] <= ASKII_9)
+		if (((int)num[i] >= ASKII_0) && ((int)num[i] <= ASKII_9))
 		{
 			num_int = num_int + ((int)num[i] - ASKII_0) * ((int)pow(16, n));
 			n = n - 1;
 		}
-		else if((int)num[i] >= 65 && (int)num[i] <= 70)
+		else if((int)num[i] >= ASKII_A_START && (int)num[i] <= ASKII_F_END)
 		{
-			num_int = num_int + ((int)num[i] - 55) * (int)pow(16, n);
+			num_int = num_int + ((int)num[i] - ASKII_A_55) * (int)pow(16, n);
 			n = n - 1;
 		}
 	}
@@ -53,7 +51,7 @@ Hex::Hex(int _num_int)
 		if (_num_int < 0) minus_flag += 1;
 		int zero_int = abs(_num_int);  // для вычисления размера массива
 		unsigned char* mass_char = new unsigned char[30]; // маг.число и константы??   + можно ограничить до 8 т.к 2 147 483 647(10) = 7FFFFFFF(16)
-		for (int i = 0; i < 30; i++)
+		for (int i = 0; i < POTENSIAL_MAS_SIZE; i++)
 		{
 			mass_char[i] = (unsigned char)'0';
 		}
@@ -71,13 +69,13 @@ Hex::Hex(int _num_int)
 			remain = zero_int % 16;
 			if (remain >= 0 && remain <= 9)
 			{
-				mass_char[i] = (unsigned char)(48 + remain);
+				mass_char[i] = (unsigned char)(ASKII_0 + remain);
 				i += 1;
 				zero_int /= 16;
 			}
 			else if (remain > 9 && remain <= 15)
 			{
-				mass_char[i] = (unsigned char)(55 + remain);
+				mass_char[i] = (unsigned char)(ASKII_A_55 + remain);
 				i += 1;
 				zero_int /= 16;
 			}
@@ -138,7 +136,13 @@ void write(Hex& h1)
 	int output_int = h1.get_int();
 	std::cout << output_int;
 	std::cout << std::endl;
+	int real_size = 0;
 	for (int i = 0; i < h1.get_size(); i++)
+	{
+		if (((int)h1.num[i] >= ASKII_0) && ((int)h1.num[i] <= ASKII_9)) { real_size += 1; }
+		else if (((int)h1.num[i] >= ASKII_A_START) && ((int)h1.num[i] <= ASKII_F_END)) { real_size += 1; };
+	}
+	for (int i = 0; i < real_size; i++)
 	{
 		char output_char = h1.get_char_i(i);
 		std::cout << output_char;
@@ -191,14 +195,16 @@ Hex operator-(const Hex& h1, const Hex& h2)
 
 unsigned char& Hex::operator[](const unsigned char index)
 {
-	assert(index >= 0 && index <= size); // assert - прерывает работу программы при выходе за пределы, память не повреждается
-	return num[index];
+	if (index < 0 || index >= size) { throw(1); }
+	else if ((int)index < ASKII_0 || (int)index > ASKII_9) { throw(2); }
+	else { return num[index]; }
 }
 
 const unsigned char& Hex::operator[](const unsigned char index) const
 {
-	assert(index >= 0 && index <= size); 
-	return num[index];
+	if (index < 0 || index >= size) { throw(1); }
+	else if ((int)index < ASKII_0 || (int)index > ASKII_9) { throw(2); }
+	else { return num[index]; }
 }
 
 Hex operator*(const Hex& h1, const Hex& h2)
@@ -219,47 +225,29 @@ Hex operator*(const Hex& h1, int input)
 
 bool operator>(Hex& h1, Hex& h2)
 {
-	if (h1.num_int > h2.num_int)
-	{
-		return 1;
-	}
-	return 0;
+	return h1.num_int > h2.num_int;
+	
 }
 
 bool operator<(Hex& h1, Hex& h2)
 {
-	if (h1.num_int < h2.num_int)
-	{
-		return 1;
-	}
-	return 0;
+	return h1.num_int < h2.num_int;
+	
 }
 
 bool operator>=(Hex& h1, Hex& h2)
 {
-	if (h1.num_int >= h2.num_int)
-	{
-		return 1;
-	}
-	return 0;
+	return h1.num_int >= h2.num_int;
 }
 
 bool operator<=(Hex& h1, Hex& h2)
 {
-	if (h1.num_int <= h2.num_int)
-	{
-		return 1;
-	}
-	return 0;
+	return h1.num_int <= h2.num_int;
 }
 
 bool operator==(Hex& h1, Hex& h2)
 {
-	if (h1.num_int == h2.num_int)
-	{
-		return 1;
-	}
-	return 0;
+	return h1.num_int == h2.num_int;
 }
 
 bool operator!=(Hex& h1, Hex& h2)
@@ -279,13 +267,7 @@ std::ostream& operator<<(std::ostream& out, const Hex& _str)
 
 std::istream& operator>>(std::istream& in, Hex& _str)
 {
-	
-	
-	for (int i = 0; i < _str.size; i++)
-	{
-		in >> _str.num[i]; // (int)'=' = 65;
-	}
-
+	in >> _str.num;
 	return in;
 
 }

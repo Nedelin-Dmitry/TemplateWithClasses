@@ -39,11 +39,13 @@ class Film_str
  2)¬ектор фильмов - дл€ того чтобы было легче делитать? + работать в целом
  3)¬ы€снить в чЄм проблема деструктора
  4)ѕереписать print
+ 5)—делать повсеместные проверки на ввод
+ 6)¬вод и вывод информации по одинаковому формату( иногда ввод с endl иногда после ":")
 */
 #pragma once
 
-#define LIB_SIZE 10;
-#define NUM_IN_ASKII 48;
+#define LIB_SIZE 10
+#define NUM_IN_ASKII 48
 
 #include <cassert> // дл€ assert();
 #include<iostream>
@@ -109,7 +111,9 @@ public:
 	//конструкторы
 	Film_library();
 	Film_library(int _lib_size);
-	//~Film_library(); - вы€снить в чЄм проблемма деструктора
+	~Film_library(); //- вы€снить в чЄм проблемма деструктора
+
+	int get_lib_size() { return lib_size; };
 
 	friend void Hoare_Sort(Film* Film_lib, int left, int right); // сортировка ’оара дл€ 6 & 7 пунктов
 
@@ -150,5 +154,5 @@ public:
 
 	friend Film Line_to_Film(string _str); // недоделанна
 	
-	friend void Write_film(Film_library _Film_lib);
+	friend void Write_lib(Film_library _Film_lib);
 };

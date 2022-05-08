@@ -57,10 +57,10 @@ void quickSort(std::vector<int>& vector, int lo, int hi)
 
 Film::Film()
 {
-	title = '-';
-	director = '-';
-	screenwriter = '-';
-	composer = '-';
+	title = "-";
+	director = "-";
+	screenwriter =  "-";
+	composer = "-";
 	Film_date.day = 0;
 	Film_date.mount = 0;
 	Film_date.year = 0;
@@ -87,8 +87,8 @@ Film Film::operator=(const Film& film_1)
 
 Film_library::Film_library()
 {
-	lib_size = LIB_SIZE;
-	Film_lib = new Film[lib_size];
+	lib_size = 0;
+	Film_lib = new Film[LIB_SIZE];
 
 }
 
@@ -97,12 +97,12 @@ Film_library::Film_library(int _lib_size)
 	lib_size = _lib_size;
 	Film_lib = new Film[lib_size];
 }
-/*
+
 Film_library::~Film_library()
 {
-	delete[] & Film_lib;
+	delete[] Film_lib; // &?
 }
-*/
+
 
 // сортируем от меньшего к большему
 // ѕо идее через 2 функции partition и quickSort будет быстрее
@@ -112,16 +112,19 @@ void Hoare_Sort(Film* Film_lib, int left, int right) // указатель на массив филь
 	int l_hold = left; //лева€ граница
 	int r_hold = right; // права€ граница
 	pivot = Film_lib[left].get_film_gross();
+	int _gross;
 	while (left < right) // пока границы не сомкнутс€
 	{
-		while ((Film_lib[right].get_film_gross() >= pivot) && (left < right))
+		_gross = Film_lib[right].get_film_gross();
+		while ((_gross >= pivot) && (left < right))
 			right--; // сдвигаем правую границу пока элемент [right] больше [pivot]
 		if (left != right) // если границы не сомкнулись
 		{
 			Film_lib[left] = Film_lib[right]; // перемещаем элемент [right] на место разрешающего
 			left++; // сдвигаем левую границу вправо
 		}
-		while ((Film_lib[left].get_film_gross() <= pivot) && (left < right))
+		_gross = Film_lib[left].get_film_gross();
+		while ((_gross <= pivot) && (left < right))
 			left++; // сдвигаем левую границу пока элемент [left] меньше [pivot]
 		if (left != right) // если границы не сомкнулись
 		{
@@ -158,11 +161,14 @@ Film_library search(Film_library _Film_lib, string _title, int _year)
 {
 	int a = LIB_SIZE; // костыль т.к отказываетс€ принимать define
 	Film_library Return_lib = Film_library(1);
-	//int return_fill_pos = 0;
+	int year;
+	string title;
 	for (int i = 0; i < _Film_lib.lib_size; i++)
 	{
+		year = _Film_lib.Film_lib[i].get_year();
+		title = _Film_lib.Film_lib[i].get_title();
 
-		if (_Film_lib.Film_lib[i].get_title() == _title && _Film_lib.Film_lib[i].get_year() == _year)
+		if (title == _title && year == _year)
 		{
 			Return_lib.Film_lib[0] = _Film_lib.Film_lib[i];
 			return Return_lib;
@@ -178,10 +184,11 @@ Film_library search(Film_library _Film_lib, string _director)
 	int a = LIB_SIZE; // костыль т.к отказываетс€ принимать define
 	Film_library Return_lib = Film_library(a);
 	int return_fill_pos = 0;
+	string director;
 	for (int i = 0; i < _Film_lib.lib_size; i++)
 	{
-
-		if (_Film_lib.Film_lib[i].get_director() == _director)
+		director = _Film_lib.Film_lib[i].get_director();
+		if (director == _director)
 		{
 			Return_lib.Film_lib[return_fill_pos] = _Film_lib.Film_lib[i];
 			return_fill_pos += 1;
@@ -199,13 +206,13 @@ Film_library search(Film_library _Film_lib, string _director)
 // 1 параметр Int - 5 выдать все фильмы, вышедшие в прокат в выбранном году (не на консоль) - int
 Film_library search(Film_library _Film_lib, int _year)
 {
-	int a = LIB_SIZE; // костыль т.к отказываетс€ принимать define
-	Film_library Return_lib = Film_library(a);
+	Film_library Return_lib = Film_library(LIB_SIZE);
 	int return_fill_pos = 0;
+	int year;
 	for (int i = 0; i < _Film_lib.lib_size; i++)
 	{
-
-		if (_Film_lib.Film_lib[i].get_year() == _year)
+		year = _Film_lib.Film_lib[i].get_year();
+		if (year == _year)
 		{
 			Return_lib.Film_lib[return_fill_pos] = _Film_lib.Film_lib[i];
 			return_fill_pos += 1;
@@ -224,9 +231,8 @@ Film_library search(Film_library _Film_lib, int _year)
 // 2 параметрј Int 6 выдать заданное число фильмов с наибольшими сборами (не на консоль) - int int
 Film_library search(Film_library _Film_lib, int num, int _film_gross)
 {
-	int a = LIB_SIZE; // костыль т.к отказываетс€ принимать define
-	Film_library Return_lib = Film_library(a);
-	Hoare_Sort(_Film_lib.Film_lib, 0, _Film_lib.lib_size); // сортировка массивов
+	Film_library Return_lib = Film_library(LIB_SIZE);
+	Hoare_Sort(_Film_lib.Film_lib, 0, LIB_SIZE); // сортировка массивов - проверить сортировку
 	int return_lib_pos = 0;
 	int num_check = 0;
 	for (int i = _Film_lib.lib_size; i >= 0; i--)
@@ -243,9 +249,8 @@ Film_library search(Film_library _Film_lib, int num, int _film_gross)
 // 3 параметрј Int - 7 выдать заданное число фильмов с наибольшими сборами в выбранном году (не на консоль) - int int int
 Film_library search(Film_library _Film_lib, int num, int _film_gross, int _year)
 {
-	int a = LIB_SIZE; // костыль т.к отказываетс€ принимать define
-	Film_library Return_lib = Film_library(a);
-	Hoare_Sort(_Film_lib.Film_lib, 0, _Film_lib.lib_size); // сортировка массивов
+	Film_library Return_lib = Film_library(LIB_SIZE);
+	Hoare_Sort(_Film_lib.Film_lib, 0, LIB_SIZE); // сортировка массивов - проверить сортировку
 	int return_lib_pos = 0;
 	int num_check = 0;
 	for (int i = _Film_lib.lib_size; i >= 0; i--)
@@ -265,7 +270,7 @@ Film_library search(Film_library _Film_lib, int num, int _film_gross, int _year)
 void Add_film(Film_library _Film_lib)
 {
 	string _title;
-	for (int i = 0; i < _Film_lib.lib_size; i++)
+	for (int i = 0; i < LIB_SIZE; i++)
 	{
 		_title = _Film_lib.Film_lib[i].get_title();
 		if (_title == "-")
@@ -347,27 +352,31 @@ void Film_redactor(Film_library _Film_lib, string _title, int _user_choose) // 2
 			case 5:
 			{
 				int _user_choose_2;
-				std::cout << "1)»зменить день \n 2)»зменить мес€ц \n 3)»зменить год";
+				std::cout << "0)¬ыход \n1)»зменить день \n2)»зменить мес€ц\n3)»зменить год";
 				std::cin >> _user_choose_2;
 				int for_add_int;
-				switch (_user_choose_2)
+				do
 				{
-				case 1:
-					std::cout << "¬ведите день:";
-					std::cin >> for_add_int;
-					_Film_lib.Film_lib[i].set_day(for_add_int);
-					break;
-				case 2:
-					std::cout << "¬ведите мес€ц:";
-					std::cin >> for_add_int;
-					_Film_lib.Film_lib[i].set_mount(for_add_int);
-					break;
-				case 3:
-					std::cout << "¬ведите год:";
-					std::cin >> for_add_int;
-					_Film_lib.Film_lib[i].set_year(for_add_int);
-					break;
-				}
+					switch (_user_choose_2)
+					{
+					case 1:
+						std::cout << "¬ведите день:";
+						std::cin >> for_add_int;
+						_Film_lib.Film_lib[i].set_day(for_add_int);
+						break;
+					case 2:
+						std::cout << "¬ведите мес€ц:";
+						std::cin >> for_add_int;
+						_Film_lib.Film_lib[i].set_mount(for_add_int);
+						break;
+					case 3:
+						std::cout << "¬ведите год:";
+						std::cin >> for_add_int;
+						_Film_lib.Film_lib[i].set_year(for_add_int);
+						break;
+					}
+				} while (_user_choose_2 != 0);
+				break;
 			}
 			case 6:
 			{
@@ -380,6 +389,10 @@ void Film_redactor(Film_library _Film_lib, string _title, int _user_choose) // 2
 			}
 
 		break;
+		}
+		else
+		{
+			cout << "‘ильм с таким названием не найден" << endl;
 		}
 	}
 }
@@ -412,7 +425,14 @@ Film_library year_maxn_gross_search(Film_library _Film_lib, int num, int _film_g
 
 int get_films_count(Film_library lib) // 8 узнать текущее число фильмов
 {
-	return lib.lib_size;
+	int real_lib_size = 0;
+	int lib_size = lib.lib_size;
+	for (int i = 0; i < lib_size; i++)
+	{
+		string _title = lib.Film_lib[i].get_title();
+		if (_title != "-") real_lib_size += 1;
+	}
+	return real_lib_size;
 }
 
 // „ерез векторы - сдвигать в правую часть вектора и делитать
@@ -439,20 +459,36 @@ void delete_film(Film_library _film_lib, string _title) // 9 удалить фильм по на
 
 // ‘ункции сохранени€ и загрузки библиотеки из файла - 10 сохранить фильмотеку в файл и считать фильмотеку из файла 
 
-void Lib_save(const Film_library& _Film_lib)
+void Lib_save(const Film_library& _Film_lib) // Bad alloc вызываетс€ в том случае, если не удаЄтс€ выделить пам€ть
 {
 	ofstream out;
 	out.open("Saved_film_lib");
 	if (out.is_open())
 	{
+		string _title_;
+		string _director_;
+		string _screenwriter;
+		string _composer;
+		int _day_;
+		int _mount_;
+		int _year_;
+		int _gross_;
 		for (int i = 0; i < _Film_lib.lib_size; i++)
 		{
-			if (_Film_lib.Film_lib[i].get_title() == "-") continue;
-			// i) title || director || screenwritter || composer || day.mount.year || film_gross 
-			out << to_string(i) << ") " << _Film_lib.Film_lib[i].get_title() << " || " << _Film_lib.Film_lib[i].get_director() << " || "
-				<< _Film_lib.Film_lib[i].get_screenwriter() << " || " << _Film_lib.Film_lib[i].get_composer() << " || "
-				<< _Film_lib.Film_lib[i].get_year() << "." << _Film_lib.Film_lib[i].get_mount() << "." << _Film_lib.Film_lib[i].get_year() << " || "
-				<< _Film_lib.Film_lib[i].get_film_gross() << "       " << endl;
+			_title_ = _Film_lib.Film_lib[i].get_title();
+			if (_title_ == "-") continue;
+			_director_ = _Film_lib.Film_lib[i].get_director();
+			_screenwriter = _Film_lib.Film_lib[i].get_screenwriter();
+			_composer = _Film_lib.Film_lib[i].get_composer();
+			_day_ = _Film_lib.Film_lib[i].get_day();
+			_mount_ = _Film_lib.Film_lib[i].get_mount();
+			_year_ = _Film_lib.Film_lib[i].get_year();
+			_gross_ = _Film_lib.Film_lib[i].get_film_gross();
+			// i) title || director || screenwritter || composer || day.mount.year || film_gross  или построчно 
+			out << to_string(i) << ") " << _title_ << " || " << _director_ << " || "
+				<< _screenwriter << " || " << _composer << " || "
+				<< _day_ << "." << _mount_ << "." << _year_  << " || "
+				<< _gross_ << "       " << endl;
 		}
 	}
 	out << std::endl;
@@ -511,7 +547,7 @@ Film Line_to_Film(string read_line)
 }
 
 
-void Write_film(Film_library _Film_lib)
+void Write_lib(Film_library _Film_lib)
 {
 	for (int i = 0; i < _Film_lib.lib_size; i++)
 	{

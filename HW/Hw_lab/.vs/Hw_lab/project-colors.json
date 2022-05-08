@@ -50,7 +50,12 @@
       "ProjectGuid": "b2bba303-4140-4378-b1bd-9d35775d4efb",
       "DisplayName": "Lab_5",
       "ColorIndex": 8
+    },
+    "9d44a860-8c5e-4d57-ba33-0a360dc68715": {
+      "ProjectGuid": "9d44a860-8c5e-4d57-ba33-0a360dc68715",
+      "DisplayName": "Re_Lav_4_Vector",
+      "ColorIndex": 9
     }
   },
-  "NextColorIndex": 9
+  "NextColorIndex": 10
 }
