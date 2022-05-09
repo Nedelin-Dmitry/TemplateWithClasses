@@ -105,7 +105,8 @@ enum menu_selection
 	Lib_size = 8,
 	Delete_film = 9,
 	Save_lib = 10,
-	Download_Film = 11
+	Download_Film = 11,
+	Write_Library = 12
 };
 
 enum film_data
@@ -209,6 +210,6 @@ public:
 
 	friend Film Line_to_Film(string _line); // 
 
-	friend void Write_Film(Film _Film);
-	friend void Write_lib(Film_library _Film_lib);
+	friend void Write_Film(Film_library& _Film);
+	friend void Write_lib(Film_library& _Film_lib);
 };

@@ -97,6 +97,7 @@ Film_library::Film_library()
 Film_library::Film_library(const Film_library& copy)
 {
 	num_of_films = copy.num_of_films;
+	Film_lib.resize(num_of_films);
 	for (int i = 0; i < num_of_films; i++)
 	{
 		Film_lib[i] = copy.Film_lib[i];
@@ -166,7 +167,7 @@ Film_library search(Film_library& _Film_lib, string _title, int _year)
 	return for_return;
 }
 
-// 1 параметр string - 4 выдать все фильмы заданного режиссера (не на консоль) - string
+ // 1 параметр string - 4 выдать все фильмы заданного режиссера (не на консоль) - string
 Film_library search(Film_library& _Film_lib, string _director)
 {
 	Film_library for_return = Film_library();
@@ -393,6 +394,134 @@ void Film_redactor(Film_library& _Film_lib, string _title_, int _user_choose)
 	}
 }
 
+Film_library title_year_search(Film_library& _Film_lib, string _title, int _year)
+{
+	Film_library for_return = Film_library();
+	for_return.Film_lib.resize(1);
+	for (int i = 0; i < _Film_lib.num_of_films; i++)
+	{
+		if (_title == _Film_lib.Film_lib[i].get_title() && _year == _Film_lib.Film_lib[i].get_year())
+		{
+			for_return.Film_lib[0] = _Film_lib.Film_lib[i];
+			for_return.num_of_films = 1;
+			cout << "Film found" << endl;
+			return for_return;
+		}
+	}
+	cout << "The Film was not found" << endl;
+	return for_return;
+}
+
+Film_library screenwriter_year_search(Film_library& _Film_lib, string _director)
+{
+	Film_library for_return = Film_library();
+	int _director_films = 0;
+	for (int i = 0; i < _Film_lib.num_of_films; i++)
+	{
+		if (_director == _Film_lib.Film_lib[i].get_director()) { _director_films += 1; };
+	}
+	if (_director_films == 0)
+	{
+		cout << "No films of this director were found" << endl;
+		for_return.Film_lib.resize(1);
+		for_return.num_of_films = 0;
+		return for_return;
+	}
+	else
+	{
+		for_return.Film_lib.resize(_director_films + 1);
+		for_return.num_of_films = _director_films;
+		for (int i = 0; i < for_return.num_of_films; i++)
+		{
+			if (_director == _Film_lib.Film_lib[i].get_director())
+			{
+				for_return.Film_lib[i] = _Film_lib.Film_lib[i];
+			}
+		}
+		return for_return;
+	}
+
+}
+
+Film_library year_search(Film_library& _Film_lib, int _year)
+{
+	Film_library for_return = Film_library();
+	int _year_films = 0;
+	for (int i = 0; i < _Film_lib.num_of_films; i++)
+	{
+		if (_year == _Film_lib.Film_lib[i].get_year()) { _year_films += 1; };
+	}
+	if (_year_films == 0)
+	{
+		cout << "No films of this director were found" << endl;
+		for_return.Film_lib.resize(1);
+		for_return.num_of_films = 0;
+		return for_return;
+	}
+	else
+	{
+		for_return.Film_lib.resize(_year_films + 1);
+		for_return.num_of_films = _year_films;
+		for (int i = 0; i < for_return.num_of_films; i++)
+		{
+			if (_year == _Film_lib.Film_lib[i].get_year())
+			{
+				for_return.Film_lib[i] = _Film_lib.Film_lib[i];
+			}
+		}
+		return for_return;
+	}
+}
+
+Film_library film_gross_search(Film_library& _Film_lib, int num, int _film_gross)
+{
+	Film_library sorted_lib = Film_library(_Film_lib);
+	Film_library for_return = Film_library();
+	for_return.Film_lib.resize(num);
+	for_return.num_of_films = num;
+	Hoare_Sort(sorted_lib, 0, sorted_lib.num_of_films);
+	return sorted_lib; // руина в сортировке
+	/*int check_num = 0;
+	for (int i = sorted_lib.num_of_films - 1; i > 0; i--)
+	{
+		if (check_num == num) { break; };
+		for_return.Film_lib[i] = sorted_lib.Film_lib[i];
+		check_num += 1;
+	}
+	return for_return;*/
+}
+
+Film_library year_maxn_gross_search(Film_library& _Film_lib, int num, int _film_gross, int _year)
+{
+	Film_library sorted_lib = Film_library();
+	Film_library for_return = Film_library();
+	int year_count = 0;
+	for (int i = 0; i < _Film_lib.num_of_films; i++)
+	{
+		if (_year == _Film_lib.Film_lib[i].get_year())
+		{
+			sorted_lib.Film_lib[i] = _Film_lib.Film_lib[i];
+			year_count += 1;
+		};
+	}
+	sorted_lib.Film_lib.resize(year_count);
+	for_return.Film_lib.resize(num);
+	//for (int i = 0; i < _Film_lib.num_of_films; i++)
+	//{
+	//	if (_year == _Film_lib.Film_lib[i].get_year())
+	//	{
+	//		sorted_lib.Film_lib[i] = _Film_lib.Film_lib[i];
+	//	}
+	//}
+	Hoare_Sort(sorted_lib, 0, sorted_lib.num_of_films);
+	int check_num = 0;
+	for (int i = sorted_lib.num_of_films - 1; i >= 0; i--)
+	{
+		if (check_num == num) { break; };
+		for_return.Film_lib[i] = sorted_lib.Film_lib[i];
+	}
+	return for_return;
+}
 
 
 
@@ -562,14 +691,21 @@ void Lib_load(Film_library& _str)
 	system("pause");
 }
 
-void Write_Film(Film _Film)
+void Write_Film(Film_library& _Film)
 {
-	cout << "Название фильма: " << _Film.get_title() << "\nРежисёр фильма: " << _Film.get_director() << "\nСценарист фильма: "
-		<< _Film.get_screenwriter() << "\nКомпозитор фильма: " << _Film.get_composer() << "\nДата фильма: " << _Film.get_day() << "."
-		<< _Film.get_mount() << "." << _Film.get_year() << "\nСборы фильма: " << _Film.get_film_gross() << "$" << endl;
+	if (_Film.Film_lib[0].get_title() == "-")
+	{
+
+	}
+	else {
+		cout << "Название фильма: " << _Film.Film_lib[0].get_title() << "\nРежисёр фильма: " << _Film.Film_lib[0].get_director() << "\nСценарист фильма: "
+			<< _Film.Film_lib[0].get_screenwriter() << "\nКомпозитор фильма: " << _Film.Film_lib[0].get_composer() << "\nДата фильма: " << _Film.Film_lib[0].get_day() << "."
+			<< _Film.Film_lib[0].get_mount() << "." << _Film.Film_lib[0].get_year() << "\nСборы фильма: " << _Film.Film_lib[0].get_film_gross() << "$" << endl;
+		system("pause");
+	}
 }
 
-void Write_lib(Film_library _Film_lib)
+void Write_lib(Film_library& _Film_lib)
 {
 	for (int i = 0; i < _Film_lib.num_of_films; i++)
 	{
@@ -577,4 +713,5 @@ void Write_lib(Film_library _Film_lib)
 			<< _Film_lib.Film_lib[i].get_screenwriter() << "\nКомпозитор фильма: " << _Film_lib.Film_lib[i].get_composer() << "\nДата фильма: " << _Film_lib.Film_lib[i].get_day() << "."
 			<< _Film_lib.Film_lib[i].get_mount() << "." << _Film_lib.Film_lib[i].get_year() << "\nСборы фильма: " << _Film_lib.Film_lib[i].get_film_gross() << "$" << endl;
 	}
+	system("pause");
 }
