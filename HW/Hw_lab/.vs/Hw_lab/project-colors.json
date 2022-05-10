@@ -1,61 +1,26 @@
 {
   "Version": 1,
   "ProjectMap": {
-    "3c960562-f510-437d-85db-93c1d79c5332": {
-      "ProjectGuid": "3c960562-f510-437d-85db-93c1d79c5332",
-      "DisplayName": "Lab_2",
+    "4fbafd2f-64f9-4c24-aea9-4d877902c2e6": {
+      "ProjectGuid": "4fbafd2f-64f9-4c24-aea9-4d877902c2e6",
+      "DisplayName": "Time",
       "ColorIndex": 0
     },
-    "18450ef1-f095-4815-9f02-5080e949497c": {
-      "ProjectGuid": "18450ef1-f095-4815-9f02-5080e949497c",
-      "DisplayName": "Lab_1",
+    "28a7d207-ef2c-4fdc-820e-aa1fd44081ef": {
+      "ProjectGuid": "28a7d207-ef2c-4fdc-820e-aa1fd44081ef",
+      "DisplayName": "2_Hex",
       "ColorIndex": 1
     },
-    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
-      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
-      "DisplayName": "Прочие файлы",
-      "ColorIndex": -1
-    },
-    "26644400-3b0e-483c-8b1c-5c39feabb7ea": {
-      "ProjectGuid": "26644400-3b0e-483c-8b1c-5c39feabb7ea",
-      "DisplayName": "Lab_3",
+    "f0f78574-613f-4d71-b9c7-bc11f696e001": {
+      "ProjectGuid": "f0f78574-613f-4d71-b9c7-bc11f696e001",
+      "DisplayName": "3_Text_Editor",
       "ColorIndex": 2
     },
-    "e01571c8-f1ba-4f2c-bed1-9760e72c8089": {
-      "ProjectGuid": "e01571c8-f1ba-4f2c-bed1-9760e72c8089",
-      "DisplayName": "Lab_4",
+    "35bbdedb-285a-4ce4-9703-a81994997536": {
+      "ProjectGuid": "35bbdedb-285a-4ce4-9703-a81994997536",
+      "DisplayName": "4_Film_Library",
       "ColorIndex": 3
-    },
-    "a18b8209-493a-450e-b576-e5cb842674fb": {
-      "ProjectGuid": "a18b8209-493a-450e-b576-e5cb842674fb",
-      "DisplayName": "Re_Lab_2",
-      "ColorIndex": 4
-    },
-    "a8dc7582-d557-47f9-85b1-8b3fd1519cf5": {
-      "ProjectGuid": "a8dc7582-d557-47f9-85b1-8b3fd1519cf5",
-      "DisplayName": "Re_Lab_3",
-      "ColorIndex": 5
-    },
-    "3b016167-0d06-4e0a-a05f-873509d3bd47": {
-      "ProjectGuid": "3b016167-0d06-4e0a-a05f-873509d3bd47",
-      "DisplayName": "Re_Lab_4",
-      "ColorIndex": 6
-    },
-    "9f0ce270-9242-47be-a37f-03a187e9af25": {
-      "ProjectGuid": "9f0ce270-9242-47be-a37f-03a187e9af25",
-      "DisplayName": "Re_Lab_4_V2",
-      "ColorIndex": 7
-    },
-    "b2bba303-4140-4378-b1bd-9d35775d4efb": {
-      "ProjectGuid": "b2bba303-4140-4378-b1bd-9d35775d4efb",
-      "DisplayName": "Lab_5",
-      "ColorIndex": 8
-    },
-    "9d44a860-8c5e-4d57-ba33-0a360dc68715": {
-      "ProjectGuid": "9d44a860-8c5e-4d57-ba33-0a360dc68715",
-      "DisplayName": "Re_Lav_4_Vector",
-      "ColorIndex": 9
     }
   },
-  "NextColorIndex": 10
+  "NextColorIndex": 4
 }
