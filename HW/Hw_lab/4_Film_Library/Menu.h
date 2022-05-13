@@ -1,6 +1,6 @@
 #pragma once
 
-class Menu0{
+class Menu0 {
 public:
     char Title[80];  // Заголовок меню
     char** Items;  // Позиции меню

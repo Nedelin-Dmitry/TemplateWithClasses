@@ -37,8 +37,7 @@
 #include <math.h>
 
 
-class Hex
-{
+class Hex {
  private:
     int size;
     unsigned char* num;

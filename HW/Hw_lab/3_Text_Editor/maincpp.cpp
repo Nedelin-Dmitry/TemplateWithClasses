@@ -6,8 +6,7 @@
 
 using namespace std;
 
-int main()
-{
+int main() {
     // задаём название консольного окна
     system("title TextEditor");
 
@@ -24,12 +23,12 @@ int main()
 
     TextEditor Editor = TextEditor();
     int itemPos;  // позиция в меню - Попробывать передать Int по string т.к при вводе символов меню крашится
-    do{
+    do {
         clrscr();
         itemPos = menu0.selectItem();
         cout << "Выбрано " << itemPos << " +++++++++++++++++++++++++++" << endl;
         clrscr();
-        switch (itemPos){
+        switch (itemPos) {
         case 0: // выход из текстового редактора
             off_editor(hStdOut, Editor);
             break; // нужен ли break? всё работает и без него

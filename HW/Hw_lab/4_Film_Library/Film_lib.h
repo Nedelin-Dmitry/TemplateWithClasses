@@ -78,8 +78,7 @@ class Film_str
 
 using namespace std;
 
-struct Date
-{
+struct Date {
     int day;
     int mount;
     int year;
@@ -87,8 +86,7 @@ struct Date
 
 
 
-enum menu_selection
-{
+enum menu_selection {
     Exit = 0,
     Add_film_lib = 1,
     Change_film = 2,
@@ -104,8 +102,7 @@ enum menu_selection
     Write_Library = 12
 };
 
-enum film_data
-{
+enum film_data {
     _title = 1,
     _director = 2,
     _screenwriter = 3,
@@ -116,8 +113,7 @@ enum film_data
     _gross = 8
 };
 
-class Film
-{
+class Film {
  protected:
     string title;
     string director;

@@ -24,20 +24,20 @@ min, sec.
 
 #define sec_per_day 86400  // кол-во секунд в сутках для расчёта в plus & minus
 
-class Time{
+class Time {
  private:
     int hour, min, sec;  // переменные времени
  public:
     // Конструкторы
-    Time();// конструктор по умолчанию
+    Time();  // конструктор по умолчанию
     Time(std::string time_str);  // перевод из символьной строки в int значения
     Time(int _hour, int _min, int _sec);  // конструктор с параметрами с задаными параметрами времени
     Time(const Time& t_copy);  // конструктор копирования
     ~Time();  // Бесполезен т.к нет динамического выделения памяти
     // геттеры
-    int get_hour() const { return hour };
-    int get_min() const { return min };
-    int get_sec() const { return sec };
+    int get_hour() const { return hour; }
+    int get_min() const { return min; }
+    int get_sec() const { return sec; }
      // перегрузка операторов
     Time operator+(const Time t1);  // сложение
     Time operator-(const Time& t2);  // вычитание

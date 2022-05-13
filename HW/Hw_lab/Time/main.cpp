@@ -2,7 +2,7 @@
 #include"Time.h"
 // Copyright 2022 Nedelin-Dmitry
 
-int main(){
+int main() {
     //по умолчанию
     Time defolt = Time();
     std::cout << "Time is : " << defolt << std::endl;  // Доработать для формата 00:00:00
@@ -22,12 +22,12 @@ int main(){
     //Ввод переменной
     std::cout << "Enter the time in the format hours, minuts, seconds - (9 12 13)" << std::endl;
     Time for_input;
-    while (1){
+    while (1) {
         std::cin >> for_input;
         if (for_input.get_hour() > -1 && for_input.get_hour() < 24 && for_input.get_min() > -1 && for_input.get_min() < 60 && for_input.get_sec() > -1 && for_input.get_sec() < 60){
             break;
         }
-        else{
+        else {
             std::cout << "Input error, try again" << std::endl;
         }
     }

@@ -2,8 +2,7 @@
 #include <fstream>
 #include"Hex.h"
 
-int main()
-{
+int main() {
     Hex A = Hex("FE1"); // не работает переворот в преобразовании десятиричного в hex //ABC //FE1
     Hex B = Hex("ABC"); // вывод char задом наперёд
 
@@ -12,13 +11,13 @@ int main()
     write(A);
     std::cout << std::endl;
 
-    try{
+    try {
         Hex C = Hex("CBA");
         int input;
         std::cin >> input;
         std::cout << C[input] << std::endl;
     }
-    catch (int _index){
+    catch (int _index) {
         if (_index == 1) { std::cout << "Out of range" << std::endl; }
         else if (_index == 2) { std::cout << "Invalid characters" << std::endl; }
     }
