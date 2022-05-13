@@ -1,17 +1,17 @@
 #pragma once
-
+//Copyright 2022 Nedelin-Dmitry
 
 class Menu0
 {
 public:
-	char Title[80];	// Заголовок меню
-	char** Items;		// Позиции меню
-	int ItemsCount;		// К-во позиций меню
+    char Title[80];	// Заголовок меню
+    char** Items;		// Позиции меню
+    int ItemsCount;		// К-во позиций меню
 
-	Menu0(const char* menuFileName);
-	~Menu0(void);
-	void showMenu0();
-	int selectItem();
-	// 
+    Menu0(const char* menuFileName);
+    ~Menu0(void);
+    void showMenu0();
+    int selectItem();
+    // 
 
 };

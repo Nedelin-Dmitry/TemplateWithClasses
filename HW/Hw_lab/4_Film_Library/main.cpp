@@ -4,38 +4,33 @@
 #include"Console.h"
 
 
-/*
-Сделать повсеместные проверки на ввод
-*/
+
 int main()
 {
 
-    // задаём название консольного окна
     system("title TextEditor");
-
-    // получаем дескриптор окна для обращения к консоли
+ 
     HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
 
-    // устанавливаем взаимодействие с русскими буквами
-    SetConsoleCP(1251);         // установка кодовой страницы win-cp 1251 в поток ввода
-    SetConsoleOutputCP(1251);   // установка кодовой страницы win-cp 1251 в поток вывода
+    SetConsoleCP(1251);         
+    SetConsoleOutputCP(1251);   
 
-    setlocale(LC_CTYPE, "Russian");	// Для ввода-вывода русских букв
+    setlocale(LC_CTYPE, "Russian");	
 
     Menu0 menu0("MainMenu.txt");
 
     Film_library Сurrent_lib = Film_library();
-    int itemPos; // позиция в меню - Попробывать передать Int по string т.к при вводе символов меню крашится
+    int itemPos; 
     do {
         clrscr();
         itemPos = menu0.selectItem();
         clrscr();
         switch (itemPos)
         {
-        case Add_film_lib: // работает
+        case Add_film_lib: 
             Add_film(Сurrent_lib);
             break;
-        case Change_film: // работает
+        case Change_film: 
         {
             if (Сurrent_lib.get_num_of_films() == 0)
             {
@@ -55,7 +50,7 @@ int main()
             } while (_user_choose != 0);
         }
         break;
-        case Find_title_year: // работает
+        case Find_title_year: 
             if (Сurrent_lib.get_num_of_films() == 0)
             {
                 cout << "The library is empty" << endl;
@@ -73,7 +68,7 @@ int main()
                 Write_Film(A);
             }
             break;
-        case Films_director: // работает
+        case Films_director: 
             if (Сurrent_lib.get_num_of_films() == 0)
             {
                 cout << "The library is empty" << endl;
@@ -94,7 +89,7 @@ int main()
                 }
             }
             break;
-        case Find_film_year: // работает
+        case Find_film_year: 
             if (Сurrent_lib.get_num_of_films() == 0)
             {
                 cout << "The library is empty" << endl;
@@ -115,8 +110,8 @@ int main()
                 }
             }
             break;
-        case Film_gross_num: // прописать если размер библиотеки меньше кол-ва выданных фильмов или пустая вообще - 
-            if (Сurrent_lib.get_num_of_films() == 0) // косяк в сортировке, некст тоже не работает
+        case Film_gross_num: 
+            if (Сurrent_lib.get_num_of_films() == 0) 
             {
                 cout << "The library is empty" << endl;
                 system("pause");
@@ -126,7 +121,7 @@ int main()
                 int _num;
                 cout << "How many movies do you want to output" << endl;
                 cin >> _num;
-                Film_library A = Film_library(film_gross_search(Сurrent_lib, _num, 0));
+                Film_library A = Film_library(film_gross_search(Сurrent_lib, _num));
                 if (A.get_num_of_films() == 0)
                 {
                     cout << "Ruined" << endl;
@@ -137,7 +132,7 @@ int main()
                 }
             }
             break;
-        case Film_gross_num_year: // аналогично, для нулевого размера сделать исключение try catch - разобрать иттератор и дописать последний search
+        case Film_gross_num_year: 
             if (Сurrent_lib.get_num_of_films() == 0)
             {
                 cout << "The library is empty" << endl;
@@ -151,7 +146,7 @@ int main()
                 int _num;
                 cout << "How many movies do you want to output" << endl;
                 cin >> _num;
-                Film_library A = Film_library(year_maxn_gross_search(Сurrent_lib, _num, 0, _year));
+                Film_library A = Film_library(year_maxn_gross_search(Сurrent_lib, _num, _year));
                 if (A.get_num_of_films() == 0)
                 {
                     cout << "Ruined" << endl;
@@ -162,7 +157,7 @@ int main()
                 }
             }
             break;
-        case Lib_size: // работает
+        case Lib_size:
             get_films_count(Сurrent_lib);
             break;
         case Delete_film:
@@ -173,13 +168,13 @@ int main()
             delete_film(Сurrent_lib, _title);
         }
         break;
-        case Save_lib: // работает
+        case Save_lib: 
             Lib_save(Сurrent_lib);
             break;
-        case Download_Film: // работает
+        case Download_Film: 
             Lib_load(Сurrent_lib);
             break;
-        case Write_Library: // работает
+        case Write_Library: 
             if (Сurrent_lib.get_num_of_films() == 0)
             {
                 cout << "The library is empty" << endl;

@@ -20,7 +20,12 @@
       "ProjectGuid": "35bbdedb-285a-4ce4-9703-a81994997536",
       "DisplayName": "4_Film_Library",
       "ColorIndex": 3
+    },
+    "8fe9ac61-91bf-4de9-8354-5f3480ec1d3d": {
+      "ProjectGuid": "8fe9ac61-91bf-4de9-8354-5f3480ec1d3d",
+      "DisplayName": "5_Rail_way",
+      "ColorIndex": 4
     }
   },
-  "NextColorIndex": 4
+  "NextColorIndex": 5
 }

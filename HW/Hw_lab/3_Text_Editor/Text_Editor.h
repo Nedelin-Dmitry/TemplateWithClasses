@@ -55,30 +55,30 @@
 class TextEditor
 {
 private:
-	COORD text_pos; // Положение текста по X, Y
-	int text_len;   // Длина текста
-	char* text;		// Массив текста
+    COORD text_pos; // Положение текста по X, Y
+    int text_len;   // Длина текста
+    char* text;		// Массив текста
 public:
-	//конструкторы и деструктор
-	TextEditor();
-	TextEditor(short int x, short int y, int len);
-	TextEditor(const TextEditor& copy);
-	~TextEditor();
+    //конструкторы и деструктор
+    TextEditor();
+    TextEditor(short int x, short int y, int len);
+    TextEditor(const TextEditor& copy);
+    ~TextEditor();
 
-	// геттеры
-	COORD get_pos();
-	int get_len();
-	char* get_text();
+    // геттеры
+    COORD get_pos();
+    int get_len();
+    char* get_text();
 
-	// сеттеры
-	void set_pos(COORD _new_pos, TextEditor& ZERO) { ZERO.text_pos = _new_pos; };
-	void set_len(int _len, TextEditor& ZERO) { ZERO.text_len = _len; };
+    // сеттеры
+    void set_pos(COORD _new_pos, TextEditor& ZERO) { ZERO.text_pos = _new_pos; };
+    void set_len(int _len, TextEditor& ZERO) { ZERO.text_len = _len; };
 
-	//функции
-	friend void window_position(HANDLE _hStdOut, short int _x_pos_win, short int _y_pos_win, short int _weight_win, short int _height_win, TextEditor& ZERO);
-	friend void window_size(HANDLE _hStdOut, short int _x_pos_win, short int _y_pos_win, short int _weight_win, short int _height_win, TextEditor& ZERO);
-	friend void hide_show_editor(TextEditor& ZERO); // Как не передавать аргумент ?? -Написать Деду -- Не видит определния но работает ;3
-	friend void on_text_editor(HANDLE _hStdOut, TextEditor& EditorWork);
-	friend void off_editor(HANDLE _hStdOut, TextEditor& EditorOff);
+    //функции
+    friend void window_position(HANDLE _hStdOut, short int _x_pos_win, short int _y_pos_win, short int _weight_win, short int _height_win, TextEditor& ZERO);
+    friend void window_size(HANDLE _hStdOut, short int _x_pos_win, short int _y_pos_win, short int _weight_win, short int _height_win, TextEditor& ZERO);
+    friend void hide_show_editor(TextEditor& ZERO); // Как не передавать аргумент ?? -Написать Деду -- Не видит определния но работает ;3
+    friend void on_text_editor(HANDLE _hStdOut, TextEditor& EditorWork);
+    friend void off_editor(HANDLE _hStdOut, TextEditor& EditorOff);
 
 };

@@ -39,47 +39,47 @@
 
 class Hex
 {
-private:
-	int size;
-	unsigned char* num;
-	int num_int;
-public:
-	Hex(); // по умолчанию
-	Hex(std::string vvod); // преобразование типа
-	Hex(int _num_int); // преобразование типа
-	//explicit Hex(int _size);  создание массива с заданым размером
-	Hex(const Hex& copy);// копирования
-	~Hex();// деструктор
+ private:
+    int size;
+    unsigned char* num;
+    int num_int;
+ public:
+    Hex(); // по умолчанию
+    Hex(std::string vvod); // преобразование типа
+    Hex(int _num_int); // преобразование типа
+    //explicit Hex(int _size);  создание массива с заданым размером
+    Hex(const Hex& copy);// копирования
+    ~Hex();// деструктор
 
-	// функция вывода для класса Hex
-	friend void write(Hex& h1);
+    // функция вывода для класса Hex
+    friend void write(Hex& h1);
 
-	//геттеры
+    //геттеры
 
-	int get_size();
-	int get_int();
-	char get_char_i(int i);
+    int get_size();
+    int get_int();
+    char get_char_i(int i);
 
-	// операторы 
-	Hex operator=(const Hex& h1);
-	friend Hex operator+(const Hex& h1, const Hex& h2);
-	friend Hex operator-(const Hex& h1, const Hex& h2);
-	unsigned char& operator[](const unsigned char index); // char
-	const unsigned char& operator[](const unsigned char index) const;
-	friend Hex operator*(const Hex& h1, const Hex& h2);
-	friend Hex operator*(const Hex& h1, int input);
+    // операторы 
+    Hex operator=(const Hex& h1);
+    friend Hex operator+(const Hex& h1, const Hex& h2);
+    friend Hex operator-(const Hex& h1, const Hex& h2);
+    unsigned char& operator[](const unsigned char index); // char
+    const unsigned char& operator[](const unsigned char index) const;
+    friend Hex operator*(const Hex& h1, const Hex& h2);
+    friend Hex operator*(const Hex& h1, int input);
 
-	// операторы сравнения
+    // операторы сравнения
 
-	friend bool operator>(Hex& h1, Hex& h2);
-	friend bool operator<(Hex& h1, Hex& h2);
-	friend bool operator>=(Hex& h1, Hex& h2);
-	friend bool operator<=(Hex& h1, Hex& h2);
-	friend bool operator!=(Hex& h1, Hex& h2);
-	friend bool operator==(Hex& h1, Hex& h2);
+    friend bool operator>(Hex& h1, Hex& h2);
+    friend bool operator<(Hex& h1, Hex& h2);
+    friend bool operator>=(Hex& h1, Hex& h2);
+    friend bool operator<=(Hex& h1, Hex& h2);
+    friend bool operator!=(Hex& h1, Hex& h2);
+    friend bool operator==(Hex& h1, Hex& h2);
 
-	// операторы ввода и вывода в поток
-	friend std::ostream& operator<<(std::ostream& out, const Hex& _str);
-	friend std::istream& operator>>(std::istream& in, Hex& _str);
+    // операторы ввода и вывода в поток
+    friend std::ostream& operator<<(std::ostream& out, const Hex& _str);
+    friend std::istream& operator>>(std::istream& in, Hex& _str);
 
 };
