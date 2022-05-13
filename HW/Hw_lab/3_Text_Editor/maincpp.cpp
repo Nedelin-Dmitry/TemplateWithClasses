@@ -18,20 +18,18 @@ int main()
     SetConsoleCP(1251);         // установка кодовой страницы win-cp 1251 в поток ввода
     SetConsoleOutputCP(1251);   // установка кодовой страницы win-cp 1251 в поток вывода
 
-    setlocale(LC_CTYPE, "Russian");	// Для ввода-вывода русских букв
+    setlocale(LC_CTYPE, "Russian");  // Для ввода-вывода русских букв
 
     Menu0 menu0("MainMenu.txt");
 
     TextEditor Editor = TextEditor();
-    int itemPos; // позиция в меню - Попробывать передать Int по string т.к при вводе символов меню крашится
-    do
-    {
+    int itemPos;  // позиция в меню - Попробывать передать Int по string т.к при вводе символов меню крашится
+    do{
         clrscr();
         itemPos = menu0.selectItem();
         cout << "Выбрано " << itemPos << " +++++++++++++++++++++++++++" << endl;
         clrscr();
-        switch (itemPos)
-        {
+        switch (itemPos){
         case 0: // выход из текстового редактора
             off_editor(hStdOut, Editor);
             break; // нужен ли break? всё работает и без него

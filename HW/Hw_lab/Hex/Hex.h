@@ -21,14 +21,14 @@
 
 #define ASKII_0 48
 #define ASKII_9 57
-#define ASKII_A_55 55 // A(65) in ASKII = 10 in decimal system;  55 + 10 = 65
+#define ASKII_A_55 55  // A(65) in ASKII = 10 in decimal system;  55 + 10 = 65
 #define ASKII_A_START 65
 #define ASKII_F_END 70
 #define ASKII_F 70
 #define POTENSIAL_MAS_SIZE 30
 #define ASKII_MINUS 45
 
-#include <cassert> // для assert();
+#include <cassert>  // для assert();
 #include<iostream>
 #include<cstring> 
 #include<cstdlib>
@@ -44,18 +44,16 @@ class Hex
     unsigned char* num;
     int num_int;
  public:
-    Hex(); // по умолчанию
-    Hex(std::string vvod); // преобразование типа
-    Hex(int _num_int); // преобразование типа
-    //explicit Hex(int _size);  создание массива с заданым размером
-    Hex(const Hex& copy);// копирования
-    ~Hex();// деструктор
+    Hex();  // по умолчанию
+    Hex(std::string vvod);  // преобразование типа
+    Hex(int _num_int);  // преобразование типа
+    Hex(const Hex& copy); // копирования
+    ~Hex();  // деструктор
 
     // функция вывода для класса Hex
     friend void write(Hex& h1);
 
     //геттеры
-
     int get_size();
     int get_int();
     char get_char_i(int i);
@@ -70,13 +68,12 @@ class Hex
     friend Hex operator*(const Hex& h1, int input);
 
     // операторы сравнения
-
-    friend bool operator>(Hex& h1, Hex& h2);
-    friend bool operator<(Hex& h1, Hex& h2);
-    friend bool operator>=(Hex& h1, Hex& h2);
-    friend bool operator<=(Hex& h1, Hex& h2);
-    friend bool operator!=(Hex& h1, Hex& h2);
-    friend bool operator==(Hex& h1, Hex& h2);
+    friend bool operator>(const Hex& h1, const Hex& h2);
+    friend bool operator<(const Hex& h1, const Hex& h2);
+    friend bool operator>=(const Hex& h1, const Hex& h2);
+    friend bool operator<=(const Hex& h1, const Hex& h2);
+    friend bool operator!=(const Hex& h1, const Hex& h2);
+    friend bool operator==(const Hex& h1, const Hex& h2);
 
     // операторы ввода и вывода в поток
     friend std::ostream& operator<<(std::ostream& out, const Hex& _str);

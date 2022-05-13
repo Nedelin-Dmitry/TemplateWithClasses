@@ -1,7 +1,6 @@
 #include"Console.h"
 
-int wherex(void)
-{
+int wherex(void){
     HANDLE Console = GetStdHandle(STD_OUTPUT_HANDLE);
     if (!Console)
         return -1;
@@ -12,8 +11,7 @@ int wherex(void)
     return buf.dwCursorPosition.X;
 }
 //
-int wherey(void)
-{
+int wherey(void){
     HANDLE Console = GetStdHandle(STD_OUTPUT_HANDLE);
     if (!Console)
         return -1;
@@ -24,8 +22,7 @@ int wherey(void)
     return buf.dwCursorPosition.Y;
 }
 //
-COORD WhereXY(void)
-{
+COORD WhereXY(void){
     HANDLE Console = GetStdHandle(STD_OUTPUT_HANDLE);
     COORD pos = { -1, -1 };
     if (!Console)
@@ -37,8 +34,7 @@ COORD WhereXY(void)
     return buf.dwCursorPosition;
 }
 //
-void clrscr(void)
-{
+void clrscr(void){
     HANDLE Console = GetStdHandle(STD_OUTPUT_HANDLE);
 
     if (!Console)
@@ -65,8 +61,7 @@ void clrscr(void)
     FillConsoleOutputCharacter(Console, ' ', width * height, zpos, &Count);
 }
 //
-void gotoxy(int x, int y)
-{
+void gotoxy(int x, int y){
     HANDLE Console = GetStdHandle(STD_OUTPUT_HANDLE);
     if (!Console)
         return;
@@ -78,8 +73,7 @@ void gotoxy(int x, int y)
     SetConsoleCursorPosition(Console, pos);
 }
 //
-void textcolor(int color)
-{
+void textcolor(int color){
     HANDLE Console = GetStdHandle(STD_OUTPUT_HANDLE);
     if (!Console)
         return;
@@ -106,8 +100,7 @@ void textcolor(int color)
     gotoxy(pos.X, pos.Y);
 }
 //
-void textbackground(int color)
-{
+void textbackground(int color){
     HANDLE Console = GetStdHandle(STD_OUTPUT_HANDLE);
     if (!Console)
         return;
@@ -134,8 +127,7 @@ void textbackground(int color)
     gotoxy(pos.X, pos.Y);
 }
 //
-void textattr(int color)
-{
+void textattr(int color){
     HANDLE Console = GetStdHandle(STD_OUTPUT_HANDLE);
     if (!Console)
         return;
@@ -151,8 +143,7 @@ void textattr(int color)
     gotoxy(pos.X, pos.Y);
 }
 //
-void setwindow(int width, int height)
-{
+void setwindow(int width, int height){
     HANDLE Console = GetStdHandle(STD_OUTPUT_HANDLE);
     if (!Console)
         return;
@@ -171,8 +162,7 @@ void setwindow(int width, int height)
     //  printf("%d %d", size.X, size.Y);
 }
 //
-void SetWindow(SMALL_RECT rect, COORD size)
-{
+void SetWindow(SMALL_RECT rect, COORD size){
     HANDLE Console = GetStdHandle(STD_OUTPUT_HANDLE);
     if (!Console)
         return;
@@ -181,8 +171,7 @@ void SetWindow(SMALL_RECT rect, COORD size)
     SetConsoleWindowInfo(Console, true, &rect);
 }
 //
-void GetWindow(SMALL_RECT* rect, COORD* size)
-{
+void GetWindow(SMALL_RECT* rect, COORD* size){
     HANDLE Console = GetStdHandle(STD_OUTPUT_HANDLE);
     if (!Console)
         return;
@@ -195,8 +184,7 @@ void GetWindow(SMALL_RECT* rect, COORD* size)
     size->Y = buf.dwSize.Y;
 }
 //
-void HideCursor(void)
-{
+void HideCursor(void){
     HANDLE Console = GetStdHandle(STD_OUTPUT_HANDLE);
     if (!Console)
         return;
@@ -207,8 +195,7 @@ void HideCursor(void)
     SetConsoleCursorInfo(Console, &buf);
 }
 //
-void ShowCursor(void)
-{
+void ShowCursor(void){
     HANDLE Console = GetStdHandle(STD_OUTPUT_HANDLE);
     if (!Console)
         return;

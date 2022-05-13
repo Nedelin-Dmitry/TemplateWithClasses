@@ -1,11 +1,10 @@
 #pragma once
 
-class Menu0
-{
+class Menu0{
 public:
-    char Title[80];	// Заголовок меню
-    char** Items;		// Позиции меню
-    int ItemsCount;		// К-во позиций меню
+    char Title[80];  // Заголовок меню
+    char** Items;  // Позиции меню
+    int ItemsCount;  // К-во позиций меню
 
     Menu0(const char* menuFileName);
     ~Menu0(void);

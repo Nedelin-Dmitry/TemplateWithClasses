@@ -52,13 +52,12 @@
 #include <conio.h>
 #include <stdlib.h>
 
-class TextEditor
-{
-private:
-    COORD text_pos; // Положение текста по X, Y
-    int text_len;   // Длина текста
-    char* text;		// Массив текста
-public:
+class TextEditor{
+ private:
+    COORD text_pos;  // Положение текста по X, Y
+    int text_len;  // Длина текста
+    char* text;  // Массив текста
+ public:
     //конструкторы и деструктор
     TextEditor();
     TextEditor(short int x, short int y, int len);

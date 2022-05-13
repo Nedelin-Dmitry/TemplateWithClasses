@@ -12,15 +12,13 @@ int main()
     write(A);
     std::cout << std::endl;
 
-    try
-    {
+    try{
         Hex C = Hex("CBA");
         int input;
         std::cin >> input;
         std::cout << C[input] << std::endl;
     }
-    catch (int _index)
-    {
+    catch (int _index){
         if (_index == 1) { std::cout << "Out of range" << std::endl; }
         else if (_index == 2) { std::cout << "Invalid characters" << std::endl; }
     }
@@ -31,8 +29,6 @@ int main()
     std::cout << std::endl;
 
     Hex Result1 = Hex();
-
-
 
     Result1 = A + B;
     std::cout << "A + B: " << std::endl;
@@ -126,8 +122,8 @@ int main()
 
     // запись и чтение в/из файл(-a)
 
-    std::ofstream out;          // поток для записи
-    out.open("Hex_Num.txt"); // открываем файл для записи Hex_Num - относительный путь
+    std::ofstream out;  // поток для записи
+    out.open("Hex_Num.txt");  // открываем файл для записи Hex_Num - относительный путь
     out << Result1 << std::endl;
 
 

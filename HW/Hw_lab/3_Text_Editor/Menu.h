@@ -1,9 +1,8 @@
 #pragma once
 //Copyright 2022 Nedelin-Dmitry
 
-class Menu0
-{
-public:
+class Menu0{
+ public:
     char Title[80];	// Заголовок меню
     char** Items;		// Позиции меню
     int ItemsCount;		// К-во позиций меню

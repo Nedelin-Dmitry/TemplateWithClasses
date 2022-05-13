@@ -74,7 +74,7 @@ class Film_str
 #include<string>
 #include<vector>
 #include<fstream>
-#include <algorithm> // sort
+#include <algorithm>  // sort
 
 using namespace std;
 
@@ -139,7 +139,6 @@ class Film
     void set_screenwriter(std::string _screenwriter) { screenwriter = _screenwriter; };
     void set_composer(std::string _composer) { composer = _composer; };
 
-
     // геттеры
     string get_title() { return title; };
     string get_director() { return director; };
@@ -169,15 +168,15 @@ class Film_library
     int get_num_of_films() { return num_of_films; };
 
     // функции
-    friend void Add_film(Film_library& _Film_lib); // 1 добавить фильм
-    friend void Film_redactor(Film_library& _Film_lib, string _title_, int _user_choose); // 2 изменить данные фильма выбранного по названию
-    friend Film_library title_year_search(Film_library& _Film_lib, string _title, int _year); // 3 найти фильм по - названию и году 
-    friend Film_library screenwriter_year_search(Film_library& _Film_lib, string _director); // 4 выдать все фильмы заданного режиссера (не на консоль) 
-    friend Film_library year_search(Film_library& _Film_lib, int _year); // 5 выдать все фильмы, вышедшие в прокат в выбранном году (не на консоль) 
-    friend Film_library film_gross_search(Film_library& _Film_lib, int num); // 6 выдать заданное число фильмов с наибольшими сборами (не на консоль) 
-    friend Film_library year_maxn_gross_search(Film_library& _Film_lib, int num, int _year); // 7 выдать заданное число фильмов с наибольшими сборами в выбранном году (не на консоль)
-    friend void get_films_count(Film_library& _Film_lib); // 8 узнать текущее число фильмов
-    friend void delete_film(Film_library& _Film_lib, string _title); // 9 удалить фильм по названию
+    friend void Add_film(Film_library& _Film_lib);  // 1 добавить фильм
+    friend void Film_redactor(Film_library& _Film_lib, string _title_, int _user_choose);  // 2 изменить данные фильма выбранного по названию
+    friend Film_library title_year_search(Film_library& _Film_lib, string _title, int _year);  // 3 найти фильм по - названию и году 
+    friend Film_library screenwriter_year_search(Film_library& _Film_lib, string _director);  // 4 выдать все фильмы заданного режиссера (не на консоль) 
+    friend Film_library year_search(Film_library& _Film_lib, int _year);  // 5 выдать все фильмы, вышедшие в прокат в выбранном году (не на консоль) 
+    friend Film_library film_gross_search(Film_library& _Film_lib, int num);  // 6 выдать заданное число фильмов с наибольшими сборами (не на консоль) 
+    friend Film_library year_maxn_gross_search(Film_library& _Film_lib, int num, int _year);  // 7 выдать заданное число фильмов с наибольшими сборами в выбранном году (не на консоль)
+    friend void get_films_count(Film_library& _Film_lib);  // 8 узнать текущее число фильмов
+    friend void delete_film(Film_library& _Film_lib, string _title);  // 9 удалить фильм по названию
 
     // Функции сохранения и загрузки библиотеки из файла - 10 сохранить фильмотеку в файл и считать фильмотеку из файла 
     friend void Lib_save(const Film_library& _Film_lib);

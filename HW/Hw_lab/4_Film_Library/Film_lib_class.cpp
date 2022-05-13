@@ -20,8 +20,7 @@ https://bestprogrammer.ru/programmirovanie-i-razrabotka/kak-ispolzovat-vektor-ve
 */
 
 
-Film::Film()
-{
+Film::Film(){
     title = "";
     director = "";
     screenwriter = "";
@@ -32,10 +31,8 @@ Film::Film()
     film_gross = 0;
 }
 
-Film Film::operator=(const Film& film_1)
-{
-    if (this != &film_1)
-    {
+Film Film::operator=(const Film& film_1){
+    if (this != &film_1){
         title = film_1.title;
         director = film_1.director;
         screenwriter = film_1.screenwriter;
@@ -49,30 +46,25 @@ Film Film::operator=(const Film& film_1)
 }
 
 
-Film_library::Film_library()
-{
+Film_library::Film_library(){
     num_of_films = 0;
     vector <Film> Film_lib(10);
 }
 
-Film_library::Film_library(const Film_library& copy)
-{
+Film_library::Film_library(const Film_library& copy){
     num_of_films = copy.num_of_films;
     Film_lib.resize(num_of_films);
-    for (int i = 0; i < num_of_films; i++)
-    {
+    for (int i = 0; i < num_of_films; i++){
         Film_lib[i] = copy.Film_lib[i];
     }
 }
 
-Film_library::~Film_library()
-{
+Film_library::~Film_library(){
     Film_lib.clear(); 
 }
 
 
-void Add_film(Film_library& _Film_lib)
-{
+void Add_film(Film_library& _Film_lib){
     int vector_size = _Film_lib.Film_lib.size();
     if (_Film_lib.num_of_films == vector_size) { _Film_lib.Film_lib.resize(_Film_lib.num_of_films + 5); } // если вектор заканчивается добавляем 5 к размеру вектора
     string for_add_str;
@@ -106,15 +98,11 @@ void Add_film(Film_library& _Film_lib)
 }
 
 
-void Film_redactor(Film_library& _Film_lib, string _title_, int _user_choose)
-{
+void Film_redactor(Film_library& _Film_lib, string _title_, int _user_choose){
 
-    for (int i = 0; i < _Film_lib.num_of_films; i++)
-    {
-        if (_title_ == _Film_lib.Film_lib[i].get_title())
-        {
-            switch (_user_choose)
-            {
+    for (int i = 0; i < _Film_lib.num_of_films; i++){
+        if (_title_ == _Film_lib.Film_lib[i].get_title()){
+            switch (_user_choose){
             case _title:
             {
                 string for_add_str;
@@ -185,14 +173,11 @@ void Film_redactor(Film_library& _Film_lib, string _title_, int _user_choose)
     }
 }
 
-Film_library title_year_search(Film_library& _Film_lib, string _title, int _year)
-{
+Film_library title_year_search(Film_library& _Film_lib, string _title, int _year){
     Film_library for_return = Film_library();
     for_return.Film_lib.resize(1);
-    for (int i = 0; i < _Film_lib.num_of_films; i++)
-    {
-        if (_title == _Film_lib.Film_lib[i].get_title() && _year == _Film_lib.Film_lib[i].get_year())
-        {
+    for (int i = 0; i < _Film_lib.num_of_films; i++){
+        if (_title == _Film_lib.Film_lib[i].get_title() && _year == _Film_lib.Film_lib[i].get_year()){
             for_return.Film_lib[0] = _Film_lib.Film_lib[i];
             for_return.num_of_films = 1;
             cout << "Film found" << endl;
@@ -203,29 +188,23 @@ Film_library title_year_search(Film_library& _Film_lib, string _title, int _year
     return for_return;
 }
 
-Film_library screenwriter_year_search(Film_library& _Film_lib, string _director)
-{
+Film_library screenwriter_year_search(Film_library& _Film_lib, string _director){
     Film_library for_return = Film_library();
     int _director_films = 0;
-    for (int i = 0; i < _Film_lib.num_of_films; i++)
-    {
+    for (int i = 0; i < _Film_lib.num_of_films; i++){
         if (_director == _Film_lib.Film_lib[i].get_director()) { _director_films += 1; };
     }
-    if (_director_films == 0)
-    {
+    if (_director_films == 0){
         cout << "No films of this director were found" << endl;
         for_return.Film_lib.resize(1);
         for_return.num_of_films = 0;
         return for_return;
     }
-    else
-    {
+    else{
         for_return.Film_lib.resize(_director_films + 1);
         for_return.num_of_films = _director_films;
-        for (int i = 0; i < for_return.num_of_films; i++)
-        {
-            if (_director == _Film_lib.Film_lib[i].get_director())
-            {
+        for (int i = 0; i < for_return.num_of_films; i++){
+            if (_director == _Film_lib.Film_lib[i].get_director()){
                 for_return.Film_lib[i] = _Film_lib.Film_lib[i];
             }
         }
@@ -234,29 +213,23 @@ Film_library screenwriter_year_search(Film_library& _Film_lib, string _director)
 
 }
 
-Film_library year_search(Film_library& _Film_lib, int _year)
-{
+Film_library year_search(Film_library& _Film_lib, int _year){
     Film_library for_return = Film_library();
     int _year_films = 0;
-    for (int i = 0; i < _Film_lib.num_of_films; i++)
-    {
+    for (int i = 0; i < _Film_lib.num_of_films; i++){
         if (_year == _Film_lib.Film_lib[i].get_year()) { _year_films += 1; };
     }
-    if (_year_films == 0)
-    {
+    if (_year_films == 0){
         cout << "No films of this director were found" << endl;
         for_return.Film_lib.resize(1);
         for_return.num_of_films = 0;
         return for_return;
     }
-    else
-    {
+    else{
         for_return.Film_lib.resize(_year_films + 1);
         for_return.num_of_films = _year_films;
-        for (int i = 0; i < for_return.num_of_films; i++)
-        {
-            if (_year == _Film_lib.Film_lib[i].get_year())
-            {
+        for (int i = 0; i < for_return.num_of_films; i++){
+            if (_year == _Film_lib.Film_lib[i].get_year()){
                 for_return.Film_lib[i] = _Film_lib.Film_lib[i];
             }
         }
@@ -264,16 +237,14 @@ Film_library year_search(Film_library& _Film_lib, int _year)
     }
 }
 
-Film_library film_gross_search(Film_library& _Film_lib, int num)
-{
+Film_library film_gross_search(Film_library& _Film_lib, int num){
     Film_library sorted_lib = Film_library(_Film_lib);
     Film_library for_return = Film_library();
     sort(sorted_lib.Film_lib.begin(), sorted_lib.Film_lib.end());
     for_return.Film_lib.resize(num);
     for_return.num_of_films = num;
     int check_num = 0;
-    for (int i = sorted_lib.num_of_films - 1; i >= 0; i--)
-    {
+    for (int i = sorted_lib.num_of_films - 1; i >= 0; i--){
         if (check_num == num) { break; };
         for_return.Film_lib[check_num] = sorted_lib.Film_lib[i];
         check_num += 1;
@@ -281,30 +252,25 @@ Film_library film_gross_search(Film_library& _Film_lib, int num)
     return for_return;
 }
 
-Film_library year_maxn_gross_search(Film_library& _Film_lib, int num, int _year)
-{
+Film_library year_maxn_gross_search(Film_library& _Film_lib, int num, int _year){
     Film_library for_return = Film_library();
     int count_year = 0;
-    for (int i = 0; i < _Film_lib.num_of_films; i++)
-    {
+    for (int i = 0; i < _Film_lib.num_of_films; i++){
         if (_year == _Film_lib.Film_lib[i].get_year()) { count_year += 1; };
     }
-    if (num > count_year)
-    {
+    if (num > count_year){
         cout << count_year << "There are not so many films of this year in the library" << endl;
         system("pause");
     }
-    else {
+    else{
         Film_library sorted_lib = Film_library(_Film_lib);
         sort(sorted_lib.Film_lib.begin(), sorted_lib.Film_lib.end());
         for_return.Film_lib.resize(num);
         for_return.num_of_films = num;
         int check_num = 0;
-        for (int i = sorted_lib.num_of_films - 1; i >= 0; i--)
-        {
+        for (int i = sorted_lib.num_of_films - 1; i >= 0; i--){
             if (check_num == num) { break; };
-            if (_year == sorted_lib.Film_lib[i].get_year())
-            {
+            if (_year == sorted_lib.Film_lib[i].get_year()){
                 for_return.Film_lib[check_num] = sorted_lib.Film_lib[i];
                 check_num += 1;
             }
@@ -315,30 +281,24 @@ Film_library year_maxn_gross_search(Film_library& _Film_lib, int num, int _year)
 
 
 
-void get_films_count(Film_library& _Film_lib)
-{
+void get_films_count(Film_library& _Film_lib){
     cout << "Film in lib: " << _Film_lib.num_of_films << endl;
     system("pause");
 }
 
-void delete_film(Film_library& _Film_lib, string _title)
-{
+void delete_film(Film_library& _Film_lib, string _title){
     int _iterator = -1;
-    for (int i = 0; i < _Film_lib.num_of_films; i++)
-    {
-        if (_title == _Film_lib.Film_lib[i].get_title())
-        {
+    for (int i = 0; i < _Film_lib.num_of_films; i++){
+        if (_title == _Film_lib.Film_lib[i].get_title()){
             _iterator = i;
             break;
         }
     }
-    if (_iterator == -1)
-    {
+    if (_iterator == -1){
         cout << "A film with this name was not found" << endl;
         system("pause");
     }
-    else
-    {
+    else{
         _Film_lib.Film_lib.erase(_Film_lib.Film_lib.begin() + _iterator);
         _Film_lib.num_of_films -= 1;
         cout << "Film deleted" << endl;
@@ -346,12 +306,10 @@ void delete_film(Film_library& _Film_lib, string _title)
     }
 }
 
-void Lib_save(const Film_library& _Film_lib)
-{
+void Lib_save(const Film_library& _Film_lib){
     ofstream out;
     out.open("Saved_film_lib.txt");
-    if (out.is_open())
-    {
+    if (out.is_open()){
         Film for_output;
         string _title_;
         string _director_;
@@ -361,8 +319,7 @@ void Lib_save(const Film_library& _Film_lib)
         int _mount_;
         int _year_;
         int _gross_;
-        for (int i = 0; i < _Film_lib.num_of_films; i++)
-        {
+        for (int i = 0; i < _Film_lib.num_of_films; i++){
             for_output = _Film_lib.Film_lib[i];
             _title_ = for_output.get_title();
             _director_ = for_output.get_director();
@@ -387,25 +344,19 @@ void Lib_save(const Film_library& _Film_lib)
 }
 
 // получаем строку с getline и работаем с ней
-Film Line_to_Film(string _line) // решить проблему с пробелами
-{
+Film Line_to_Film(string _line){  // решить проблему с пробелами
     Film return_film = Film();
-    for (int i = 3, data = 1; i < _line.size(); i++) // i - символ в строке
-    {
-        if (_line[i] == '|' || _line[i] == '.')
-        {
+    for (int i = 3, data = 1; i < _line.size(); i++){ // i - символ в строке
+        if (_line[i] == '|' || _line[i] == '.'){
             data += 1;
-            if (_line[i] == '|')
-            {
+            if (_line[i] == '|'){
                 i += 2;
             }
-            else if (_line[i] == '.')
-            {
+            else if (_line[i] == '.'){
                 i += 1;
             }
         }
-        switch (data)
-        {
+        switch (data){
         case _title:
             if ((int)_line[i] == SPACE_IN_ASKII) {}
             else {
@@ -463,8 +414,7 @@ Film Line_to_Film(string _line) // решить проблему с пробелами
     return return_film;
 }
 
-void Lib_load(Film_library& _str)
-{
+void Lib_load(Film_library& _str){
     Film Load_film;
     ifstream in;
     string read_line;
@@ -485,10 +435,8 @@ void Lib_load(Film_library& _str)
     system("pause");
 }
 
-void Write_Film(Film_library& _Film)
-{
-    if (_Film.Film_lib[0].get_title() == "-")
-    {
+void Write_Film(Film_library& _Film){
+    if (_Film.Film_lib[0].get_title() == "-"){
 
     }
     else {
@@ -499,10 +447,8 @@ void Write_Film(Film_library& _Film)
     }
 }
 
-void Write_lib(Film_library& _Film_lib)
-{
-    for (int i = 0; i < _Film_lib.num_of_films; i++)
-    {
+void Write_lib(Film_library& _Film_lib){
+    for (int i = 0; i < _Film_lib.num_of_films; i++){
         cout << "Название фильма: " << _Film_lib.Film_lib[i].get_title() << "\nРежисёр фильма: " << _Film_lib.Film_lib[i].get_director() << "\nСценарист фильма: "
             << _Film_lib.Film_lib[i].get_screenwriter() << "\nКомпозитор фильма: " << _Film_lib.Film_lib[i].get_composer() << "\nДата фильма: " << _Film_lib.Film_lib[i].get_day() << "."
             << _Film_lib.Film_lib[i].get_mount() << "." << _Film_lib.Film_lib[i].get_year() << "\nСборы фильма: " << _Film_lib.Film_lib[i].get_film_gross() << "$" << endl;

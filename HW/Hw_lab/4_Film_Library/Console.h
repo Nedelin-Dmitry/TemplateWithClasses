@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <memory.h>
 
-enum TColor {
+enum TColor{
     BLACK, BLUE, GREEN, CYAN, RED, MAGENTA, BROWN, LIGHTGRAY,
     DARKGRAY, LIGHTBLUE, LIGHTGREEN, LIGHTCYAN, LIGHTRED,
     LIGHTMAGENTA, YELLOW, WHITE

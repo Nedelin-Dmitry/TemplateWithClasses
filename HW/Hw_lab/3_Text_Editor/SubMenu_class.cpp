@@ -22,8 +22,7 @@ int new_len = 10;
 
 TextEditor For_copy;
 
-void SubMenu_work(HANDLE _hStdOut, TextEditor& ZERO)
-{
+void SubMenu_work(HANDLE _hStdOut, TextEditor& ZERO){
     For_copy = TextEditor(ZERO);
     //setlocale(LC_CTYPE, "Russian");	// Для ввода-вывода русских букв
 
@@ -38,14 +37,12 @@ void SubMenu_work(HANDLE _hStdOut, TextEditor& ZERO)
 
     */
     int itemPos;
-    do
-    {
+    do{
         clrscr();
         itemPos = menu0.selectItem();
         cout << "Выбрано " << itemPos << " +++++++++++++++++++++++++++" << endl;
         clrscr();
-        switch (itemPos)
-        {
+        switch (itemPos){
         case 1:
             GetConsoleScreenBufferInfo(_hStdOut, &screen_buffer_info);
             cout << "Введите положение окна по X:" << endl;
@@ -70,21 +67,17 @@ void SubMenu_work(HANDLE _hStdOut, TextEditor& ZERO)
             GetConsoleScreenBufferInfo(_hStdOut, &screen_buffer_info);
             {
                 int for_control_len = ZERO.get_len();
-                do
-                {
+                do{
                     cout << "Введите положение строки по X не превышающую " << screen_buffer_info.dwSize.X - for_control_len << ":" << endl;
                     cin >> For_set_positio.X;
-                    if (For_set_positio.X < 0 || For_set_positio.X > screen_buffer_info.dwSize.X - for_control_len)
-                    {
+                    if (For_set_positio.X < 0 || For_set_positio.X > screen_buffer_info.dwSize.X - for_control_len){
                         cout << "Ошибка ввода, попробуйте ещё!" << endl;
                     }
                 } while (For_set_positio.X < 0 || For_set_positio.X > screen_buffer_info.dwSize.X - for_control_len);
-                do
-                {
+                do{
                     cout << "Введите положение строки по Y не превышающую:" << screen_buffer_info.dwSize.Y << endl;
                     cin >> For_set_positio.Y;
-                    if ((For_set_positio.Y < 0 || For_set_positio.X > screen_buffer_info.dwSize.Y))
-                    {
+                    if ((For_set_positio.Y < 0 || For_set_positio.X > screen_buffer_info.dwSize.Y)){
                         cout << "Ошибка ввода, попробуйте ещё!" << endl;
                     }
                 } while (For_set_positio.Y < 0 || For_set_positio.X > screen_buffer_info.dwSize.Y);
@@ -93,15 +86,13 @@ void SubMenu_work(HANDLE _hStdOut, TextEditor& ZERO)
             }
             //TextEditor::set_pos(For_set_positio, ZERO); - без static не работает, но static всё ломает - выход - временный объект класса
             break;
-        case 4: // Почему-то не работает - спросить
+        case 4:  // Почему-то не работает - спросить
             GetConsoleScreenBufferInfo(_hStdOut, &screen_buffer_info);
             COORD for_control_x_pos = ZERO.get_pos();
             cout << "Введите длину строки больше 0 и не превышающую " << screen_buffer_info.dwSize.X - for_control_x_pos.X << ":" << endl;
-            do
-            {
+            do{
                 cin >> new_len;
-                if (new_len <= 0 || new_len > screen_buffer_info.dwSize.X)
-                {
+                if (new_len <= 0 || new_len > screen_buffer_info.dwSize.X){
                     cout << "Ошибка ввода, попробуйте ещё!" << endl;
                 }
             } while (new_len <= 0 || new_len > (screen_buffer_info.dwSize.X - for_control_x_pos.X));

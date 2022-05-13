@@ -5,8 +5,7 @@
 
 
 
-int main()
-{
+int main(){
 
     system("title TextEditor");
  
@@ -21,19 +20,17 @@ int main()
 
     Film_library Ñurrent_lib = Film_library();
     int itemPos; 
-    do {
+    do{
         clrscr();
         itemPos = menu0.selectItem();
         clrscr();
-        switch (itemPos)
-        {
+        switch (itemPos){
         case Add_film_lib: 
             Add_film(Ñurrent_lib);
             break;
         case Change_film: 
         {
-            if (Ñurrent_lib.get_num_of_films() == 0)
-            {
+            if (Ñurrent_lib.get_num_of_films() == 0){
                 cout << "The library is empty" << endl;
                 system("pause");
                 break;
@@ -51,13 +48,11 @@ int main()
         }
         break;
         case Find_title_year: 
-            if (Ñurrent_lib.get_num_of_films() == 0)
-            {
+            if (Ñurrent_lib.get_num_of_films() == 0){
                 cout << "The library is empty" << endl;
                 system("pause");
             }
-            else
-            {
+            else{
                 string _title;
                 cout << "Input the title of the film: " << endl;
                 cin >> _title;
@@ -69,19 +64,16 @@ int main()
             }
             break;
         case Films_director: 
-            if (Ñurrent_lib.get_num_of_films() == 0)
-            {
+            if (Ñurrent_lib.get_num_of_films() == 0){
                 cout << "The library is empty" << endl;
                 system("pause");
             }
-            else
-            {
+            else{
                 string _director;
                 cout << "Input the director of the film: " << endl;
                 cin >> _director;
                 Film_library A = Film_library(screenwriter_year_search(Ñurrent_lib, _director));
-                if (A.get_num_of_films() == 0)
-                {
+                if (A.get_num_of_films() == 0){
 
                 }
                 else {
@@ -90,19 +82,16 @@ int main()
             }
             break;
         case Find_film_year: 
-            if (Ñurrent_lib.get_num_of_films() == 0)
-            {
+            if (Ñurrent_lib.get_num_of_films() == 0){
                 cout << "The library is empty" << endl;
                 system("pause");
             }
-            else
-            {
+            else{
                 int _year;
                 cout << "Input the year of the film: " << endl;
                 cin >> _year;
                 Film_library A = Film_library(year_search(Ñurrent_lib, _year));
-                if (A.get_num_of_films() == 0)
-                {
+                if (A.get_num_of_films() == 0){
 
                 }
                 else {
@@ -111,19 +100,16 @@ int main()
             }
             break;
         case Film_gross_num: 
-            if (Ñurrent_lib.get_num_of_films() == 0) 
-            {
+            if (Ñurrent_lib.get_num_of_films() == 0) {
                 cout << "The library is empty" << endl;
                 system("pause");
             }
-            else
-            {
+            else{
                 int _num;
                 cout << "How many movies do you want to output" << endl;
                 cin >> _num;
                 Film_library A = Film_library(film_gross_search(Ñurrent_lib, _num));
-                if (A.get_num_of_films() == 0)
-                {
+                if (A.get_num_of_films() == 0){
                     cout << "Ruined" << endl;
                     system("pause");
                 }
@@ -133,13 +119,11 @@ int main()
             }
             break;
         case Film_gross_num_year: 
-            if (Ñurrent_lib.get_num_of_films() == 0)
-            {
+            if (Ñurrent_lib.get_num_of_films() == 0){
                 cout << "The library is empty" << endl;
                 system("pause");
             }
-            else
-            {
+            else{
                 int _year;
                 cout << "Input the year of the film: " << endl;
                 cin >> _year;
@@ -147,8 +131,7 @@ int main()
                 cout << "How many movies do you want to output" << endl;
                 cin >> _num;
                 Film_library A = Film_library(year_maxn_gross_search(Ñurrent_lib, _num, _year));
-                if (A.get_num_of_films() == 0)
-                {
+                if (A.get_num_of_films() == 0){
                     cout << "Ruined" << endl;
                     system("pause");
                 }
@@ -175,13 +158,11 @@ int main()
             Lib_load(Ñurrent_lib);
             break;
         case Write_Library: 
-            if (Ñurrent_lib.get_num_of_films() == 0)
-            {
+            if (Ñurrent_lib.get_num_of_films() == 0){
                 cout << "The library is empty" << endl;
                 system("pause");
             }
-            else
-            {
+            else{
                 Write_lib(Ñurrent_lib);
             }
         }
@@ -190,4 +171,5 @@ int main()
     cout << "Ïðîãðàììà çàâåðøåíà" << endl;
 
     return 0;
+
 }
