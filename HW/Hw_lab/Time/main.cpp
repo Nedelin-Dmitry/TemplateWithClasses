@@ -1,114 +1,115 @@
 #include<iostream>
 #include"Time.h"
+using namespace std;
 // Copyright 2022 Nedelin-Dmitry
 
 int main() {
     //по умолчанию
     Time defolt = Time();
-    std::cout << "Time is : " << defolt << std::endl;  // Доработать для формата 00:00:00
+    cout << "Time is : " << defolt << endl;
     // преобразование строки в параметры времени
-    std::string a = "12:54:23";
+    string a = "12:54:23";
     Time strng_time = Time(a);
-    std::cout << "Time is : " << strng_time << std::endl;  // перегрузка вывода
-    std::cout << std::endl;
+    cout << "Time is : " << strng_time << endl;  // перегрузка вывода
+    cout << endl;
     // Копирование и конструктор с задаными параметрами
     Time f_copy = Time();
     Time copy = Time(19, 45, 29);
-    std::cout << "Time is : " << copy << std::endl;
-    std::cout << "Time is : " << f_copy << std::endl;
+    cout << "Time is : " << copy << endl;
+    cout << "Time is : " << f_copy << endl;
     f_copy = Time(copy);
-    std::cout << "Time is : " << f_copy << std::endl;
-    std::cout << std::endl;
+    cout << "Time is : " << f_copy << endl;
+    cout << endl;
     //Ввод переменной
-    std::cout << "Enter the time in the format hours, minuts, seconds - (9 12 13)" << std::endl;
+    cout << "Enter the time in the format hours, minuts, seconds - (9 12 13)" 
+    << endl;
     Time for_input;
     while (1) {
-        std::cin >> for_input;
-        if (for_input.get_hour() > -1 && for_input.get_hour() < 24 && for_input.get_min() > -1 && for_input.get_min() < 60 && for_input.get_sec() > -1 && for_input.get_sec() < 60){
+        cin >> for_input;
+        if (for_input.get_hour() > -1 && for_input.get_hour() < 24 && for_input.get_min() > -1 && for_input.get_min() < 60 && for_input.get_sec() > -1 && for_input.get_sec() < 60) {
             break;
         }
         else {
-            std::cout << "Input error, try again" << std::endl;
+            cout << "Input error, try again" << endl;
         }
     }
-    std::cout << "You entered: " << for_input << std::endl;
-    std::cout << std::endl;
+    cout << "You entered: " << for_input << endl;
+    cout << endl;
 
     // operator +
-    std::cout << "Plus : a + b" << std::endl;
-    std::cout << "a: " << defolt << std::endl;
+    cout << "Plus : a + b" << endl;
+    cout << "a: " << defolt << endl;
     Time f_pluz = Time(3, 10, 10);
-    std::cout << "b: " << f_pluz << std::endl;
+    cout << "b: " << f_pluz << :endl;
     Time pluzzd = defolt + f_pluz;
-    std::cout << "a + b :" << pluzzd << std::endl;
-    std::cout << std::endl;
+    cout << "a + b :" << pluzzd << endl;
+    cout << endl;
 
-    //operator -
-    std::cout << "Minus : a - b" << std::endl;
-    std::cout << "a: " << pluzzd << std::endl;
-    std::cout << "b: " << f_pluz << std::endl;
+    // operator -
+    cout << "Minus : a - b" << endl;
+    cout << "a: " << pluzzd << endl;
+    cout << "b: " << f_pluz << endl;
     Time minuzzd = pluzzd - f_pluz;
-    std::cout << "a - b:" << minuzzd << std::endl;
-    std::cout << std::endl;
+    cout << "a - b:" << minuzzd << endl;
+    cout << endl;
 
-    //operator =
-    std::cout << "copy is: " << copy << std::endl;
+    // operator =
+    cout << "copy is: " << copy << endl;
     Time ravno = copy;
-    std::cout << "ravno is: " << ravno << std::endl;
-    std::cout << std::endl;
-    std::cout << "Comparison operators" << std::endl;
+    cout << "ravno is: " << ravno << endl;
+    cout << endl;
+    cout << "Comparison operators" << endl;
     Time bolshe = Time(10, 10, 10);
     Time menshe = Time(1, 1, 1);
-    std::cout << "a is: " << bolshe << std::endl;
-    std::cout << "b is: " << menshe << std::endl;
-    std::cout << std::endl;
+    cout << "a is: " << bolshe << endl;
+    cout << "b is: " << menshe << endl;
+    cout << endl;
 
     // operation ==
     bool good1 = bolshe == bolshe;
-    std::cout << "a = a? " << good1 << std::endl;
+    cout << "a = a? " << good1 << endl;
     bool bad1 = bolshe == menshe;
-    std::cout << "a = b? " << bad1 << std::endl;
-    std::cout << std::endl;
-    // operator <=
+    cout << "a = b? " << bad1 << endl;
+    cout << endl;
 
+    // operator <=
     bool good2 = bolshe <= menshe;
-    std::cout << "a <= b? " << good2 << std::endl;
+    cout << "a <= b? " << good2 << endl;
     bool bad2 = menshe <= bolshe;
-    std::cout << "b <= a? " << bad2 << std::endl;
-    std::cout << std::endl;
+    cout << "b <= a? " << bad2 << endl;
+    cout << endl;
 
     // operator >=
 
     bool good3 = bolshe >= menshe;
-    std::cout << "a >= b? " << good3 << std::endl;
+    cout << "a >= b? " << good3 << endl;
     bool bad3 = menshe >= bolshe;
-    std::cout << "b >= a? " << bad3 << std::endl;
-    std::cout << std::endl;
+    cout << "b >= a? " << bad3 << endl;
+    cout << endl;
 
     // operator >
 
     bool good4 = bolshe > menshe;
-    std::cout << "a > b? " << good3 << std::endl;
+    cout << "a > b? " << good3 << endl;
     bool bad4 = menshe > bolshe;
-    std::cout << "b > a? " << bad3 << std::endl;
-    std::cout << std::endl;
+    cout << "b > a? " << bad3 << endl;
+    cout << endl;
 
     // operator <
     bool good5 = bolshe < menshe;
-    std::cout << "a < b? " << good5 << std::endl;
+    cout << "a < b? " << good5 << endl;
     bool bad5 = menshe < bolshe;
-    std::cout << "b < a? " << bad5 << std::endl;
-    std::cout << std::endl;
+    cout << "b < a? " << bad5 << endl;
+    cout << endl;
 
 
     // operator !=
     bool good6 = bolshe != menshe;
-    std::cout << "a != b? " << good6 << std::endl;
+    cout << "a != b? " << good6 << endl;
     bool bad6 = menshe != menshe;
-    std::cout << "b != b? " << bad6 << std::endl;
-    std::cout << std::endl;
+    cout << "b != b? " << bad6 << endl;
+    cout << endl;
 
 
     return 0;
-
 }

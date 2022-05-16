@@ -4,6 +4,8 @@ using namespace std;
 
 #include"Menu.h"
 
+// Copyright 2022 Who?
+
 Menu0::Menu0(const char* menuFileName) {
     fstream is;  // поток для чтения
     is.open(menuFileName, ios::in);  // файл для чтения
@@ -23,9 +25,7 @@ Menu0::Menu0(const char* menuFileName) {
         Items[i] = new char[80];
         is.getline(Items[i], 80);
     }
-
     is.close();
-
 }
 
 Menu0::~Menu0(void) {
@@ -38,7 +38,6 @@ Menu0::~Menu0(void) {
 }
 
 void Menu0::showMenu0() {
-
 }
 
 int Menu0::selectItem() {
@@ -56,6 +55,5 @@ int Menu0::selectItem() {
         }
 
     } while (itemPos == -1);
-
     return itemPos;
 }

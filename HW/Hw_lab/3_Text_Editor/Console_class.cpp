@@ -1,4 +1,5 @@
 #include"Console.h"
+// Copyright 2022 Who?
 
 int wherex(void) {
     HANDLE Console = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -92,7 +93,7 @@ void textcolor(int color) {
 
     SetConsoleTextAttribute(Console, col);
 
-    //char ch;
+    // char ch;
     TCHAR ch;
     pos = WhereXY();
     ReadConsoleOutputCharacter(Console, &ch, 1, pos, &Count);
@@ -119,7 +120,7 @@ void textbackground(int color) {
 
     SetConsoleTextAttribute(Console, col);
 
-    //char ch; ch;
+    // char ch; ch;
     TCHAR ch;
     pos = WhereXY();
     ReadConsoleOutputCharacter(Console, &ch, 1, pos, &Count);
@@ -136,7 +137,7 @@ void textattr(int color) {
 
     DWORD Count;
     TCHAR ch;
-    //char ch;
+    // char ch;
     COORD pos = WhereXY();
     ReadConsoleOutputCharacter(Console, &ch, 1, pos, &Count);
     printf("%c", ch);

@@ -1,5 +1,5 @@
 #include"Text_Editor.h"
-
+// Copyright 2022 Nedelin-Dmitry
 
 TextEditor::TextEditor() {
     text_pos.X = 0;

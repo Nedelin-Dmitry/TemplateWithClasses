@@ -25,9 +25,9 @@ min, sec.
 #define sec_per_day 86400  // кол-во секунд в сутках для расчёта в plus & minus
 
 class Time {
- private:
+  private:
     int hour, min, sec;  // переменные времени
- public:
+  public:
     // Конструкторы
     Time();  // конструктор по умолчанию
     Time(std::string time_str);  // перевод из символьной строки в int значения

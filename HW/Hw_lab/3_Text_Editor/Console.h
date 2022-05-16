@@ -1,4 +1,5 @@
 #pragma once
+// Copyright 2022 Who?
 #include <windows.h>
 #include <stdio.h>
 #include <memory.h>

@@ -1,9 +1,6 @@
 #include"Film_lib.h"
-
-
+// Copyright 2022 Nedelin-Dmitry
 using namespace std;
-
-
 /*
 class Film_str
 название - title
@@ -16,9 +13,7 @@ class Film_str
 
 векторы
 https://bestprogrammer.ru/programmirovanie-i-razrabotka/kak-ispolzovat-vektor-vecto-v-c
-
 */
-
 
 Film::Film() {
     title = "";
@@ -62,7 +57,6 @@ Film_library::Film_library(const Film_library& copy) {
 Film_library::~Film_library(){
     Film_lib.clear(); 
 }
-
 
 void Add_film(Film_library& _Film_lib) {
     int vector_size = _Film_lib.Film_lib.size();

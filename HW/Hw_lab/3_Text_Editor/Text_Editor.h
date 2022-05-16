@@ -76,8 +76,7 @@ class TextEditor{
     //функции
     friend void window_position(HANDLE _hStdOut, short int _x_pos_win, short int _y_pos_win, short int _weight_win, short int _height_win, TextEditor& ZERO);
     friend void window_size(HANDLE _hStdOut, short int _x_pos_win, short int _y_pos_win, short int _weight_win, short int _height_win, TextEditor& ZERO);
-    friend void hide_show_editor(TextEditor& ZERO); // Как не передавать аргумент ?? -Написать Деду -- Не видит определния но работает ;3
+    friend void hide_show_editor(TextEditor& ZERO);
     friend void on_text_editor(HANDLE _hStdOut, TextEditor& EditorWork);
     friend void off_editor(HANDLE _hStdOut, TextEditor& EditorOff);
-
 };

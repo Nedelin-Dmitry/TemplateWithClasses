@@ -40,116 +40,116 @@ using namespace std;
 
 
 
-//class Ticket
-//{
-//    string Name; // struct Full_Name ???
-//    string Surname;
-//    string Patronymic;
-//    Date Data;
-//    int Train_id;
-//    int Seat_id;
-//    int Wagon_id;
-//    int Cost; // ????
-//    string Start_station;
-//    string Finish_station;
-//};
-//
-//// Дата
-//struct Date
-//{
-//    int day;
-//    int month;
-//    int year;
-//};
-//
-//// Сидения
-//struct Seat
-//{
-//    int id;
-//    bool occupied;
-//};
-//
-//// Обычный вагон(100 мест)
-//struct Swallow_carriage
-//{
-//    int id;
-//    vector <Seat> Sw_seat(100);
-//};
-//
-//// Плацкартный вагон
-//struct Econom_carriage
-//{
-//    int id;
-//    vector <Seat> Top_seat(27);
-//    vector <Seat> Lower_seat(27);
-//};
-//
-//// Купейный вагон
-//struct Coupe_carriage
-//{
-//    int id;
-//    vector <Seat> Top_seat(18);
-//    vector <Seat> Lower_seat(18);
-//};
-//
-//// СВ вагон
-//struct SV_carriage
-//{
-//    int id;
-//    vector <Seat> Lower_seat(18);
-//};
-//
-//// Ласточка x3
-//struct Swallow
-//{
-//    int id;
-//    vector <Swallow_carriage> Wagon(8);
-//};
-//
-//// Фирменый x2 ( 1 на направление)
-//struct Branded {
-//    int id;
-//    vector <Econom_carriage> EC_wagon(4);
-//    vector <Coupe_carriage> CP_wagon(6);
-//    vector <SV_carriage> SV_wagon(2);
-//};
-//
-//// Скорый поезд x2 ( 1 на направление) 4 купейных вагона, 8 плацкартных вагонов
-//struct Express
-//{
-//    int id;
-//    vector <Econom_carriage> EC_wagon(8);
-//    vector <Coupe_carriage> CP_wagon(4);
-//};
-//
-///*
-//Поезда (десять номеров от 1 до 100) - массив int для поездов?
-//Вагоны(1 - 12)
-//Места ( 1 - максимум)
-//*/
-//class GorkyRailway //(поддержка)
-//{
-// private:
-//     vector <Swallow> Swallow_train(3);
-//     Branded M_Braned_train;
-//     Express M_Express_train;
-//     Branded N_Braned_train;
-//     Express N_Express_train;
-//};
-//
-///*
-//1) принять заказ билетов покупателя : дату, поезд, тип вагона(если есть выбор), количество билетов каждого возможного вида(если есть выбор), ФИО пассажиров
-//2) проверить наличие свободных мест по запросу покупателя(при невозможности выдать все билеты в одном вагоне, считать заказ невыполнимым)
-//3) зарезервировать места,
-//4) рассчитать общую стоимость билетов
-//5) отменить заказ билетов
-//6) сформировать билеты(каждый билет включает : дату, номер поезда, номер вагона, номер места, ФИО пассажира, станция отправления, станция прибытия).
-//*/
-//class RailTicketOffice //(основной)
-//{
-// private:
-//     GorkyRailway Rail_way;
-//     vector <Ticket> TicketS; // пока без размера
-// public:
-//
-//};
+class Ticket
+{
+    string Name; // struct Full_Name ???
+    string Surname;
+    string Patronymic;
+    Date Data;
+    int Train_id;
+    int Seat_id;
+    int Wagon_id;
+    int Cost; // ????
+    string Start_station;
+    string Finish_station;
+};
+
+// Дата
+struct Date
+{
+    int day;
+    int month;
+    int year;
+};
+
+// Сидения
+struct Seat
+{
+    int id;
+    bool occupied;
+};
+
+// Обычный вагон(100 мест)
+struct Swallow_carriage
+{
+    int id;
+    vector <Seat> Sw_seat(100);
+};
+
+// Плацкартный вагон
+struct Econom_carriage
+{
+    int id;
+    vector <Seat> Top_seat(27);
+    vector <Seat> Lower_seat(27);
+};
+
+// Купейный вагон
+struct Coupe_carriage
+{
+    int id;
+    vector <Seat> Top_seat(18);
+    vector <Seat> Lower_seat(18);
+};
+
+// СВ вагон
+struct SV_carriage
+{
+    int id;
+    vector <Seat> Lower_seat(18);
+};
+
+// Ласточка x3
+struct Swallow
+{
+    int id;
+    vector <Swallow_carriage> Wagon(8);
+};
+
+// Фирменый x2 ( 1 на направление)
+struct Branded {
+    int id;
+    vector <Econom_carriage> EC_wagon(4);
+    vector <Coupe_carriage> CP_wagon(6);
+    vector <SV_carriage> SV_wagon(2);
+};
+
+// Скорый поезд x2 ( 1 на направление) 4 купейных вагона, 8 плацкартных вагонов
+struct Express
+{
+    int id;
+    vector <Econom_carriage> EC_wagon(8);
+    vector <Coupe_carriage> CP_wagon(4);
+};
+
+/*
+Поезда (десять номеров от 1 до 100) - массив int для поездов?
+Вагоны(1 - 12)
+Места ( 1 - максимум)
+*/
+class GorkyRailway //(поддержка)
+{
+ private:
+     vector <Swallow> Swallow_train(3);
+     Branded M_Braned_train;
+     Express M_Express_train;
+     Branded N_Braned_train;
+     Express N_Express_train;
+};
+
+/*
+1) принять заказ билетов покупателя : дату, поезд, тип вагона(если есть выбор), количество билетов каждого возможного вида(если есть выбор), ФИО пассажиров
+2) проверить наличие свободных мест по запросу покупателя(при невозможности выдать все билеты в одном вагоне, считать заказ невыполнимым)
+3) зарезервировать места,
+4) рассчитать общую стоимость билетов
+5) отменить заказ билетов
+6) сформировать билеты(каждый билет включает : дату, номер поезда, номер вагона, номер места, ФИО пассажира, станция отправления, станция прибытия).
+*/
+class RailTicketOffice //(основной)
+{
+ private:
+     GorkyRailway Rail_way;
+     vector <Ticket> TicketS; // пока без размера
+ public:
+
+};

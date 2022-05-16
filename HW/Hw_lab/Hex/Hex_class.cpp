@@ -1,4 +1,5 @@
 #include"Hex.h"
+// Copyright Nedelin-Dmitry 2022
 
 Hex::Hex() {
     size = 20;
@@ -190,7 +191,6 @@ Hex operator*(const Hex& h1, int input) {
 
 bool operator>(const Hex& h1, const Hex& h2) {
     return h1.num_int > h2.num_int;
-
 }
 
 bool operator<(const Hex& h1, const Hex& h2) {
