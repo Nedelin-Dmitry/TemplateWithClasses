@@ -3,8 +3,8 @@
 #include"Hex.h"
 
 int main() {
-    Hex A = Hex("FE1"); // не работает переворот в преобразовании десятиричного в hex //ABC //FE1
-    Hex B = Hex("ABC"); // вывод char задом наперёд
+    Hex A = Hex("FE1"); // the flip in converting decimal to hex //ABC//FE1 does not work
+    Hex B = Hex("ABC"); // output char backwards
 
 
     std::cout << "A is : " << std::endl;
@@ -22,7 +22,6 @@ int main() {
         else if (_index == 2) { std::cout << "Invalid characters" << std::endl; }
     }
     std::cout << std::endl;
-
     std::cout << "B is : " << std::endl;
     write(B);
     std::cout << std::endl;
@@ -119,10 +118,10 @@ int main() {
     std::cout << "A == B? " << result << std::endl;
     std::cout << std::endl;
 
-    // запись и чтение в/из файл(-a)
+    // writing and reading to/from a file(-a)
 
-    std::ofstream out;  // поток для записи
-    out.open("Hex_Num.txt");  // открываем файл для записи Hex_Num - относительный путь
+    std::ofstream out;  // stream for recording
+    out.open("Hex_Num.txt");  // opening the file to write Hex_Num - relative path
     out << Result1 << std::endl;
 
 

@@ -7,32 +7,32 @@
 using namespace std;
 
 int main() {
-    // задаЄм название консольного окна
+    // setting the name of the console window
     system("title TextEditor");
 
-    // получаем дескриптор окна дл€ обращени€ к консоли
+    // getting a window handle to access the console
     HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
 
-    // устанавливаем взаимодействие с русскими буквами
-    SetConsoleCP(1251);         // установка кодовой страницы win-cp 1251 в поток ввода
-    SetConsoleOutputCP(1251);   // установка кодовой страницы win-cp 1251 в поток вывода
+    // we establish interaction with Russian letters
+    SetConsoleCP(1251);         // installing the win-cp 1251 code page in the input stream
+    SetConsoleOutputCP(1251);   // installing the win-cp 1251 code page in the output stream
 
-    setlocale(LC_CTYPE, "Russian");  // ƒл€ ввода-вывода русских букв
+    setlocale(LC_CTYPE, "Russian");  // For input/output of Russian letters
 
     Menu0 menu0("MainMenu.txt");
 
     TextEditor Editor = TextEditor();
-    int itemPos;  // позици€ в меню - ѕопробывать передать Int по string т.к при вводе символов меню крашитс€
+    // the position in the menu is to try to pass Int by string, because when entering characters, the menu crashes
+    int itemPos;
     do {
         clrscr();
         itemPos = menu0.selectItem();
-        cout << "¬ыбрано " << itemPos << " +++++++++++++++++++++++++++" << endl;
         clrscr();
         switch (itemPos) {
-        case 0: // выход из текстового редактора
+        case 0: // exiting the text editor
             off_editor(hStdOut, Editor);
-            break; // нужен ли break? всЄ работает и без него
-        case 1: // работа тектового редактора
+            break; // do I need a break? everything works without it
+        case 1: // the work of a text editor
             on_text_editor(hStdOut, Editor);
             break;
         case 2:

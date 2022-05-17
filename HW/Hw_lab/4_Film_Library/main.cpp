@@ -60,7 +60,8 @@ int main() {
                 cout << "Input the year of the film: " << endl;
                 cin >> _year;
                 Film_library A = Film_library(title_year_search(Ñurrent_lib, _title, _year));
-                Write_Film(A);
+                cout << A;
+                system("pause");
             }
             break;
         case Films_director: 
@@ -77,7 +78,8 @@ int main() {
 
                 }
                 else {
-                    Write_lib(A);
+                    cout << A;
+                    system("pause");
                 }
             }
             break;
@@ -95,7 +97,8 @@ int main() {
 
                 }
                 else {
-                    Write_lib(A);
+                    cout << A;
+                    system("pause");
                 }
             }
             break;
@@ -114,7 +117,8 @@ int main() {
                     system("pause");
                 }
                 else {
-                    Write_lib(A);
+                    cout << A;
+                    system("pause");
                 }
             }
             break;
@@ -136,7 +140,8 @@ int main() {
                     system("pause");
                 }
                 else {
-                    Write_lib(A);
+                    cout << A;
+                    system("pause");
                 }
             }
             break;
@@ -163,7 +168,8 @@ int main() {
                 system("pause");
             }
             else{
-                Write_lib(Ñurrent_lib);
+                cout << Ñurrent_lib;
+                system("pause");
             }
         }
     } while (itemPos != 0);

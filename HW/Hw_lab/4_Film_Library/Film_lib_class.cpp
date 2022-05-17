@@ -2,16 +2,7 @@
 // Copyright 2022 Nedelin-Dmitry
 using namespace std;
 /*
-class Film_str
-название - title
-режиссер - director
-сценарист - screenwriter
-композитор - composer
-сlass Film_int
-дата выхода в прокат(день, месяц, год) - date, mount, year
-сборы(в рублях)  - film_gross
-
-векторы
+vectors
 https://bestprogrammer.ru/programmirovanie-i-razrabotka/kak-ispolzovat-vektor-vecto-v-c
 */
 
@@ -40,6 +31,13 @@ Film Film::operator=(const Film& film_1) {
     return *this;
 }
 
+ostream& operator<<(ostream& out, Film& _Film) {
+    out << "Название фильма: " << _Film.get_title() << "\nРежисёр фильма: " << _Film.get_director() << "\nСценарист фильма: "
+        << _Film.get_screenwriter() << "\nКомпозитор фильма: " << _Film.get_composer() << "\nДата фильма: " << _Film.get_day() << "."
+        << _Film.get_mount() << "." << _Film.get_year() << "\nСборы фильма: " << _Film.get_film_gross() << "$" << endl;
+    return out;
+}
+
 
 Film_library::Film_library() {
     num_of_films = 0;
@@ -60,7 +58,8 @@ Film_library::~Film_library(){
 
 void Add_film(Film_library& _Film_lib) {
     int vector_size = _Film_lib.Film_lib.size();
-    if (_Film_lib.num_of_films == vector_size) { _Film_lib.Film_lib.resize(_Film_lib.num_of_films + 5); } // если вектор заканчивается добавляем 5 к размеру вектора
+    // if the vector ends, add 5 to the size of the vector
+    if (_Film_lib.num_of_films == vector_size) { _Film_lib.Film_lib.resize(_Film_lib.num_of_films + 5); }
     string for_add_str;
     int for_add_int;
     int position_write = _Film_lib.num_of_films;
@@ -91,9 +90,7 @@ void Add_film(Film_library& _Film_lib) {
     _Film_lib.num_of_films += 1;
 }
 
-
 void Film_redactor(Film_library& _Film_lib, string _title_, int _user_choose) {
-
     for (int i = 0; i < _Film_lib.num_of_films; i++){
         if (_title_ == _Film_lib.Film_lib[i].get_title()){
             switch (_user_choose){
@@ -203,7 +200,6 @@ Film_library screenwriter_year_search(Film_library& _Film_lib, string _director)
         }
         return for_return;
     }
-
 }
 
 Film_library year_search(Film_library& _Film_lib, int _year) {
@@ -272,8 +268,6 @@ Film_library year_maxn_gross_search(Film_library& _Film_lib, int num, int _year)
     }
 }
 
-
-
 void get_films_count(Film_library& _Film_lib) {
     cout << "Film in lib: " << _Film_lib.num_of_films << endl;
     system("pause");
@@ -336,10 +330,10 @@ void Lib_save(const Film_library& _Film_lib) {
     else { cout << "File not open" << endl; };
 }
 
-// получаем строку с getline и работаем с ней
-Film Line_to_Film(string _line) {  // решить проблему с пробелами
+// we get a string from getline and work with it
+Film Line_to_Film(string _line) {
     Film return_film = Film();
-    for (int i = 3, data = 1; i < _line.size(); i++) { // i - символ в строке
+    for (int i = 3, data = 1; i < _line.size(); i++) { // i - character in a string
         if (_line[i] == '|' || _line[i] == '.') {
             data += 1;
             if (_line[i] == '|') {
@@ -413,10 +407,10 @@ void Lib_load(Film_library& _str) {
     string read_line;
     in.open("Saved_film_lib.txt");
     if (in.is_open()) {
-        // чистим текущую библиотеку
+        // cleaning the current library
         _str.Film_lib.clear();
         _str.num_of_films = 0;
-        // пока получаем строку
+        // while we get the string
         while (getline(in, read_line)) {
             _str.Film_lib.push_back(Line_to_Film(read_line));
             _str.num_of_films += 1;
@@ -428,23 +422,11 @@ void Lib_load(Film_library& _str) {
     system("pause");
 }
 
-void Write_Film(Film_library& _Film){
-    if (_Film.Film_lib[0].get_title() == "-") {
-
-    }
-    else {
-        cout << "Название фильма: " << _Film.Film_lib[0].get_title() << "\nРежисёр фильма: " << _Film.Film_lib[0].get_director() << "\nСценарист фильма: "
-            << _Film.Film_lib[0].get_screenwriter() << "\nКомпозитор фильма: " << _Film.Film_lib[0].get_composer() << "\nДата фильма: " << _Film.Film_lib[0].get_day() << "."
-            << _Film.Film_lib[0].get_mount() << "." << _Film.Film_lib[0].get_year() << "\nСборы фильма: " << _Film.Film_lib[0].get_film_gross() << "$" << endl;
-        system("pause");
-    }
-}
-
-void Write_lib(Film_library& _Film_lib) {
-    for (int i = 0; i < _Film_lib.num_of_films; i++){
-        cout << "Название фильма: " << _Film_lib.Film_lib[i].get_title() << "\nРежисёр фильма: " << _Film_lib.Film_lib[i].get_director() << "\nСценарист фильма: "
+ostream& operator<<(ostream& out, Film_library& _Film_lib) {
+    for (int i = 0; i < _Film_lib.num_of_films; i++) {
+        out << "Название фильма: " << _Film_lib.Film_lib[i].get_title() << "\nРежисёр фильма: " << _Film_lib.Film_lib[i].get_director() << "\nСценарист фильма: "
             << _Film_lib.Film_lib[i].get_screenwriter() << "\nКомпозитор фильма: " << _Film_lib.Film_lib[i].get_composer() << "\nДата фильма: " << _Film_lib.Film_lib[i].get_day() << "."
             << _Film_lib.Film_lib[i].get_mount() << "." << _Film_lib.Film_lib[i].get_year() << "\nСборы фильма: " << _Film_lib.Film_lib[i].get_film_gross() << "$" << endl;
     }
-    system("pause");
+    return out;
 }

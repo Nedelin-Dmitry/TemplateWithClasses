@@ -1,47 +1,39 @@
 #pragma once
 // Copyright 2022 Nedelin-Dmitry
-/*6. Фильмотека
-Разработать класс FilmLibrary.
-Класс должен хранить информацию о фильмах.Каждый фильм описывается следующими
-данными :
+/*6. Filmography
+Develop the FilmLibrary class.
+The class should store information about movies.Each film is described by the following
+data:
 class Film_str
-название - title
-режиссер - director (структура людей?)
-сценарист - screenwriter
-композитор - composer
-сlass Film_int
-дата выхода в прокат(день, месяц, год) - date, mount, year
-сборы(в рублях)  - film_gross
-Фильмы хранятся упорядоченно по названию и годам.Данные вводятся на
-русском языке.
-Класс должен содержать необходимые служебные методы(конструкторы, деструктор, …)..
-Класс должен предоставлять следующие операции :
-1) добавить фильм,  -
-2) изменить данные фильма выбранного по названию,  -
-3) найти фильм по -
-названию и году,
-4)(не на консоль) выдать все фильмы заданного режиссера , - ,
-5)(не на консоль) выдать все фильмы, вышедшие в - ,
-прокат в выбранном году,
-6)(не на консоль) выдать заданное число фильмов с наибольшими сборами, -  ,
-7)(не на консоль) выдать
-заданное число фильмов с наибольшими сборами в выбранном году, -
-8) узнать текущее число - ,
-фильмов,
-9) удалить фильм по названию, - ,
-Программа должна иметь простое меню для выбора необходимых операций.
-10) сохранить фильмотеку в файл и считать фильмотеку из файла. - функция с перегрузкой ввода и вывода
+title - title
+director - director (structure of people?)
+screenwriter - screenwriter
+composer - composer
+
+class Film_int release date(day, month, year) - date, mount, year
+fees(in rubles) - film_gross
+Movies are stored in order by name and year.The data is entered in
+Russian.
+The class must contain the necessary utility methods (constructors, destructor, ...)..
+The class should provide the following operations :
+1) add a movie,  -
+2) change the data of the movie selected by name, -
+3) find the movie by -
+name and year,
+4) (not on the console) output all the films of the specified director , - ,
+5) (not on the console) give out all the films released in - ,
+rental in the selected year,
+6) (not to the console) issue a specified number of films with the highest fees, - ,
+7) (not to the console) issue
+a specified number of films with the highest fees in the selected year, -
+8) find out the current number of - ,
+films,
+9) delete a movie by name, - ,
+The program should have a simple menu for selecting the necessary operations.
+10) save the movie library to a file and read the movie library from the file. - function with input and output overload
 */
 
-/*
- Пофиксить посредственность кода:
- 1)Переписать перегрузку[]
- 2)Вектор фильмов - для того чтобы было легче делитать? + работать в целом
- 3)Выяснить в чём проблема деструктора
- 4)Переписать print
 
-Вместо функций вывода - перегрузить оператор >> в фильмах и библиотеках
-*/
 #pragma once
 
 #define START_LIB_SIZE 0
@@ -101,10 +93,9 @@ class Film {
     Date Film_date;
     int film_gross;
   public:
-    // конструкторы
+    // constructors
     Film();
-
-    // сеттеры
+    // setters
     void set_day(int _day) { Film_date.day = _day; }
     void set_mount(int _mount) { Film_date.mount = _mount; }
     void set_year(int _year) { Film_date.year = _year; }
@@ -113,8 +104,7 @@ class Film {
     void set_director(std::string _director) { director = _director; }
     void set_screenwriter(std::string _screenwriter) { screenwriter = _screenwriter; }
     void set_composer(std::string _composer) { composer = _composer; }
-
-    // геттеры
+    // getters
     string get_title() { return title; }
     string get_director() { return director; }
     string get_screenwriter() { return screenwriter; }
@@ -123,9 +113,10 @@ class Film {
     int get_mount() { return Film_date.mount; }
     int get_year() { return Film_date.year; }
     int get_film_gross() { return film_gross; }
-
+    // operator
     Film operator=(const Film& film_1);
     bool operator<(const Film& a) const { return film_gross < a.film_gross; }
+    friend ostream& operator<<(ostream& out, Film& _Film);
 };
 
 class Film_library
@@ -134,37 +125,36 @@ class Film_library
     int num_of_films;
     vector <Film> Film_lib;
  public:
-    // конструкторы
+    // constructors
     Film_library();
     Film_library(const Film_library& copy);
     ~Film_library();
-    // геттер
+    // getter
     int get_num_of_films() { return num_of_films; }
-    // функции
-    friend void Add_film(Film_library& _Film_lib);  // 1 добавить фильм
-    // 2 изменить данные фильма выбранного по названию
+    // functions
+    // 1 добавить фильм1 add a movie
+    friend void Add_film(Film_library& _Film_lib);
+    // 2 change the data of the movie selected by name
     friend void Film_redactor(Film_library& _Film_lib, string _title_, int _user_choose);
-    // 3 найти фильм по - названию и году
+    // 3 find a movie by name and year
     friend Film_library title_year_search(Film_library& _Film_lib, string _title, int _year);
-    // 4 выдать все фильмы заданного режиссера (не на консоль)
+    // 4 output all films of the specified director (not to the console)
     friend Film_library screenwriter_year_search(Film_library& _Film_lib, string _director); 
-    // 5 выдать все фильмы, вышедшие в прокат в выбранном году (не на консоль)
+    // 5 give out all the films released in the selected year (not on the console)
     friend Film_library year_search(Film_library& _Film_lib, int _year); 
-    // 6 выдать заданное число фильмов с наибольшими сборами (не на консоль)
+    // 6 output the specified number of movies with the highest fees (not to the console)
     friend Film_library film_gross_search(Film_library& _Film_lib, int num); 
-    // 7 выдать заданное число фильмов с наибольшими сборами в выбранном году (не на консоль)
+    // 7 output the specified number of films with the highest fees in the selected year (not to the console)
     friend Film_library year_maxn_gross_search(Film_library& _Film_lib, int num, int _year);
-    // 8 узнать текущее число фильмов
+    // 8 find out the current number of movies
     friend void get_films_count(Film_library& _Film_lib);
-    // 9 удалить фильм по названию
+    // 9 delete a movie by name
     friend void delete_film(Film_library& _Film_lib, string _title);
-    // Функции сохранения и загрузки библиотеки из файла - 10 сохранить фильмотеку в файл и считать фильмотеку из файла 
+    // Functions of saving and loading a library from a file -
+    // - 10 save a movie library to a file and read a movie library from a file 
     friend void Lib_save(const Film_library& _Film_lib);
     friend void Lib_load(Film_library& _str);
     // 
     friend Film Line_to_Film(string _line);
-    // Функции вывода - переделать в перегрузку>>
-    friend void Write_Film(Film_library& _Film);
-    friend void Write_lib(Film_library& _Film_lib);
-
+    friend ostream& operator<<(ostream& out, Film_library& _Film_lib);
 };

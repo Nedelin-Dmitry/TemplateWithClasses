@@ -7,8 +7,8 @@ using namespace std;
 // Copyright 2022 Who?
 
 Menu0::Menu0(const char* menuFileName) {
-    fstream is;  // поток для чтения
-    is.open(menuFileName, ios::in);  // файл для чтения
+    fstream is;  // read stream
+    is.open(menuFileName, ios::in);  // file to read
     if (!is) {
         cout << "Can't open file " << menuFileName << endl;
         system("pause");

@@ -1,20 +1,20 @@
 ﻿#pragma once
 // Copyright 2022 Nedelin-Dmitry
 /*
-Вариант 5. Время
-Разработать класс Time для работы с временем в формате, представленным в виде тройки hou,
+Option 5. Time
+Develop a Time class to work with time in a format represented as a triple hou,
 min, sec.
-Класс должен содержать:
- все необходимые конструкторы (включая преобразования типа из строки вида “12:24:35”
-и деструктор;
- метод представления времени в виде строки: “12:24:35”; - метод => за пределами класса?
-В классе должны быть перегружены операции:
- присваивания;
- сложения (и вычитания) времени с количеством секунд (переполнение результата «вверх»
-или «вниз» должно выполнять переход на следующие или предыдущие сутки с
-«отбрасываем» количества суток );
- сравнения;
- операция ввода/вывода в поток.
+The class must contain:
+ all necessary constructors (including type conversions from a string of the form “12:24:35”
+and a destructor;
+ method of representing time as a string: “12:24:35”; - method => outside the class?
+The following operations should be overloaded in the class:
+ assignments;
+ addition (and subtraction) of time with the number of seconds (overflow of the result "up"
+or "down" should perform the transition to the next or previous day with
+the "discard" of the number of days);
+ comparison;
+ input/output operation to the stream.
 */
 
 #include<iostream>
@@ -22,34 +22,34 @@ min, sec.
 #include<cstdlib>
 #include<cmath>
 
-#define sec_per_day 86400  // кол-во секунд в сутках для расчёта в plus & minus
+#define sec_per_day 86400  // number of seconds per day for calculation in plus & minus
 
 class Time {
   private:
-    int hour, min, sec;  // переменные времени
+    int hour, min, sec;  // time variables
   public:
-    // Конструкторы
-    Time();  // конструктор по умолчанию
-    Time(std::string time_str);  // перевод из символьной строки в int значения
-    Time(int _hour, int _min, int _sec);  // конструктор с параметрами с задаными параметрами времени
-    Time(const Time& t_copy);  // конструктор копирования
-    ~Time();  // Бесполезен т.к нет динамического выделения памяти
-    // геттеры
+    // Constructors
+    Time();  // default constructor
+    Time(std::string time_str);  // translating from a character string to an int value
+    Time(int _hour, int _min, int _sec);  // constructor with parameters with specified time parameters
+    Time(const Time& t_copy);  // copy constructor
+    ~Time();
+    // getters
     int get_hour() const { return hour; }
     int get_min() const { return min; }
     int get_sec() const { return sec; }
-     // перегрузка операторов
-    Time operator+(const Time t1);  // сложение
-    Time operator-(const Time& t2);  // вычитание
+     // operator overloading
+    Time operator+(const Time t1);  // addition
+    Time operator-(const Time& t2);  // subtraction
     Time operator=(const Time& as_ent);
-    friend bool operator==(const Time& t3, const Time& t4);  // операции сравнения
+    friend bool operator==(const Time& t3, const Time& t4);  // comparison operations
     friend bool operator!=(const Time& t13, const Time& t14);
     friend bool operator<(const Time& t23, const Time& t24);
     friend bool operator>(const Time& t33, const Time& t34);
     friend bool operator<=(const Time& t43, const Time& t44);
     friend bool operator>=(const Time& t53, const Time& t54);
-    friend std::ostream& operator<<(std::ostream& out, const Time& time);  // вывод
-    friend std::istream& operator>>(std::istream& in, Time& time);  // ввод
+    friend std::ostream& operator<<(std::ostream& out, const Time& time);  // conclusion
+    friend std::istream& operator>>(std::istream& in, Time& time);  // input
 };
 
 

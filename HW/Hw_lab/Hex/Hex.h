@@ -36,28 +36,26 @@
 #include<fstream>
 #include<cmath>
 
- // 580
-
 class Hex {
  private:
     int size;
     unsigned char* num;
     int num_int;
   public:
-    Hex();  // по умолчанию
-    explicit Hex(std::string vvod);  // преобразование типа
-    explicit  Hex(int _num_int);  // преобразование типа
-    Hex(const Hex& copy);  // копирования
-    ~Hex();  // деструктор
+    Hex();  // by default
+    explicit Hex(std::string vvod);  // type conversion
+    explicit  Hex(int _num_int);  // type conversion
+    Hex(const Hex& copy);  // copying
+    ~Hex();  // destructor
 
-    // функция вывода для класса Hex
-    friend void write(Hex& h1);  // бугурт cpplint на отсутствие const
+    // the output function for the Hex class
+    friend void write(Hex& h1);  // bugurt cpplint on the absence of const
 
-    //геттеры
+    // getters
     int get_size();
     int get_int();
     char get_char_i(int i);
-    // операторы 
+    // operators 
     Hex operator=(const Hex& h1);
     friend Hex operator+(const Hex& h1, const Hex& h2);
     friend Hex operator-(const Hex& h1, const Hex& h2);
@@ -66,7 +64,7 @@ class Hex {
     friend Hex operator*(const Hex& h1, const Hex& h2);
     friend Hex operator*(const Hex& h1, int input);
 
-    // операторы сравнения
+    // comparison operators
     friend bool operator>(const Hex& h1, const Hex& h2);
     friend bool operator<(const Hex& h1, const Hex& h2);
     friend bool operator>=(const Hex& h1, const Hex& h2);
@@ -74,7 +72,7 @@ class Hex {
     friend bool operator!=(const Hex& h1, const Hex& h2);
     friend bool operator==(const Hex& h1, const Hex& h2);
 
-    // операторы ввода и вывода в поток
+    // input and output operators to the stream
     friend std::ostream& operator<<(std::ostream& out, const Hex& _str);
     friend std::istream& operator>>(std::istream& in, Hex& _str);
 };

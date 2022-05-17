@@ -10,12 +10,12 @@ Hex::Hex() {
 Hex::Hex(std::string vvod) {
     size = vvod.length();
     num = new unsigned char[size];
-    // заполняем массив нулями для корректной работы
+    // filling the array with zeros for correct operation
     for (int i = 0; i < size; i++) {
         num[i] = (unsigned char)vvod[i];
     }
-    // Перевод шестнадцатеричного числа в десятиричное (0 - 15) * 16^(разряд - 1)
-    int n = size - 1;  // степень = разряд - 1
+    // Converting a hexadecimal number to a decimal (0 - 15) * 16^(digit - 1)
+    int n = size - 1;  // degree = discharge - 1
     num_int = 0;
 
     for (int i = 0; i < size; i++) {
@@ -31,7 +31,7 @@ Hex::Hex(std::string vvod) {
 }
 
 Hex::Hex(int _num_int) {
-    //в случае если в результате операций число = 0
+    // if, as a result of operations, the number = 0
     if (_num_int == 0){
         size = 1;
         num_int = 0;
@@ -39,21 +39,21 @@ Hex::Hex(int _num_int) {
         num[size - 1] = '0';
     }
     else {
-        int minus_flag = 0;  // флаг для работы с отрицательными числами
+        int minus_flag = 0;  // flag for working with negative numbers
         if (_num_int < 0) minus_flag += 1;
-        int zero_int = abs(_num_int);  // для вычисления размера массива
-        unsigned char* mass_char = new unsigned char[30];  // маг.число и константы??   + можно ограничить до 8 т.к 2 147 483 647(10) = 7FFFFFFF(16)
+        int zero_int = abs(_num_int);  // to calculate the size of an array
+        unsigned char* mass_char = new unsigned char[30];
         for (int i = 0; i < POTENSIAL_MAS_SIZE; i++) {
             mass_char[i] = (unsigned char)'0';
         }
-        int remain = 0;  // остаток
+        int remain = 0;
         int i = 0;
         /*
-            Перевод 10-ричного числа в 16-ричное:
-            1)Ищем остаток от деления на 16
-            2)Остаток равен десятиричному представлению 16-ричного числа
-            3)Перевод при помощи ASKII - Работа с ASCII: int значения символов - 0(48) - 9(57) и A(65) - F(70)
-            4)делим число на 16
+            Converting a 10-digit number to a 16-digit number:
+            1)Looking for the remainder of the division by 16
+            2)The remainder is equal to the decimal representation of a 16-digit number
+            3)Translation using ASKII - Working with ASCII: int character values - 0(48) - 9(57) and A(65) - F(70)
+            4) divide the number by 16
         */
         while (zero_int != 0) {
             remain = zero_int % 16;
@@ -68,9 +68,9 @@ Hex::Hex(int _num_int) {
                 zero_int /= 16;
             }
          }
-        int _size = 0;  // для подсчёта размера 16-ричного числа
-        int flag = 0;  //для того чтобы понять откуда начать считать размер числа (ABC000...0)
-        int position = 29;  // для того, чтобы понять до какой позиции считывать
+        int _size = 0;  // to calculate the size of a 16-digit number
+        int flag = 0;  // in order to understand where to start counting the size of the number (ABC000...0)
+        int position = 29;  // in order to understand to what position to read
         for (int j = position; j >= 0; j--) {
             if (mass_char[j] != '0') {
                 flag = 1;
@@ -78,15 +78,15 @@ Hex::Hex(int _num_int) {
              }
             if (flag == 1) _size += 1;
         }
-        // заполнение полей
+        // filling in fields
         size = _size;
-        if (minus_flag == 1) size += 1;  // для знака '-'
+        if (minus_flag == 1) size += 1;  // for the '-' sign
         num_int = _num_int;
         num = new unsigned char[size];
         for (int j = 0; j < position; j++) {
             num[j] = mass_char[j];
         }
-        // если число отрицательное - сдвигаем весь массив на один вправо, ставим в начало '-'
+        // if the number is negative, we shift the entire array one to the right, put '-' at the beginning
         if (minus_flag == 1) {
             for (int j = size - 1; j > 0; j--) {
                 num[j] = num[j - 1];
@@ -126,8 +126,7 @@ void write(Hex& h1) {
     std::cout << std::endl;
 }
 
-//геттеры
-
+//getters
 int Hex::get_size() { return size; }
 int Hex::get_int() { return num_int; }
 char Hex::get_char_i(int i) { return num[i]; }

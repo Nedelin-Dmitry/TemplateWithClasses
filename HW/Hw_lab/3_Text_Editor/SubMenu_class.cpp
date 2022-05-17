@@ -26,16 +26,16 @@ TextEditor For_copy;
 
 void SubMenu_work(HANDLE _hStdOut, TextEditor& ZERO) {
     For_copy = TextEditor(ZERO);
-    //setlocale(LC_CTYPE, "Russian");	// Для ввода-вывода русских букв
+    // setlocale(LC_CTYPE, "Russian"); // For input/output of Russian letters
 
     Menu0 menu0("SubMenu.txt");
     /*
-    * Параметры											- заголовок
-    3													- кол-во вариантов выбора(не считая выхода)
-    Изменить начальное положение окна				    - Имена вариантов
-    Изменить размер окна
-    Изменить начальное положение строки
-    Изменить длину строки
+    * Parameters - header
+    3 - number of choices (not counting the output)
+    Change the initial position of the window - Names of options
+    Change window size
+    Change the starting position of the line
+    Change String length
 
     */
     int itemPos;
@@ -91,7 +91,7 @@ void SubMenu_work(HANDLE _hStdOut, TextEditor& ZERO) {
                     }
                 } while (For_set_positio.Y < 0 ||
                     For_set_positio.X > screen_buffer_info.dwSize.Y);
-                TextEditor().set_pos(For_set_positio, ZERO);  // создание временного объектра для работы 
+                TextEditor().set_pos(For_set_positio, ZERO);  // creating a temporary object for work
             }
             break;
         case 4:

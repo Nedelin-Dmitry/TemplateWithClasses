@@ -4,15 +4,15 @@ using namespace std;
 // Copyright 2022 Nedelin-Dmitry
 
 int main() {
-    //по умолчанию
+    //by default
     Time defolt = Time();
     cout << "Time is : " << defolt << endl;
-    // преобразование строки в параметры времени
+    // converting a string to time parameters
     string a = "12:54:23";
     Time strng_time = Time(a);
-    cout << "Time is : " << strng_time << endl;  // перегрузка вывода
+    cout << "Time is : " << strng_time << endl;  // output overload
     cout << endl;
-    // Копирование и конструктор с задаными параметрами
+    // Copy and constructor with the specified parameters
     Time f_copy = Time();
     Time copy = Time(19, 45, 29);
     cout << "Time is : " << copy << endl;
@@ -20,7 +20,7 @@ int main() {
     f_copy = Time(copy);
     cout << "Time is : " << f_copy << endl;
     cout << endl;
-    //Ввод переменной
+    // Entering a variable
     cout << "Enter the time in the format hours, minuts, seconds - (9 12 13)" 
     << endl;
     Time for_input;
@@ -80,7 +80,6 @@ int main() {
     cout << endl;
 
     // operator >=
-
     bool good3 = bolshe >= menshe;
     cout << "a >= b? " << good3 << endl;
     bool bad3 = menshe >= bolshe;
@@ -88,7 +87,6 @@ int main() {
     cout << endl;
 
     // operator >
-
     bool good4 = bolshe > menshe;
     cout << "a > b? " << good3 << endl;
     bool bad4 = menshe > bolshe;

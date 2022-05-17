@@ -157,9 +157,7 @@ void setwindow(int width, int height) {
     size.X = width;
     size.Y = height;
     SetConsoleWindowInfo(Console, true, &rect);
-    //  printf("%d %d %d %d", rect.Left, rect.Top, rect.Right, rect.Bottom);
     SetConsoleScreenBufferSize(Console, size);
-    //  printf("%d %d", size.X, size.Y);
 }
 //
 void SetWindow(SMALL_RECT rect, COORD size) {

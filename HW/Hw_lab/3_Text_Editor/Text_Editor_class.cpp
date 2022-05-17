@@ -20,7 +20,7 @@ TextEditor::TextEditor(const TextEditor& copy) {
     text_pos.Y = copy.text_pos.Y;
     text_len = copy.text_len;
     text = new char[text_len];
-    for (int i = 0; i < text_len; i++){
+    for (int i = 0; i < text_len; i++) {
         text[i] = copy.text[i];
     }
 }
@@ -33,26 +33,30 @@ COORD TextEditor::get_pos() { return text_pos; }
 int TextEditor::get_len() { return text_len; }
 char* TextEditor::get_text() { return text; }
 
-void window_position(HANDLE _hStdOut, short int _x_pos_win, short int _y_pos_win, short int _weight_win, short int _height_win, TextEditor& ZERO) {
-    HWND hWnd = FindWindow(nullptr, L"TextEditor"); // получаем дискриптор окна по title
-    SetWindowPos(hWnd, nullptr, _x_pos_win, _y_pos_win, _weight_win, _height_win, SWP_NOOWNERZORDER); //задаём параметры окна - флаг без движения по оси Z
+void window_position(HANDLE _hStdOut, short int _x_pos_win, short int _y_pos_win, 
+    short int _weight_win, short int _height_win, TextEditor& ZERO) {
+    HWND hWnd = FindWindow(nullptr, L"TextEditor"); // getting the window handle by title
+    // setting the parameters of the window - a flag without movement along the Z axis
+    SetWindowPos(hWnd, nullptr, _x_pos_win, _y_pos_win, _weight_win, _height_win, SWP_NOOWNERZORDER);
 }
 
-void window_size(HANDLE _hStdOut, short int _x_pos_win, short int _y_pos_win, short int _weight_win, short int _height_win, TextEditor& ZERO) {
+void window_size(HANDLE _hStdOut, short int _x_pos_win, short int _y_pos_win, 
+    short int _weight_win, short int _height_win, TextEditor& ZERO) {
 
-    //Сначала задаем минимальные значения иначе не роббит
+    // First we set the minimum values otherwise it won't rob
     SMALL_RECT zeroWindow = { 0, 0, 0, 0 };
     COORD zBuffer = { 1, 1 };
     SetConsoleWindowInfo(_hStdOut, TRUE, &zeroWindow);
     SetConsoleScreenBufferSize(_hStdOut, zBuffer);
 
-    //Теперь изменяем значения на нужные нам
+    // Now we change the values to the ones we need
     COORD bufferSize = { _weight_win, _height_win };
     SMALL_RECT windowSize = { _x_pos_win, _y_pos_win, _weight_win - 1, _height_win - 1 };
     SetConsoleScreenBufferSize(_hStdOut, bufferSize);
-    // функция терпит неудачу, если любой габарит определяемого размера является меньше, чем соответствующий размер окна консоли
+    // the function fails if any dimension of the defined size is smaller than the corresponding console window size.
     SetConsoleWindowInfo(_hStdOut, TRUE, &windowSize);
-}   // функция не выполняет свою задачу, если координаты угла определяемого окна превышают пределы экранного буфера консоли или экрана
+}   // the function does not perform its task if the coordinates of the corner
+    // of the window being determined exceed the limits of the console or screen buffer
 
 void hide_show_editor(TextEditor& ZERO) {
     HWND hWnd = FindWindow(nullptr, L"TextEditor");
@@ -65,19 +69,22 @@ void on_text_editor(HANDLE _hStdOut, TextEditor& EditorWork) {
     int len = EditorWork.text_len;
     SetConsoleCursorPosition(_hStdOut, EditorWork.text_pos);
     DWORD _cWrittenChars;
-    FillConsoleOutputCharacter(_hStdOut, (TCHAR)'_', EditorWork.text_len, EditorWork.text_pos, &_cWrittenChars);  // записывает символ в экранном буфере консоли заданное число раз
+    // writes a character to the console's screen buffer a specified number of times
+    FillConsoleOutputCharacter(_hStdOut, (TCHAR)'_', EditorWork.text_len, EditorWork.text_pos, &_cWrittenChars);
     SetConsoleCursorPosition(_hStdOut, EditorWork.text_pos);
-    // ввод текста с корректировкой по типу insert
-    // выход по клавише ESC, по полю ввода можно смещаться с помощью стрелок
-    int iKey = 67;              // заглушка
+    // text input with insert type adjustment
+    // exit by the ESC key, you can move around the input field using the arrows
+    int iKey = 67;              // plug
     int started_pos_x = EditorWork.text_pos.X;
     CONSOLE_SCREEN_BUFFER_INFO cbsi;
 
     while (iKey != KEY_EXIT && len > 0 && iKey != KEY_ENTER) {
         switch (iKey){
         case KEY_ARROW_LEFT:
-            GetConsoleScreenBufferInfo(_hStdOut, &cbsi);                // извлекает информацию о заданном экранном буфере консоли
-            EditorWork.text_pos.X = cbsi.dwCursorPosition.X - 1;        // смещаем текущее положение курсора на символ назад
+            // retrieves information about the specified console screen buffer
+            GetConsoleScreenBufferInfo(_hStdOut, &cbsi);
+            // shifting the current cursor position back by a character
+            EditorWork.text_pos.X = cbsi.dwCursorPosition.X - 1;
             SetConsoleCursorPosition(_hStdOut, EditorWork.text_pos);
             len++;
             iKey = 67;
@@ -90,8 +97,8 @@ void on_text_editor(HANDLE _hStdOut, TextEditor& EditorWork) {
             iKey = 67;
             break;
         case KEY_BACKSPACE:
-            GetConsoleScreenBufferInfo(_hStdOut, &cbsi);   // извлекает информацию о заданном экранном буфере консоли              
-            if (len == EditorWork.text_len) {               // при простом break - программа крашится
+            GetConsoleScreenBufferInfo(_hStdOut, &cbsi);           
+            if (len == EditorWork.text_len) {
                 std::cout << (char)'_';
                 EditorWork.text_pos.X = cbsi.dwCursorPosition.X;
                 SetConsoleCursorPosition(_hStdOut, EditorWork.text_pos);
@@ -99,19 +106,22 @@ void on_text_editor(HANDLE _hStdOut, TextEditor& EditorWork) {
                 break;
             }
             else {
-                EditorWork.text_pos.X = cbsi.dwCursorPosition.X - 1;        // Сдвигаем на 1 влево -> set
+                EditorWork.text_pos.X = cbsi.dwCursorPosition.X - 1;  // Shift by 1 to the left -> set
                 SetConsoleCursorPosition(_hStdOut, EditorWork.text_pos);
-                std::cout << (char)'_';                                     // При вводе символа, консоль автоматически передвигает курсор вправо
-                EditorWork.text_pos.X = cbsi.dwCursorPosition.X - 1;        // Сдвигаем влево -> set
+                // When you enter a character, the console automatically moves the cursor to the right
+                std::cout << (char)'_';
+                EditorWork.text_pos.X = cbsi.dwCursorPosition.X - 1; // Shift to the left -> set
                 SetConsoleCursorPosition(_hStdOut, EditorWork.text_pos);
                 len++;
                 iKey = 67;
                 break;
             }
         case KEY_SPACE:
-            GetConsoleScreenBufferInfo(_hStdOut, &cbsi);       // извлекает информацию о заданном экранном буфере консоли
+            // retrieves information about the specified console screen buffer
+            GetConsoleScreenBufferInfo(_hStdOut, &cbsi);
             std::cout << (char)' ';
-            EditorWork.text_pos.X = cbsi.dwCursorPosition.X - 1;        // смещаем текущее положение курсора на символ назад
+            // shifting the current cursor position back by a character
+            EditorWork.text_pos.X = cbsi.dwCursorPosition.X - 1;
             SetConsoleCursorPosition(_hStdOut, EditorWork.text_pos);
             len--;
             iKey = 67;
@@ -120,22 +130,24 @@ void on_text_editor(HANDLE _hStdOut, TextEditor& EditorWork) {
         default:
             iKey = _getch();
             if (iKey == KEY_EXIT || iKey == ARROW_KEY || iKey == KEY_SPACE
-                || iKey == KEY_ARROW_LEFT || iKey == KEY_ARROW_RIGHT || iKey == KEY_ARROW_DOWN || iKey == KEY_ARROW_UP || iKey == KEY_BACKSPACE)break;
+                || iKey == KEY_ARROW_LEFT || iKey == KEY_ARROW_RIGHT ||
+                iKey == KEY_ARROW_DOWN || iKey == KEY_ARROW_UP || iKey == KEY_BACKSPACE)break;
             else {
-                std::cout << (char)iKey;    // только если это символ текста отображаем его в консоль
+                std::cout << (char)iKey;  // only if it is a text symbol we display it in the console
                 len--;
                 break;
             }
         }
     }
 
-    // сохраняем полученный в консоли текст в строку (массив символов)
+    // save the text received in the console to a string (an array of characters)
     wchar_t* Chars = new wchar_t[EditorWork.text_len + 1];
     DWORD dwRead;
     ReadConsoleOutputCharacter(_hStdOut, Chars, EditorWork.text_len, { EditorWork.text_pos.X, EditorWork.text_pos.Y }, &dwRead);
     Chars[EditorWork.text_len] = '\0';
     system("CLS");
-    std::wcout << "Your finale text: " << Chars << std::endl;  //wcout: может работать и с wchar_t и с char - cout: может работать только с char
+    // wcout: can work with both wchar_t and char - count: can only work with char
+    std::wcout << "Your finale text: " << Chars << std::endl;
     system("pause");
 
 }

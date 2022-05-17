@@ -1,50 +1,39 @@
 #pragma once
+// Copyright 2022 Nedelin-Dmitry
 /*
-Однострочный текстовый редактор
-Разработать класс TextEditor.
-Класс должен предоставлять возможность разместить в выбранной позиции окна консоли поле заданной длины для
-ввода с клавиатуры последовательности символов. В минимальном варианте длина последовательности не должна
-превышать длину поля ввода.
-Класс должен содержать необходимые служебные методы (конструкторы, деструктор и пр.).
-Класс должен предоставлять следующие операции:
-1) конструктор инициализатор с параметрами: начальная позиция поля ввода (x, y) в окне консоли. длина поля
-ввода;
-2) показать текстовый редактор, убрать с экрана текстовый редактор;
-3) обеспечить ввод пользователем строки с длиной не больше длины поля ввода;
-4) выдать введенную пользователем строку.
-Программа должна иметь простейшее меню:
-- Введите положение и размер окна
-- Показать редактор
-- Убрать редактор
-- Введите и отредактируйте текст
-- Завершить работу
-Работа с консолью - См. http://www.c-cpp.ru/funkcii/conioh
+Single-line text editor
+Develop a Text Editor class.
+The class should provide an opportunity to place a field of a specified length in the selected position of the console window for
+keyboard input of a sequence of characters. In the minimum version, the length of the sequence should not
+exceed the length of the input field.
+The class must contain the necessary utility methods (constructors, destructor, etc.).
+The class must provide the following operations:
+1) initializer constructor with parameters: the initial position of the input field (x, y) in the console window. length
+of the input field;
+2) show the text editor, remove the text editor from the screen;
+3) ensure that the user enters a string with a length no longer than the length of the input field;
+4) output the string entered by the user.
+The program should have a simple menu:
+- Enter the position and size of the window
+- Show editor
+- Remove the editor
+- Enter and edit the text
+- Complete the work
+Working with the console -  http://www.c-cpp.ru/funkcii/conioh
 */
-// размер и положение окна window(a,b,c,d) не роббит ?
-// показать / убрать редактор ?
-
+// the size and position of the window window(a,b,c,d) is not robbing ?
+// show / remove the editor ?
 #define _CRT_SECURE_NO_WARNINGS 
-
 #define KEY_EXIT 27
 #define ARROW_KEY 224
 #define KEY_SPACE 0
 #define KEY_ENTER 13
 #define KEY_BACKSPACE 8
 #define KEY_H 72
-
-
-
 #define KEY_ARROW_RIGHT 77
 #define KEY_ARROW_LEFT 75
 #define KEY_ARROW_UP 72 
 #define KEY_ARROW_DOWN 80 
-
-/*
- 1)Проверка на ввод размера окна -
- 2)Поставить ограничение на длину строки +
- 3)Проверка на размер ввода строки -
- 4)Убрать из функций ненужный TextEditor & -
-*/
 
 #include<iostream>
 #include<string>
@@ -54,26 +43,23 @@
 
 class TextEditor{
  private:
-    COORD text_pos;  // Положение текста по X, Y
-    int text_len;  // Длина текста
-    char* text;  // Массив текста
- public:
-    //конструкторы и деструктор
+    COORD text_pos;  // The position of the text in X, Y
+    int text_len;  // Text length
+    char* text;  // Array of text
+  public:
+    // constructors and destructor
     TextEditor();
     TextEditor(short int x, short int y, int len);
     TextEditor(const TextEditor& copy);
     ~TextEditor();
-
-    // геттеры
+    // getters
     COORD get_pos();
     int get_len();
     char* get_text();
-
-    // сеттеры
-    void set_pos(COORD _new_pos, TextEditor& ZERO) { ZERO.text_pos = _new_pos; };
-    void set_len(int _len, TextEditor& ZERO) { ZERO.text_len = _len; };
-
-    //функции
+    // setters
+    void set_pos(COORD _new_pos, TextEditor& ZERO) { ZERO.text_pos = _new_pos; }
+    void set_len(int _len, TextEditor& ZERO) { ZERO.text_len = _len; }
+    // functions
     friend void window_position(HANDLE _hStdOut, short int _x_pos_win, short int _y_pos_win, short int _weight_win, short int _height_win, TextEditor& ZERO);
     friend void window_size(HANDLE _hStdOut, short int _x_pos_win, short int _y_pos_win, short int _weight_win, short int _height_win, TextEditor& ZERO);
     friend void hide_show_editor(TextEditor& ZERO);

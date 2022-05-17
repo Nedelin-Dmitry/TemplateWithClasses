@@ -3,9 +3,9 @@
 
 class Menu0{
  public:
-    char Title[80];  // Заголовок меню
-    char** Items;  // Позиции меню
-    int ItemsCount;  // К-во позиций меню
+    char Title[80];  // Menu title
+    char** Items;  // Menu items
+    int ItemsCount;  // Number of menu items
 
     explicit Menu0(const char* menuFileName);
     ~Menu0(void);
